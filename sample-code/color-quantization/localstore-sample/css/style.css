@@ -1,0 +1,12 @@
+.subtitle {
+	font:bold 0.88em/2em arial,geneva,helvetica,sans-serif;
+    color:#ffff00;
+	position: relative;
+	top: -102px;
+	font-size: 2em;
+	margin:0 auto;
+}
+
+.video {
+	margin:auto;
+}
