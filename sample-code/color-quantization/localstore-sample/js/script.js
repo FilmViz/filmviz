@@ -16,21 +16,43 @@ video.addEventListener('loadeddata', function() {
 
 
 video.addEventListener('seeked', function() {
-    pal = convertPalette(capturePalette());
-
-    console.log(i, pal)
+    var pal = convertPalette(capturePalette());
+    console.log(i, pal);
     localStorage.setItem(i, pal);
+
     i += parseInt(interval);
+
     if (i <= video.duration) {
         video.currentTime = i;
     } else {
-        writePaletteVtt();
+        saveTextAsFile();
     }
 }, false);
 
 
+function saveTextAsFile() {
+    var textToWrite = JSON.stringify(localStorage);
+    console.log(textToWrite);
+    var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+    var fileNameToSaveAs = "colors.json";
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "My Hidden Link";
+    window.URL = window.URL || window.webkitURL;
+    downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+    downloadLink.onclick = destroyClickedElement;
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    }
+
+function destroyClickedElement(event) { 
+    document.body.removeChild(event.target);
+    }
+
+
 function capturePalette() {
-	context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
     var src = canvas.toDataURL();
     var img = document.querySelector("#capture");
     img.src = src;
@@ -64,19 +86,13 @@ function capturePalette() {
   }
 
 
-function writePaletteVtt() {
-    console.log("terminado")
-    //var pal = localStorage.getItem("lastname"); 
-    }
-
-
 function convertPalette(pal) {
     var newpalette = [];
-    for (i=0; i < pal.length/4; i++) {
-        color = rgbToHex(pal[i*4+0], pal[i*4+1], pal[i*4+2])
-        newpalette.push(color)
+    for (var index=0; index < pal.length/4; index++) {
+        color = rgbToHex(pal[index*4+0], pal[index*4+1], pal[index*4+2]);
+        newpalette.push(color);
         }
-    return newpalette
+    return newpalette;
     }
 
 
@@ -85,7 +101,8 @@ function componentToHex(c) {
     return hex.length == 1 ? "0" + hex : hex;
     }
 
-  function rgbToHex(r, g, b) {
+
+function rgbToHex(r, g, b) {
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
     }
 
