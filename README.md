@@ -5,6 +5,8 @@
 
 Tool to analize movies and gather data about color, music and rithm, along with other metadata introduced by the user.
 
+Web to show different visualizations according to the movie database.
+
 ## Examples
 
 ### Color analisis
