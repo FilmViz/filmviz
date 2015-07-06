@@ -12,25 +12,28 @@ video.addEventListener('loadeddata', function() {
 	canvas.height = video.videoHeight/4;
   	canvas.width = video.videoWidth/4;
     video.currentTime = i;
+    localStorage.clear();
 }, false);
 
 
 video.addEventListener('seeked', function() {
     var pal = convertPalette(capturePalette());
-    console.log(i, pal);
-    localStorage.setItem(i, pal);
+    var tc = milisToTimeCode(i*1000);
+    console.log(tc, pal);
+    localStorage.setItem(tc, pal);
 
     i += parseInt(interval);
 
     if (i <= video.duration) {
         video.currentTime = i;
     } else {
-        saveTextAsFile();
+        saveTextAsJson();
+        saveTextAsVtt();
     }
 }, false);
 
 
-function saveTextAsFile() {
+function saveTextAsJson() {
     var textToWrite = JSON.stringify(localStorage);
     console.log(textToWrite);
     var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
@@ -45,6 +48,31 @@ function saveTextAsFile() {
     document.body.appendChild(downloadLink);
     downloadLink.click();
     }
+
+function saveTextAsVtt() {
+    var textToWrite = "" // JSON.stringify(localStorage);
+    textToWrite += "WEBVTT\n\n";
+
+    for(var key in localStorage) {
+        textToWrite += key+"\n";
+        val = localStorage.getItem(key); 
+        textToWrite += "{\n"+JSON.stringify(val)+"\n}\n"+"\n";
+    }
+    console.log(textToWrite);
+
+    var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+    var fileNameToSaveAs = "colors.vtt";
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "My Hidden Link";
+    window.URL = window.URL || window.webkitURL;
+    downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+    downloadLink.onclick = destroyClickedElement;
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    }
+
 
 function destroyClickedElement(event) { 
     document.body.removeChild(event.target);
@@ -106,5 +134,21 @@ function rgbToHex(r, g, b) {
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
     }
 
+
+function milisToTimeCode(s) {
+
+    function addZ(n) {
+        return (n<10? '0':'') + n;
+        }
+
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    s = (s - secs) / 60;
+    var mins = s % 60;
+    var hrs = (s - mins) / 60;
+
+    return addZ(hrs) + ':' + addZ(mins) + ':' + addZ(secs) + '.' + ms;
+    }
 
 })();
