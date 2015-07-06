@@ -16,7 +16,8 @@ video.addEventListener('loadeddata', function() {
 
 
 video.addEventListener('seeked', function() {
-    pal = capturePalette();
+    pal = convertPalette(capturePalette());
+
     console.log(i, pal)
     localStorage.setItem(i, pal);
     i += parseInt(interval);
@@ -66,7 +67,27 @@ function capturePalette() {
 function writePaletteVtt() {
     console.log("terminado")
     //var pal = localStorage.getItem("lastname"); 
-}
+    }
+
+
+function convertPalette(pal) {
+    var newpalette = [];
+    for (i=0; i < pal.length/4; i++) {
+        color = rgbToHex(pal[i*4+0], pal[i*4+1], pal[i*4+2])
+        newpalette.push(color)
+        }
+    return newpalette
+    }
+
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+    }
+
+  function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    }
 
 
 })();
