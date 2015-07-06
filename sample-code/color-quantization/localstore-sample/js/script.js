@@ -9,18 +9,23 @@ var interval = prompt("Please insert interval in seconds", "30");
 var i = 0;
 
 video.addEventListener('loadeddata', function() {
-	canvas.height = video.videoHeight/4;
-  	canvas.width = video.videoWidth/4;
+	canvas.height = video.videoHeight/2;
+  	canvas.width = video.videoWidth/2;
     video.currentTime = i;
     localStorage.clear();
 }, false);
 
 
 video.addEventListener('seeked', function() {
-    var pal = convertPalette(capturePalette());
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    var img = new Image();
+    img.src = canvas.toDataURL("image/jpg");
+
+    var pal = convertPalette(capturePalette(img));
     var tc = milisToTimeCode(i*1000);
-    console.log(tc, pal);
+
     localStorage.setItem(tc, pal);
+    console.log(tc, pal);
 
     i += parseInt(interval);
 
@@ -48,6 +53,7 @@ function saveTextAsJson() {
     document.body.appendChild(downloadLink);
     downloadLink.click();
     }
+
 
 function saveTextAsVtt() {
     var textToWrite = "" // JSON.stringify(localStorage);
@@ -79,12 +85,7 @@ function destroyClickedElement(event) {
     }
 
 
-function capturePalette() {
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    var src = canvas.toDataURL();
-    var img = document.querySelector("#capture");
-    img.src = src;
-  
+function capturePalette(img) {
     var opts = {
         colors: 16,             // desired palette size
         method: 2,               // histogram method, 2: min-population threshold within subregions; 1: global top-population
@@ -101,15 +102,11 @@ function capturePalette() {
         cacheFreq: 10,           // min color occurance count needed to qualify for caching
         colorDist: "euclidean",  // method used to determine color distance, can also be "manhattan"
     };
-
     var q = new RgbQuant(opts);
-
     // analyze histograms
     q.sample(img);
-
     // build palette
     var pal = q.palette();
-
     return pal
   }
 
