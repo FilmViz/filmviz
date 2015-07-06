@@ -7,6 +7,15 @@ Tool to analize movies and gather data about color, music and rithm, along with 
 
 Web to show different visualizations according to the movie database.
 
+## Documentation
+
+WebVTT specification:
+
+http://dev.w3.org/html5/webvtt/
+
+https://developer.mozilla.org/en-US/docs/Web/API/Web_Video_Text_Tracks_Format
+
+
 ## Examples
 
 ### Color analisis
