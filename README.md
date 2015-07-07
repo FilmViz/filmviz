@@ -3,9 +3,10 @@
 
 ## Description
 
-Tool to analize movies and gather data about color, music and rithm, along with other metadata introduced by the user.
+Tool to analyze movies and gather data about color, music and rhythm, along with other metadata introduced by the user.
 
 Web to show different visualizations according to the movie database.
+
 
 ## Documentation
 
@@ -18,7 +19,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Web_Video_Text_Tracks_Format
 
 ## Examples
 
-### Color analisis
+### Color analysis
 
 http://moviesincolor.com/
 
@@ -34,17 +35,16 @@ www.smartjava.org/content/movie-color-analysis-xbmc-boblight-java-and-d3js
 
 https://en.wikipedia.org/wiki/Color_quantization
 
-### Rithm analisis
+### Rythm analysis
 
 http://cinemetrics.lv/cinemetrics.php
 
 http://huddle.github.io/Resemble.js/
 
-### Audio analisis
+### Audio analysis
 
 ???
 
-### Metadata analisis
+### Metadata analysis
 
 http://fathom.info/rocky/
-
