@@ -8,10 +8,16 @@
 </head>
 <body>
 
-<video id="video" src="sintel-1024-stereo.mp4" controls></video>
+<input type="file" accept="video/*"/>
+<div id="message"></div>
+<video id="video" controls autoplay></video>
+
+<button id="coloranalyzer">Color Analyzer</button>
 <canvas id="canvas"></canvas>
 
-<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="../../../libs/RgbQuant.js/src/rgbquant.js"></script>
 <script src="js/script.js"></script>
 </body>
