@@ -1,3 +1,27 @@
 .video {
 	margin:auto;
 }
+
+.canvas {
+	display: none;
+}
+
+input[name=cueDuration] {    
+background-color: #DF959B;
+}    
+
+#selector {
+	background-color: #95BADF;
+}
+
+#player {
+	background-color: #DFB695;
+}
+
+#subtitle_editor {
+	background-color: #DFDA95;
+}
+
+#analyzers {
+	background-color: #9FDF95;
+}

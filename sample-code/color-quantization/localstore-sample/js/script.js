@@ -46,13 +46,33 @@
     }                
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
     inputNode.addEventListener('change', playSelectedFile, false);
-}(window));
-
+    }(window));
 
 
 // Event handlers
-$("#coloranalyzer").click(function(){
-    
+$("#InTc").click(function(){
+    var element = document.getElementsByName("cueIn")[0];
+    element.value = milisToTimeCode(Math.round(video.currentTime*1000));
+    calcCueDuration()
+    });
+
+$("#OutTc").click(function(){
+    var element = document.getElementsByName("cueOut")[0];
+    element.value = milisToTimeCode(Math.round(video.currentTime*1000));
+    calcCueDuration()
+    });
+
+function calcCueDuration() {
+    var cueOut = document.getElementsByName("cueOut")[0];
+    var cueIn = document.getElementsByName("cueIn")[0];
+    var cueDuration = document.getElementsByName("cueDuration")[0];
+
+    cueDuration.value = cueOut.value - cueIn.value; 
+}
+
+$("#ColorAnalyzer").click(function(){
+    console.log("starting color analyzer")
+
     var video = document.getElementById("video");
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
@@ -73,7 +93,7 @@ $("#coloranalyzer").click(function(){
         img.src = canvas.toDataURL("image/jpg");
 
         var pal = convertPalette(capturePalette(img));
-        var tc = milisToTimeCode(i*1000);
+        var tc = Math.round(milisToTimeCode(i*1000));
 
         localStorage.setItem(tc, pal);
         console.log(tc, pal);
@@ -86,54 +106,7 @@ $("#coloranalyzer").click(function(){
             saveTextAsJson();
             saveTextAsVtt();
         }
-    }, false);
-
-
-    function saveTextAsJson() {
-        var textToWrite = JSON.stringify(localStorage);
-        console.log(textToWrite);
-        var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
-        var fileNameToSaveAs = "colors.json";
-        var downloadLink = document.createElement("a");
-        downloadLink.download = fileNameToSaveAs;
-        downloadLink.innerHTML = "My Hidden Link";
-        window.URL = window.URL || window.webkitURL;
-        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-        downloadLink.onclick = destroyClickedElement;
-        downloadLink.style.display = "none";
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        }
-
-
-    function saveTextAsVtt() {
-        var textToWrite = "" // JSON.stringify(localStorage);
-        textToWrite += "WEBVTT\n\n";
-
-        for(var key in localStorage) {
-            textToWrite += key+"\n";
-            val = localStorage.getItem(key); 
-            textToWrite += "{\n"+JSON.stringify(val)+"\n}\n"+"\n";
-        }
-        console.log(textToWrite);
-
-        var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
-        var fileNameToSaveAs = "colors.vtt";
-        var downloadLink = document.createElement("a");
-        downloadLink.download = fileNameToSaveAs;
-        downloadLink.innerHTML = "My Hidden Link";
-        window.URL = window.URL || window.webkitURL;
-        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-        downloadLink.onclick = destroyClickedElement;
-        downloadLink.style.display = "none";
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        }
-
-
-    function destroyClickedElement(event) { 
-        document.body.removeChild(event.target);
-        }
+        }, false);
 
 
     function capturePalette(img) {
@@ -182,24 +155,71 @@ $("#coloranalyzer").click(function(){
         return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
         }
 
+    });
 
-    function milisToTimeCode(s) {
 
-        function addZ(n) {
-            return (n<10? '0':'') + n;
-            }
+function milisToTimeCode(s) {
 
-        var ms = s % 1000;
-        s = (s - ms) / 1000;
-        var secs = s % 60;
-        s = (s - secs) / 60;
-        var mins = s % 60;
-        var hrs = (s - mins) / 60;
-
-        return addZ(hrs) + ':' + addZ(mins) + ':' + addZ(secs) + '.' + ms;
+    function addZ(n) {
+        return (n<10? '0':'') + n;
         }
 
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    s = (s - secs) / 60;
+    var mins = s % 60;
+    var hrs = (s - mins) / 60;
 
-    });
+    return addZ(hrs) + ':' + addZ(mins) + ':' + addZ(secs) + '.' + ms;
+    }
+
+
+function saveTextAsJson() {
+    var textToWrite = JSON.stringify(localStorage);
+    console.log(textToWrite);
+    var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+    var fileNameToSaveAs = "colors.json";
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "My Hidden Link";
+    window.URL = window.URL || window.webkitURL;
+    downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+    downloadLink.onclick = destroyClickedElement;
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    }
+
+
+function saveTextAsVtt() {
+    var textToWrite = "" // JSON.stringify(localStorage);
+    textToWrite += "WEBVTT\n\n";
+
+    for(var key in localStorage) {
+        textToWrite += key+"\n";
+        val = localStorage.getItem(key); 
+        textToWrite += "{\n"+JSON.stringify(val)+"\n}\n"+"\n";
+    }
+    console.log(textToWrite);
+
+    var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+    var fileNameToSaveAs = "colors.vtt";
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "My Hidden Link";
+    window.URL = window.URL || window.webkitURL;
+    downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+    downloadLink.onclick = destroyClickedElement;
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    }
+
+
+function destroyClickedElement(event) { 
+    document.body.removeChild(event.target);
+    }
+
 
 })();

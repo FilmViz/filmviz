@@ -6,19 +6,68 @@
 
 	<title>Analize Color Palette</title>
 </head>
+
 <body>
+	<section id="selector">
+		<h1>Video and subtitle selector</h1>
+		<div id="message"></div>
+		<table>
+			<tr>
+				<td>
+				<input name="videoselector" type="file" accept="video/*"/>	
+				</td>
+				<td>
+				<input name="vttselector" type="file" accept=".vtt"/>
+				</td>
+			</tr>
+		</table>
+	</section>
+	
+	<section id="player">
+		<video id="video" controls autoplay></video>
+		<canvas id="canvas"></canvas>
+	</section>
 
-<input type="file" accept="video/*"/>
-<div id="message"></div>
-<video id="video" controls autoplay></video>
+	<section id="subtitle_editor">
+		<h1>Subtitle editor</h1>
+		<table>
+		  <tr>
+		    <td>
+				<button id="InTc">Set IN timecode</button>
+		 		<form>IN:
+		 		<input type="time" step="1" name="cueIn">
+		 		</form>
+		    </td>
+			<td>
+		    	<button id="OutTc">Set OUT timecode</button>
+				<form>
+				  OUT:
+				  <input type="time" step="1" name="cueOut">
+				</form>
+			</td>
+		  	<td>
+		  		Cue Duration:<input type="time" step="1" name="cueDuration" readonly>
+		  	</td>
+		  	<td>
+		  		<button id="PreviousCue"><< Previous Cue</button>
+		  		<button id="NextCue">Next Cue >></button>
+		  	</td>
+		  </tr>
+		</table> 
+		<textarea name="message" rows="3" cols="80">Insert the text for the subtitle</textarea> 
+		  		<button id="SaveCue">Save Cue</button>
+	</section>
 
-<button id="coloranalyzer">Color Analyzer</button>
-<canvas id="canvas"></canvas>
+	<section id="analyzers">
+		<h1>Analyzers</h1>
+		<button id="ColorAnalyzer">Color Analyzer</button>
+		<button id="AudioAnalyzer">Audio Analyzer</button>
+		<button id="VisualRhythmAnalyzer">Visual Rhythm Analyzer</button>
+	</section>
 
-
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="../../../libs/RgbQuant.js/src/rgbquant.js"></script>
-<script src="js/script.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="../../../libs/RgbQuant.js/src/rgbquant.js"></script>
+	<script src="js/script.js"></script>
 </body>
+
 </html>
