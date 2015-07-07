@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<LINK href="css/style.css" rel="stylesheet" type="text/css">
+
+	<title>FilmViz - Tool to retrieve and analyze information from movies</title>
+</head>
+
+<body>
+	<section id="selector">
+		<h1>Project Name</h1>
+		<input id="projectName">
+		<div id="message"></div>
+		<table>
+			<tr>
+				<td>
+				<h1>Video File</h1>
+				<input id="filename" type="file" accept="video/*"/>	
+				</td>
+				<td>
+				<h1>VTT files</h1>
+				<input name="vttFile" type="file" accept=".vtt"/>
+				<input type="button" id="addVtt" value="+"/>
+				</td>
+			</tr>
+		</table>
+
+	<input id="createProject" type="button" value="create project"/>	
+	<input id="saveProject" type="button" value="save project"/>	
+
+	</section>
+	
+	
+
+	<script src="../../node_modules/localforage/src/localforage.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="../../libs/RgbQuant.js/src/rgbquant.js"></script>
+	<script src="js/script.js"></script>
+</body>
+
+</html>
