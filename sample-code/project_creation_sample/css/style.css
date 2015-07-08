@@ -7,22 +7,86 @@
 	display: none;
 }
 
-input[name=cueDuration] {    
-background-color: #DF959B;
+input[name='cueDuration'] {    
+	background-color: #DF959B;
 }    
 
-#selector {
+.hidden {
+	max-height: 0 !important;
+	/*opacity: 0;*/
+	overflow: hidden !important;
+	transition: max-height 2s ease-in-out;
+}
+
+header {
+	padding: 0.5em;
+	background-color: #E6E6E6;	
+}
+
+header > h1 {
+	margin: 0;
+}
+
+header > h2 {
+	margin: 1rem 0 -1rem 0;
+	padding: 0px;
+	line-height: 6rem;
+	font-size: 2.5rem;
+}
+
+#menu-init {
+	height: 25em;
+	max-height: 25em;
+	transition: max-height 2s ease-in-out;
+}
+
+#menu-init > div {
+	height: 25em;
+	padding-top: 10em;
+	padding-bottom: 10em;
+}
+
+div.dashed {
+	height: 12em;
+	margin:-8em 2em -8em 0em;
+	padding-top: 8em;
+	border: 3px dashed #8C8C8C;
+	border-radius: 4rem;
+	background-color: #E6E6E6;
+}
+
+#menu-create {
 	background-color: #95BADF;
 }
 
-#player {
+#menu-main {
 	background-color: #DFB695;
 }
 
-#subtitle_editor {
+#menu-manual-editor {
 	background-color: #DFDA95;
 }
 
-#analyzers {
+#menu-analysis {
 	background-color: #9FDF95;
+}
+
+.centered {
+	margin: 0 auto;
+}
+
+.inline {
+	display: inline;
+}
+
+.centered-content {
+	text-align: center;
+}
+
+.full-screen {
+	height: 100%;
+}
+
+h2 {
+	
 }
