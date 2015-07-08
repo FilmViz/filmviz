@@ -21,90 +21,91 @@ function getFilename(name) {
 
 var jotacueri = document.querySelector.bind(document);
 
-jotacueri("#button-create-project").addEventListener("click", function(){
+jotacueri("#button-init-project").addEventListener("click", function(){
     sectionInit = jotacueri("#menu-init");
     sectionCreate = jotacueri("#menu-create");
     sectionCreate.className = "";
     sectionInit.className = "hidden";
     });
 
-// jotacueri("#addVtt").addEventListener("click", function(){
-//     newVttFile = document.createElement("input");
-//     newVttFile.setAttribute("name", "vttFile");
-//     newVttFile.setAttribute("type", "file"); 
-//     newVttFile.setAttribute("accept", ".vtt");    
-//     currentDiv = document.getElementById("addVtt"); 
-//     currentDiv.parentNode.insertBefore(newVttFile, currentDiv);
-//     });
+jotacueri("#addVtt").addEventListener("click", function(){
+    newVttFile = document.createElement("input");
+    newVttFile.setAttribute("name", "vttFile");
+    newVttFile.setAttribute("class", "button button-primary");
+    newVttFile.setAttribute("type", "file"); 
+    newVttFile.setAttribute("accept", ".vtt");    
+    currentDiv = document.getElementById("addVtt").parentNode; 
+    currentDiv.parentNode.insertBefore(newVttFile, currentDiv);
+    });
 
-// jotacueri("#createProject").addEventListener("click", function(){
-//     var filename = document.getElementById("filename")
-//     if ( filename.value ) {
-//         var name = getFilename(filename.value);
-//         console.log(name);
-//         vttFiles = document.getElementsByName("vttFile");
-//         //var vttFiles_array = Array.prototype.slice.call(vttFiles); // converts NodeList to Array
-//         vttFiles.forEach( function(vtt) {
-//             console.log(getFilename(vtt.value));
-//         });
+jotacueri("#button-create-project").addEventListener("click", function(){
+    var filename = document.getElementById("filename")
+    if ( filename.value ) {
+        var name = getFilename(filename.value);
+        console.log(name);
+        vttFiles = document.getElementsByName("vttFile");
+        //var vttFiles_array = Array.prototype.slice.call(vttFiles); // converts NodeList to Array
+        vttFiles.forEach( function(vtt) {
+            console.log(getFilename(vtt.value));
+        });
 
-//         var projectName = document.getElementById("projectName").value
-//         if (!projectName) {
-//             projectName = filename.value;
-//         }
-//     } else {
-//         alert("Selecciona al menos un fichero de video")
-//     }
-// });
+        var projectName = document.getElementById("projectName").value
+        if (!projectName) {
+            projectName = filename.value;
+        }
+    } else {
+        alert("Selecciona al menos un fichero de video")
+    }
+});
 
 
-// // load local video
-// (function localFileVideoPlayerInit(win) {
-//     var URL = win.URL || win.webkitURL,
-//         displayMessage = (function displayMessageInit() {
-//             var node = document.querySelector('#message');
+// load local video
+(function localFileVideoPlayerInit(win) {
+    var URL = win.URL || win.webkitURL,
+        displayMessage = (function displayMessageInit() {
+            var node = document.querySelector('#message');
 
-//             return function displayMessage(message, isError) {
-//                 node.innerHTML = message;
-//                 node.className = isError ? 'error' : 'info';
-//             };
-//         }()),
-//         playSelectedFile = function playSelectedFileInit(event) {
-//             var file = this.files[0];
+            return function displayMessage(message, isError) {
+                node.innerHTML = message;
+                node.className = isError ? 'error' : 'info';
+            };
+        }()),
+        playSelectedFile = function playSelectedFileInit(event) {
+            var file = this.files[0];
 
-//             var type = file.type;
+            var type = file.type;
 
-//             var videoNode = document.querySelector('video');
+            var videoNode = document.querySelector('video');
 
-//             var canPlay = videoNode.canPlayType(type);
+            var canPlay = videoNode.canPlayType(type);
 
-//             canPlay = (canPlay === '' ? 'no' : canPlay);
+            canPlay = (canPlay === '' ? 'no' : canPlay);
 
-//             var message = 'Can play type "' + type + '": ' + canPlay;
+            var message = 'Can play type "' + type + '": ' + canPlay;
 
-//             var isError = canPlay === 'no';
+            var isError = canPlay === 'no';
 
-//             displayMessage(message, isError);
+            displayMessage(message, isError);
 
-//             if (isError) {
-//                 return;
-//             }
+            if (isError) {
+                return;
+            }
 
-//             var fileURL = URL.createObjectURL(file);
+            var fileURL = URL.createObjectURL(file);
 
-//             videoNode.src = fileURL;
-//         },
-//         inputNode = document.querySelector('input');
+            videoNode.src = fileURL;
+        },
+        inputNode = document.querySelector('input');
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-//     if (!URL) {
-//         displayMessage('Your browser is not ' + 
-//            '<a href="http://caniuse.com/bloburls">supported</a>!', true);
+    if (!URL) {
+        displayMessage('Your browser is not ' + 
+           '<a href="http://caniuse.com/bloburls">supported</a>!', true);
         
-//         return;
-//     }                
+        return;
+    }                
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-//     inputNode.addEventListener('change', playSelectedFile, false);
-//     }(window));
+    inputNode.addEventListener('change', playSelectedFile, false);
+    }(window));
 
 
 // // Event handlers

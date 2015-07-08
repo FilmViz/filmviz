@@ -20,8 +20,8 @@
 
 	<section id="menu-init" class="row">
 		<!-- this menu is to select between create new project or open existing one -->
-		<div class="six columns centered-content full-screen">
-			<input type="button" id="button-create-project" class="button-primary" value="CREATE PROJECT"/>
+		<div class="six columns centered-content">
+			<input type="button" id="button-init-project" class="button-primary" value="START PROJECT"/>
 		</div>
 		<div class="six columns centered-content">
 			<div class="dashed">
@@ -31,19 +31,35 @@
 		</div>
 	</section>
 	
-	<section id="menu-create" class="hidden2">
+	<section id="menu-create" class="hidden hidden-invisible">
 		<!-- this menu is to create new project -->
-		<div id="message"></div>
-		<h1>Video File</h1>
-		<input id="filename" type="file" accept="video/*"/>	
-		<h1>VTT files</h1>
-		<input name="vttFile" type="file" accept=".vtt"/>
-		<input type="button" id="addVtt" value="+"/>
-		<h1>Project Name</h1>
-		<input id="projectName">
-		<div class="six columns centered-content full-screen">
-			<input type="button" id="button-create-project" class="button-primary" value="CREATE PROJECT"/>
-		</div>	
+		<div class="row">	
+			<div class="twelve columns centered-content">
+				<h3>Project Name: <input id="projectName"><h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="six columns centered-content">
+				<h4>Video File:<h4>
+				<div id="message"></div>
+				<input type="file" id="button-movie-file" class="button button-primary" value="SELECT MOVIE FILE" accept="video/*"/>
+				<video id="video" controls autoplay></video>
+			</div>
+
+			<div class="six columns centered-content">
+				<h4>webVTT Files:<h4>
+				<input name="vttFile" type="file" class="button button-primary" accept=".vtt"/>
+				<div class="row">
+					<input type="button" id="addVtt" class="button-primary" value="+"/>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="twelve columns centered-content">
+				<input type="button" id="button-create-project" class="button-primary" value="CREATE PROJECT"/>
+			</div>	
+		</div>
+		</div>
 	</section>
 
 	<section id="menu-main" class="hidden">

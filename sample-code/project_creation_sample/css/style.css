@@ -67,6 +67,9 @@ div.dashed {
 
 #menu-create {
 	background-color: #95BADF;
+	min-height: 15em;
+	padding-top: 2em;
+	padding-bottom: 2em;
 }
 
 #menu-main {
