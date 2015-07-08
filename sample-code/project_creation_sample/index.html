@@ -13,6 +13,7 @@
 </head>
 
 <body>
+
 	<header class="row">
 		<h1 class="centered-content three columns">FilmViz</h1>
 		<h2 class="nine columns">Tool to retrieve and analyze information from movies</h2>
@@ -43,7 +44,6 @@
 				<h4>Video File:<h4>
 				<div id="message"></div>
 				<input type="file" id="button-movie-file" class="button button-primary" value="SELECT MOVIE FILE" accept="video/*"/>
-				<video id="video" controls autoplay></video>
 			</div>
 
 			<div class="six columns centered-content">
@@ -62,19 +62,97 @@
 		</div>
 	</section>
 
-	<section id="menu-main" class="hidden">
+	<section id="menu-main" class="hidden hidden-invisible">
 		<!-- this menu is the main interface: view the video and visualize the vtt associated -->
-		<div></div>
+		<div class="row">
+			<div class="six columns centered-content">
+				<video id="video" controls autoplay></video>
+				<div>
+					<input type="button" id="button-fast-back" class="button-primary" value="<<"/>
+					<input type="button" id="button-back" class="button-primary" value="<"/>
+					<input type="button" id="button-pause" class="button-primary" value="||"/>
+					<input type="button" id="button-forward" class="button-primary" value=">"/>
+					<input type="button" id="button-fast-forward" class="button-primary" value=">>"/>
+				</div>
+			</div>
+			<div class="three columns">
+				<ul>
+					<li>vtt 1</li>
+					<li>vtt 2</li>
+					<li>...</li>
+					<li>vtt n</li>
+				</ul>
+			</div>
+			<div class="three columns">
+				<ul>
+					<li>viz 1</li>
+					<li>viz 2</li>
+					<li>...</li>
+					<li>viz n</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="twelve columns centered-content">
+				<div class="three columns centered-content">
+					<input type="button" id="button-create-analysis" class="button-primary" value="CREATE ANALYSIS"/>
+				</div>
+				<div class="three columns centered-content">
+					<input type="button" id="button-edit-vtt" class="button-primary" value="EDIT VTT FILE"/>
+				</div>
+				<div class="three columns centered-content">
+					<input type="button" id="button-save-project" class="button-primary" value="SAVE PROJECT"/>
+				</div>
+				<div class="three columns centered-content">
+					<input type="button" id="button-new-project" class="button-primary" value="CREATE NEW PROJECT"/>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section id="menu-manual-editor" class="hidden">
 		<!-- this menu is to edit vtt files by hand-->
-		<div></div>
+		<div class="row">
+			<div class="four columns centered-content">
+				<button id="InTc">Set IN timecode</button>
+		 		IN:<input type="time" step="1" name="cueIn">
+	 		</div>
+	 		<div class="four columns centered-content">
+	    		<button id="OutTc">Set OUT timecode</button>
+				OUT:<input type="time" step="1" name="cueOut">
+			</div>
+			<div class="four columns centered-content">
+				Cue Duration:
+				<input type="time" step="1" name="cueDuration" readonly>
+			</div>
+		</div>
+		<div class="row">	
+			<div class="ten columns centered-content">
+				<textarea name="message" class="u-full-width">Insert the text for the subtitle</textarea> 
+			</div>
+		  	<div class="two columns centered-content">
+		  		<button id="SaveCue">Save Cue</button>
+		  	</div>
+		</div>
+		<div class="row centered-content">
+	  		<button id="PreviousCue"><< Previous Cue</button>
+	  		<button id="NextCue">Next Cue >></button> 
+		</div>
 	</section>
 
 	<section id="menu-analysis" class="hidden">
 		<!-- this menu is to generate automatic analysis-->
-		<div></div>
+		<div class="row">
+			<div class="four columns">
+				<button id="color-analysis">Color Analysis</button>
+			</div>
+			<div class="four columns">
+				<button id="audio-analysis">Audio Analysis</button>
+			</div>
+			<div class="four columns">
+				<button id="rhythm-analysis">Rhythm Analysis</button>
+			</div>
+		</div>
 	</section>
 	
 

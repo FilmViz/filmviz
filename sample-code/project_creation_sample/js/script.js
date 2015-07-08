@@ -26,7 +26,7 @@ jotacueri("#button-init-project").addEventListener("click", function(){
     sectionCreate = jotacueri("#menu-create");
     sectionCreate.className = "";
     sectionInit.className = "hidden";
-    });
+});
 
 jotacueri("#addVtt").addEventListener("click", function(){
     newVttFile = document.createElement("input");
@@ -36,10 +36,10 @@ jotacueri("#addVtt").addEventListener("click", function(){
     newVttFile.setAttribute("accept", ".vtt");    
     currentDiv = document.getElementById("addVtt").parentNode; 
     currentDiv.parentNode.insertBefore(newVttFile, currentDiv);
-    });
+});
 
 jotacueri("#button-create-project").addEventListener("click", function(){
-    var filename = document.getElementById("filename")
+    var filename = document.getElementById("button-movie-file")
     if ( filename.value ) {
         var name = getFilename(filename.value);
         console.log(name);
@@ -53,8 +53,45 @@ jotacueri("#button-create-project").addEventListener("click", function(){
         if (!projectName) {
             projectName = filename.value;
         }
+        sectionCreate = jotacueri("#menu-create");
+        sectionMain = jotacueri("#menu-main");
+        sectionCreate.className = "hidden";
+        sectionMain.className = "";
     } else {
         alert("Selecciona al menos un fichero de video")
+    }
+});
+
+jotacueri("#button-new-project").addEventListener("click", function(){
+    sectionCreate = jotacueri("#menu-create");
+    sectionMain = jotacueri("#menu-main");
+    sectionEditor = jotacueri("#menu-manual-editor");
+    sectionAnalysis = jotacueri("#menu-analysis");
+    sectionEditor.className = "hidden";
+    sectionAnalysis.className = "hidden";
+    sectionMain.className = "hidden";
+    sectionCreate.className = "";
+});
+
+jotacueri("#button-edit-vtt").addEventListener("click", function(){
+    sectionEditor = jotacueri("#menu-manual-editor");
+    sectionAnalysis = jotacueri("#menu-analysis");
+    sectionAnalysis.className = "hidden";
+    if (sectionEditor.className == "hidden") {
+        sectionEditor.className = "";
+    } else {
+        sectionEditor.className = "hidden";
+    }
+});
+
+jotacueri("#button-create-analysis").addEventListener("click", function(){
+    sectionEditor = jotacueri("#menu-manual-editor");
+    sectionAnalysis = jotacueri("#menu-analysis");
+    sectionEditor.className = "hidden";
+    if (sectionAnalysis.className == "") {
+        sectionAnalysis.className = "hidden";
+    } else {
+        sectionAnalysis.className = "";
     }
 });
 

@@ -13,8 +13,14 @@ input[name='cueDuration'] {
 
 .hidden {
 	max-height: 0 !important;
+	min-height: 0 !important;
 	overflow: hidden !important;
-	transition:	max-height 1s ease-in;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+	transition:	max-height 1s ease-in,
+				min-height 1s ease-in,
+				padding-top 0.5s ease-in,
+				padding-bottom 0.5s ease-in;
 }
 
 .hidden.hidden-invisible {
@@ -26,7 +32,9 @@ section {
 	opacity: 1;
 	overflow: hidden;
 	transition: opacity 0.5s ease-in,
-		max-height 1s ease-in;
+				max-height 1s ease-in;
+				padding-top 0.5s ease-in,
+				padding-bottom 0.5s ease-in;
 }
 
 header {
@@ -70,6 +78,7 @@ div.dashed {
 	min-height: 15em;
 	padding-top: 2em;
 	padding-bottom: 2em;
+	max-height: 100%;
 }
 
 #menu-main {
@@ -78,10 +87,18 @@ div.dashed {
 
 #menu-manual-editor {
 	background-color: #DFDA95;
+	min-height: 5em;
+	padding-top: 2em;
+	padding-bottom: 2em;
+	max-height: 100%;
 }
 
 #menu-analysis {
 	background-color: #9FDF95;
+	min-height: 5em;
+	padding-top: 2em;
+	padding-bottom: 2em;
+	max-height: 100%;
 }
 
 .centered {
