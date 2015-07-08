@@ -15,7 +15,7 @@
 <body>
 	<header class="row">
 		<h1 class="centered-content three columns">FilmViz</h1>
-		<h2 class="centered-content nine columns">Tool to retrieve and analyze information from movies</h2>
+		<h2 class="nine columns">Tool to retrieve and analyze information from movies</h2>
 	</header>
 
 	<section id="menu-init" class="row">
@@ -25,31 +25,25 @@
 		</div>
 		<div class="six columns centered-content">
 			<div class="dashed">
+				<h4>Open Project</h4>
 				<input type="file" value="OPEN PROJECT" accept=".zip"/>
 			</div>
 		</div>
 	</section>
 	
-	<section id="menu-create" class="hidden">
+	<section id="menu-create" class="hidden2">
 		<!-- this menu is to create new project -->
 		<div id="message"></div>
-		<table>
-			<tr>
-				<td>
-				<h1>Video File</h1>
-				<input id="filename" type="file" accept="video/*"/>	
-				</td>
-			</tr>
-			<tr>
-				<td>
-				<h1>VTT files</h1>
-				<input name="vttFile" type="file" accept=".vtt"/>
-				<input type="button" id="addVtt" value="+"/>
-				</td>
-			</tr>
-		</table>
+		<h1>Video File</h1>
+		<input id="filename" type="file" accept="video/*"/>	
+		<h1>VTT files</h1>
+		<input name="vttFile" type="file" accept=".vtt"/>
+		<input type="button" id="addVtt" value="+"/>
 		<h1>Project Name</h1>
-		<input id="projectName">	
+		<input id="projectName">
+		<div class="six columns centered-content full-screen">
+			<input type="button" id="button-create-project" class="button-primary" value="CREATE PROJECT"/>
+		</div>	
 	</section>
 
 	<section id="menu-main" class="hidden">

@@ -13,9 +13,16 @@ input[name='cueDuration'] {
 
 .hidden {
 	max-height: 0 !important;
-	/*opacity: 0;*/
 	overflow: hidden !important;
-	transition: max-height 2s ease-in-out;
+	transition: max-height 1s ease-in,
+}
+
+.hidden2 {
+	max-height: 0 !important;
+	opacity: 0 !important;
+	overflow: hidden !important;
+	transition: max-height 1s ease-in,
+				opacity 0.5s ease-in;
 }
 
 header {
@@ -37,7 +44,7 @@ header > h2 {
 #menu-init {
 	height: 25em;
 	max-height: 25em;
-	transition: max-height 2s ease-in-out;
+	transition: max-height 1s ease-in;
 }
 
 #menu-init > div {
@@ -57,6 +64,8 @@ div.dashed {
 
 #menu-create {
 	background-color: #95BADF;
+	opacity: 1;
+	transition: opacity 0.5s ease-in;
 }
 
 #menu-main {
