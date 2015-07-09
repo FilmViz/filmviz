@@ -66,14 +66,17 @@
 		<!-- this menu is the main interface: view the video and visualize the vtt associated -->
 		<div class="row">
 			<div class="six columns centered-content">
-				<video id="video" controls autoplay></video>
+				<video id="video" controls></video>
+				
 				<div>
-					<input type="button" id="button-fast-back" class="button-primary" value="<<"/>
-					<input type="button" id="button-back" class="button-primary" value="<"/>
 					<input type="button" id="button-pause" class="button-primary" value="||"/>
-					<input type="button" id="button-forward" class="button-primary" value=">"/>
-					<input type="button" id="button-fast-forward" class="button-primary" value=">>"/>
+					<input type="button" id="button-play-forward" class="button-primary" value=">"/>
 				</div>
+			</div>
+			<div class="three columns">
+				<ul>
+					<canvas id="canvas"></canvas>
+				</ul>
 			</div>
 			<div class="three columns">
 				<ul>
@@ -83,29 +86,19 @@
 					<li>vtt n</li>
 				</ul>
 			</div>
-			<div class="three columns">
-				<ul>
-					<li>viz 1</li>
-					<li>viz 2</li>
-					<li>...</li>
-					<li>viz n</li>
-				</ul>
-			</div>
 		</div>
 		<div class="row">
-			<div class="twelve columns centered-content">
-				<div class="three columns centered-content">
-					<input type="button" id="button-create-analysis" class="button-primary" value="CREATE ANALYSIS"/>
-				</div>
-				<div class="three columns centered-content">
-					<input type="button" id="button-edit-vtt" class="button-primary" value="EDIT VTT FILE"/>
-				</div>
-				<div class="three columns centered-content">
-					<input type="button" id="button-save-project" class="button-primary" value="SAVE PROJECT"/>
-				</div>
-				<div class="three columns centered-content">
-					<input type="button" id="button-new-project" class="button-primary" value="CREATE NEW PROJECT"/>
-				</div>
+			<div class="three columns centered-content">
+				<input type="button" id="button-create-analysis" class="button-primary" value="CREATE ANALYSIS"/>
+			</div>
+			<div class="three columns centered-content">
+				<input type="button" id="button-edit-vtt" class="button-primary" value="EDIT VTT FILE"/>
+			</div>
+			<div class="three columns centered-content">
+				<input type="button" id="button-save-project" class="button-primary" value="SAVE PROJECT"/>
+			</div>
+			<div class="three columns centered-content">
+				<input type="button" id="button-new-project" class="button-primary" value="CREATE NEW PROJECT"/>
 			</div>
 		</div>
 	</section>
@@ -115,15 +108,15 @@
 		<div class="row">
 			<div class="four columns centered-content">
 				<button id="InTc">Set IN timecode</button>
-		 		IN:<input type="time" step="1" name="cueIn">
+		 		IN:<input type="time" step="1" id="cueIn">
 	 		</div>
 	 		<div class="four columns centered-content">
 	    		<button id="OutTc">Set OUT timecode</button>
-				OUT:<input type="time" step="1" name="cueOut">
+				OUT:<input type="time" step="1" id="cueOut">
 			</div>
 			<div class="four columns centered-content">
 				Cue Duration:
-				<input type="time" step="1" name="cueDuration" readonly>
+				<input type="time" step="1" id="cueDuration">
 			</div>
 		</div>
 		<div class="row">	
@@ -156,9 +149,12 @@
 	</section>
 	
 
-	<script src="../../node_modules/localforage/src/localforage.js"></script>
-	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+	<!-- <script src="../../node_modules/localforage/src/localforage.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
 	<script src="../../libs/RgbQuant.js/src/rgbquant.js"></script>
+	<script src="js/timecodeUtils.js"></script>
+	<script src="js/fileUtils.js"></script>
+	<script src="js/colorAnalyzer.js"></script>
 	<script src="js/script.js"></script>
 </body>
 

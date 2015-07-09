@@ -4,6 +4,10 @@ NodeList.prototype.forEach = NodeList.prototype.forEach
     || Array.prototype.forEach;
 
 
+var video = document.getElementById("video");
+var canvas = document.getElementById("canvas");
+var filenameToSaveAs = "colors.vtt"
+
 function project(projectName, filename, vttFiles) {
     var refactoredVttFiles = lkjhklsjdfh
     return {
@@ -19,7 +23,48 @@ function getFilename(name) {
     return name[name.length-1];
 }
 
+
+// load local video
+(function localFileVideoPlayerInit(win) {
+    var URL = win.URL || win.webkitURL,
+        displayMessage = (function displayMessageInit() {
+            var node = document.querySelector('#message');
+            return function displayMessage(message, isError) {
+                node.innerHTML = message;
+                node.className = isError ? 'error' : 'info';
+            };
+        }()),
+        playSelectedFile = function playSelectedFileInit(event) {
+            var file = this.files[0];
+            var type = file.type;
+            var videoNode = document.querySelector('video');
+            var canPlay = videoNode.canPlayType(type);
+            canPlay = (canPlay === '' ? 'no' : canPlay);
+            var message = 'Can play type "' + type + '": ' + canPlay;
+            var isError = canPlay === 'no';
+            displayMessage(message, isError);
+            if (isError) {
+                return;
+            }
+            var fileURL = URL.createObjectURL(file);
+            videoNode.src = fileURL;
+        },
+        inputNode = document.querySelector('#button-movie-file');                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+    if (!URL) {
+        displayMessage('Your browser is not ' + 
+           '<a href="http://caniuse.com/bloburls">supported</a>!', true);        
+        return;
+    }                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+    inputNode.addEventListener('change', playSelectedFile, false);
+    }(window));
+
+
+// Event handlers
+
 var jotacueri = document.querySelector.bind(document);
+
+// Menu Init event handlers
 
 jotacueri("#button-init-project").addEventListener("click", function(){
     sectionInit = jotacueri("#menu-init");
@@ -27,6 +72,8 @@ jotacueri("#button-init-project").addEventListener("click", function(){
     sectionCreate.className = "";
     sectionInit.className = "hidden";
 });
+
+// Menu Create event handlers
 
 jotacueri("#addVtt").addEventListener("click", function(){
     newVttFile = document.createElement("input");
@@ -62,15 +109,29 @@ jotacueri("#button-create-project").addEventListener("click", function(){
     }
 });
 
-jotacueri("#button-new-project").addEventListener("click", function(){
-    sectionCreate = jotacueri("#menu-create");
-    sectionMain = jotacueri("#menu-main");
+// Menu Main event handlers
+
+// video controls
+
+jotacueri("#button-pause").addEventListener("click", function(){
+    video.pause();
+});
+
+jotacueri("#button-play-forward").addEventListener("click", function(){
+    video.play();
+});
+
+// main options
+
+jotacueri("#button-create-analysis").addEventListener("click", function(){
     sectionEditor = jotacueri("#menu-manual-editor");
     sectionAnalysis = jotacueri("#menu-analysis");
     sectionEditor.className = "hidden";
-    sectionAnalysis.className = "hidden";
-    sectionMain.className = "hidden";
-    sectionCreate.className = "";
+    if (sectionAnalysis.className == "") {
+        sectionAnalysis.className = "hidden";
+    } else {
+        sectionAnalysis.className = "";
+    }
 });
 
 jotacueri("#button-edit-vtt").addEventListener("click", function(){
@@ -84,238 +145,51 @@ jotacueri("#button-edit-vtt").addEventListener("click", function(){
     }
 });
 
-jotacueri("#button-create-analysis").addEventListener("click", function(){
+jotacueri("#button-save-project").addEventListener("click", function(){
+    // 
+    // save zip file
+    //
+});
+
+jotacueri("#button-new-project").addEventListener("click", function(){
+    sectionCreate = jotacueri("#menu-create");
+    sectionMain = jotacueri("#menu-main");
     sectionEditor = jotacueri("#menu-manual-editor");
     sectionAnalysis = jotacueri("#menu-analysis");
     sectionEditor.className = "hidden";
-    if (sectionAnalysis.className == "") {
-        sectionAnalysis.className = "hidden";
-    } else {
-        sectionAnalysis.className = "";
-    }
+    sectionAnalysis.className = "hidden";
+    sectionMain.className = "hidden";
+    sectionCreate.className = "";
 });
 
+// Menu Manual Editor event handlers
 
-// load local video
-(function localFileVideoPlayerInit(win) {
-    var URL = win.URL || win.webkitURL,
-        displayMessage = (function displayMessageInit() {
-            var node = document.querySelector('#message');
+jotacueri("#InTc").addEventListener("click", function(){
+    var cueIn = document.getElementById("cueIn");
+    cueIn.value = timecodeUtils.milisToTimecode(Math.round(video.currentTime*1000));
+    
+    var cueOut = document.getElementById("cueOut");
+    var cueDuration = document.getElementById("cueDuration");
 
-            return function displayMessage(message, isError) {
-                node.innerHTML = message;
-                node.className = isError ? 'error' : 'info';
-            };
-        }()),
-        playSelectedFile = function playSelectedFileInit(event) {
-            var file = this.files[0];
+    cueDuration.value = timecodeUtils.calcCueDuration(cueIn.value, cueOut.value);
+});
 
-            var type = file.type;
+jotacueri("#OutTc").addEventListener("click", function(){
+    var cueOut = document.getElementById("cueOut");
+    cueOut.value = timecodeUtils.milisToTimecode(Math.round(video.currentTime*1000));
+    
+    var cueIn = document.getElementById("cueIn");
+    var cueDuration = document.getElementById("cueDuration");
 
-            var videoNode = document.querySelector('video');
+    cueDuration.value = timecodeUtils.calcCueDuration(cueIn.value, cueOut.value);
+});
 
-            var canPlay = videoNode.canPlayType(type);
-
-            canPlay = (canPlay === '' ? 'no' : canPlay);
-
-            var message = 'Can play type "' + type + '": ' + canPlay;
-
-            var isError = canPlay === 'no';
-
-            displayMessage(message, isError);
-
-            if (isError) {
-                return;
-            }
-
-            var fileURL = URL.createObjectURL(file);
-
-            videoNode.src = fileURL;
-        },
-        inputNode = document.querySelector('input');
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-    if (!URL) {
-        displayMessage('Your browser is not ' + 
-           '<a href="http://caniuse.com/bloburls">supported</a>!', true);
-        
-        return;
-    }                
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-    inputNode.addEventListener('change', playSelectedFile, false);
-    }(window));
+// Menu Analysis event handlers
 
 
-// // Event handlers
-// $("#InTc").click(function(){
-//     var element = document.getElementsByName("cueIn")[0];
-//     element.value = milisToTimeCode(Math.round(video.currentTime*1000));
-//     calcCueDuration()
-//     });
-
-// $("#OutTc").click(function(){
-//     var element = document.getElementsByName("cueOut")[0];
-//     element.value = milisToTimeCode(Math.round(video.currentTime*1000));
-//     calcCueDuration()
-//     });
-
-// function calcCueDuration() {
-//     var cueOut = document.getElementsByName("cueOut")[0];
-//     var cueIn = document.getElementsByName("cueIn")[0];
-//     var cueDuration = document.getElementsByName("cueDuration")[0];
-
-//     cueDuration.value = cueOut.value - cueIn.value; 
-// }
-
-// $("#ColorAnalyzer").click(function(){
-//     console.log("starting color analyzer")
-
-//     var video = document.getElementById("video");
-//     var canvas = document.getElementById("canvas");
-//     var context = canvas.getContext("2d");
-
-//     var interval = prompt("Please insert interval in seconds", "30");		
-//     var i = 0;
-//     video.pause();
-//     video.currentTime = 0;
-
-//     canvas.height = video.videoHeight/2;
-//     canvas.width = video.videoWidth/2;
-//     video.currentTime = i;
-//     localStorage.clear();
-
-//     video.addEventListener('seeked', function() {
-//         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-//         var img = new Image();
-//         img.src = canvas.toDataURL("image/jpg");
-
-//         var pal = convertPalette(capturePalette(img));
-//         var tc = Math.round(milisToTimeCode(i*1000));
-
-//         localStorage.setItem(tc, pal);
-//         console.log(tc, pal);
-
-//         i += parseInt(interval);
-
-//         if (i <= video.duration) {
-//             video.currentTime = i;
-//         } else {
-//             saveTextAsJson();
-//             saveTextAsVtt();
-//         }
-//         }, false);
-
-
-//     function capturePalette(img) {
-//         var opts = {
-//             colors: 16,             // desired palette size
-//             method: 2,               // histogram method, 2: min-population threshold within subregions; 1: global top-population
-//             boxSize: [64,64],        // subregion dims (if method = 2)
-//             boxPxls: 2,              // min-population threshold (if method = 2)
-//             initColors: 4096,        // # of top-occurring colors  to start with (if method = 1)
-//             minHueCols: 0,           // # of colors per hue group to evaluate regardless of counts, to retain low-count hues
-//             dithKern: null,          // dithering kernel name, see available kernels in docs below
-//             dithDelta: 0,            // dithering threshhold (0-1) e.g: 0.05 will not dither colors with <= 5% difference
-//             dithSerp: false,         // enable serpentine pattern dithering
-//             palette: [],             // a predefined palette to start with in r,g,b tuple format: [[r,g,b],[r,g,b]...]
-//             reIndex: false,          // affects predefined palettes only. if true, allows compacting of sparsed palette once target palette size is reached. also enables palette sorting.
-//             useCache: true,          // enables caching for perf usually, but can reduce perf in some cases, like pre-def palettes
-//             cacheFreq: 10,           // min color occurance count needed to qualify for caching
-//             colorDist: "euclidean",  // method used to determine color distance, can also be "manhattan"
-//         };
-//         var q = new RgbQuant(opts);
-//         // analyze histograms
-//         q.sample(img);
-//         // build palette
-//         var pal = q.palette();
-//         return pal
-//       }
-
-
-//     function convertPalette(pal) {
-//         var newpalette = [];
-//         for (var index=0; index < pal.length/4; index++) {
-//             color = rgbToHex(pal[index*4+0], pal[index*4+1], pal[index*4+2]);
-//             newpalette.push(color);
-//             }
-//         return newpalette;
-//         }
-
-
-//     function componentToHex(c) {
-//         var hex = c.toString(16);
-//         return hex.length == 1 ? "0" + hex : hex;
-//         }
-
-
-//     function rgbToHex(r, g, b) {
-//         return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-//         }
-
-//     });
-
-
-// function milisToTimeCode(s) {
-
-//     function addZ(n) {
-//         return (n<10? '0':'') + n;
-//         }
-
-//     var ms = s % 1000;
-//     s = (s - ms) / 1000;
-//     var secs = s % 60;
-//     s = (s - secs) / 60;
-//     var mins = s % 60;
-//     var hrs = (s - mins) / 60;
-
-//     return addZ(hrs) + ':' + addZ(mins) + ':' + addZ(secs) + '.' + ms;
-//     }
-
-
-// function saveTextAsJson() {
-//     var textToWrite = JSON.stringify(localStorage);
-//     console.log(textToWrite);
-//     var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
-//     var fileNameToSaveAs = "colors.json";
-//     var downloadLink = document.createElement("a");
-//     downloadLink.download = fileNameToSaveAs;
-//     downloadLink.innerHTML = "My Hidden Link";
-//     window.URL = window.URL || window.webkitURL;
-//     downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-//     downloadLink.onclick = destroyClickedElement;
-//     downloadLink.style.display = "none";
-//     document.body.appendChild(downloadLink);
-//     downloadLink.click();
-//     }
-
-
-// function saveTextAsVtt() {
-//     var textToWrite = "" // JSON.stringify(localStorage);
-//     textToWrite += "WEBVTT\n\n";
-
-//     for(var key in localStorage) {
-//         textToWrite += key+"\n";
-//         val = localStorage.getItem(key); 
-//         textToWrite += "{\n"+JSON.stringify(val)+"\n}\n"+"\n";
-//     }
-//     console.log(textToWrite);
-
-//     var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
-//     var fileNameToSaveAs = "colors.vtt";
-//     var downloadLink = document.createElement("a");
-//     downloadLink.download = fileNameToSaveAs;
-//     downloadLink.innerHTML = "My Hidden Link";
-//     window.URL = window.URL || window.webkitURL;
-//     downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-//     downloadLink.onclick = destroyClickedElement;
-//     downloadLink.style.display = "none";
-//     document.body.appendChild(downloadLink);
-//     downloadLink.click();
-//     }
-
-
-// function destroyClickedElement(event) { 
-//     document.body.removeChild(event.target);
-//     }
+jotacueri("#color-analysis").addEventListener("click", function(){
+    colorAnalyzer.basicAnalyzer(video, canvas, filenameToSaveAs);
+});
 
 
 })();
