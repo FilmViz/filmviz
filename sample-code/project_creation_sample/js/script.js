@@ -6,17 +6,22 @@ NodeList.prototype.forEach = NodeList.prototype.forEach
 
 var video = document.getElementById("video");
 var canvas = document.getElementById("canvas");
-var filenameToSaveAs = "colors.vtt"
 
-function project(projectName, filename, vttFiles) {
-    var refactoredVttFiles = lkjhklsjdfh
-    return {
-        projectName: projectName,
-        filename: filename,
-        vttFiles: refactoredVttFiles,
-        imgFiles: [],
-    };
-};
+
+var colorVtt = [];
+
+var cueIndex = 1;
+
+
+// function project(projectName, filename) {
+//     var refactoredVttFiles = lkjhklsjdfh
+//     return {
+//         projectName: projectName,
+//         filename: filename,
+//         vttFiles: refactoredVttFiles,
+//         imgFiles: [],
+//     };
+// };
 
 function getFilename(name) {
     name = name.split("\\");
@@ -90,16 +95,17 @@ jotacueri("#button-create-project").addEventListener("click", function(){
     if ( filename.value ) {
         var name = getFilename(filename.value);
         console.log(name);
-        vttFiles = document.getElementsByName("vttFile");
-        //var vttFiles_array = Array.prototype.slice.call(vttFiles); // converts NodeList to Array
-        vttFiles.forEach( function(vtt) {
-            console.log(getFilename(vtt.value));
-        });
+
+        //vttFiles = document.getElementsByName("vttFile");
+        //vttFiles.forEach( function(vtt) {
+        //    console.log(getFilename(vtt.value));
+        //});
 
         var projectName = document.getElementById("projectName").value
         if (!projectName) {
             projectName = filename.value;
         }
+
         sectionCreate = jotacueri("#menu-create");
         sectionMain = jotacueri("#menu-main");
         sectionCreate.className = "hidden";
@@ -184,11 +190,39 @@ jotacueri("#OutTc").addEventListener("click", function(){
     cueDuration.value = timecodeUtils.calcCueDuration(cueIn.value, cueOut.value);
 });
 
+
+jotacueri("#NextCue").addEventListener("click", function(){
+    cueIndex += 1;
+    if (cueIndex > colorVtt.length) {
+        cueIndex = colorVtt.length;
+    }
+    colorVtt.forEach( function (vtt) {
+        if (vtt.index == cueIndex) {
+            jotacueri("CueIn").value = vtt["tc"];
+            jotacueri("textarea").value = JSON.stringify(vtt["value"]);
+        }
+    });
+});
+
+jotacueri("#PreviousCue").addEventListener("click", function(){
+    cueIndex -= 1;
+    if (cueIndex < 1) {
+        cueIndex = 1;
+    }
+    colorVtt.forEach( function (vtt) {
+        if (vtt.index == cueIndex) {
+            jotacueri("CueIn").value = vtt["tc"];
+            jotacueri("textarea").value = vtt["index"] + "\n" + JSON.stringify(vtt["value"]);
+        }
+    });
+});
+
 // Menu Analysis event handlers
 
 
 jotacueri("#color-analysis").addEventListener("click", function(){
-    colorAnalyzer.basicAnalyzer(video, canvas, filenameToSaveAs);
+    console.log(colorVtt);
+    colorAnalyzer.basicAnalyzer(video, canvas, colorVtt);
 });
 
 

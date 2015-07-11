@@ -1,10 +1,11 @@
 var fileUtils = ( function(){
  
+ 	
  
 	return {
 		
 
-		saveTextAsJson : function (fileNameToSaveAs) {
+		saveTextAsJson : function () {
 		    var textToWrite = JSON.stringify(localStorage);
 		    console.log(textToWrite);
 		    var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
@@ -20,17 +21,17 @@ var fileUtils = ( function(){
 		    },
 
 
-		saveTextAsVtt : function (fileNameToSaveAs) {
+		saveTextAsVtt : function () {
 		    var textToWrite = "" // JSON.stringify(localStorage);
 		    textToWrite += "WEBVTT\n\n";
-
+		    
 		    for(var key in localStorage) {
 		        textToWrite += key+"\n";
 		        val = localStorage.getItem(key); 
 		        textToWrite += "{\n"+JSON.stringify(val)+"\n}\n"+"\n";
 		    }
 		    console.log(textToWrite);
-
+		    var fileNameToSaveAs = "colors.vtt";
 		    var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
 		    var downloadLink = document.createElement("a");
 		    downloadLink.download = fileNameToSaveAs;

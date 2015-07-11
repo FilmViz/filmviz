@@ -3,8 +3,9 @@ var colorAnalyzer = ( function(){
 	
  
 	return {
+    
 
-		basicAnalyzer : function(video, canvas, filenameToSaveAs){
+		basicAnalyzer : function(video, canvas, colorVtt){
 
 			console.log("starting color analyzer")
 
@@ -12,13 +13,17 @@ var colorAnalyzer = ( function(){
 
 		    var interval = prompt("Please insert interval in seconds", "30");		
 		    var i = 0;
+
+		    var cueIndex = 1;
+
 		    video.pause();
 		    video.currentTime = 0;
 
 		    canvas.height = video.videoHeight/2;
 		    canvas.width = video.videoWidth/2;
-		    video.currentTime = i;
+		    
 		    localStorage.clear();
+
 
 		    function seekedListener() {
 				context.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -29,18 +34,37 @@ var colorAnalyzer = ( function(){
 		        var tc = timecodeUtils.milisToTimecode(i*1000);
 
 		        localStorage.setItem(tc, pal);
+		        
+		        var cueObj = {};
+		        cueObj['index'] = cueIndex;
+		        cueObj['tc'] = tc;
+    			cueObj['value'] = pal;
+    			colorVtt.push(cueObj);
+
 		        console.log(tc, pal);
 
+
 		        i += parseInt(interval);
+		        cueIndex += 1;
 
 		        if (i <= video.duration) {
 		            video.currentTime = i;
 		        } else {
 		            //fileUtils.saveTextAsJson(filenameToSaveAs);
-		            fileUtils.saveTextAsVtt(filenameToSaveAs);
+		            fileUtils.saveTextAsVtt();
 		            video.removeEventListener('seeked', seekedListener, false ); 
 		            video.pause();
+		            console.log(colorVtt);
+		            cueIndex = 1;
+				    colorVtt.forEach( function (vtt) {
+				        if (vtt.index == cueIndex) {
+				            console.log(vtt)
+				            var jotacueri = document.querySelector.bind(document);
+				            jotacueri("textarea").value = JSON.stringify(vtt["value"]);
+				        }
+				    });
 		        }
+
 		    }
 
 		    video.addEventListener('seeked', seekedListener, false);
