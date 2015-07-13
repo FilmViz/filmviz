@@ -8,6 +8,7 @@ var video = document.getElementById("video");
 var canvas = document.getElementById("canvas");
 
 
+
 var colorVtt = [];
 
 var cueIndex = 1;
@@ -23,10 +24,42 @@ var cueIndex = 1;
 //     };
 // };
 
+var filenameToSaveAs = "colors"
+
+function project(projectName, filename, vttFiles) {
+    var refactoredVttFiles = lkjhklsjdfh
+    return {
+        projectName: projectName,
+        filename: filename,
+        vttFiles: refactoredVttFiles,
+        imgFiles: [],
+    };
+};
+
+
 function getFilename(name) {
     name = name.split("\\");
     return name[name.length-1];
 }
+
+
+// load vtt file
+
+function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // files is a FileList of File objects. List some properties.
+    var output = [];
+    for (var i = 0, f; f = files[i]; i++) {
+      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                  f.size, ' bytes, last modified: ',
+                  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+                  '</li>');
+    }
+    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+  }
+
+//document.getElementById('#vttFiles').addEventListener('change', handleFileSelect, false);
 
 
 // load local video

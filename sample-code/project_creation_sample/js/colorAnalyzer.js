@@ -17,12 +17,14 @@ var colorAnalyzer = ( function(){
 		    var cueIndex = 1;
 
 		    video.pause();
-		    video.currentTime = 0;
+		    
 
 		    canvas.height = video.videoHeight/2;
 		    canvas.width = video.videoWidth/2;
 		    
 		    localStorage.clear();
+
+		    video.currentTime = 0;
 
 
 		    function seekedListener() {
@@ -50,8 +52,10 @@ var colorAnalyzer = ( function(){
 		        if (i <= video.duration) {
 		            video.currentTime = i;
 		        } else {
+
 		            //fileUtils.saveTextAsJson(filenameToSaveAs);
 		            fileUtils.saveTextAsVtt();
+
 		            video.removeEventListener('seeked', seekedListener, false ); 
 		            video.pause();
 		            console.log(colorVtt);

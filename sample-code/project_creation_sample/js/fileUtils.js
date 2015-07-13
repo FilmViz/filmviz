@@ -9,7 +9,6 @@ var fileUtils = ( function(){
 		    var textToWrite = JSON.stringify(localStorage);
 		    console.log(textToWrite);
 		    var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
-		    var fileNameToSaveAs = "colors.json";
 		    var downloadLink = document.createElement("a");
 		    downloadLink.innerHTML = "My Hidden Link";
 		    window.URL = window.URL || window.webkitURL;
