@@ -231,7 +231,8 @@ jotacueri("#NextCue").addEventListener("click", function(){
     }
     colorVtt.forEach( function (vtt) {
         if (vtt.index == cueIndex) {
-            jotacueri("CueIn").value = vtt["tc"];
+            var cueIn = document.getElementById("cueIn");
+            cueIn.value = vtt["tc"];
             jotacueri("textarea").value = JSON.stringify(vtt["value"]);
         }
     });
@@ -244,7 +245,8 @@ jotacueri("#PreviousCue").addEventListener("click", function(){
     }
     colorVtt.forEach( function (vtt) {
         if (vtt.index == cueIndex) {
-            jotacueri("CueIn").value = vtt["tc"];
+            var cueIn = document.getElementById("cueIn");
+            cueIn.value = vtt["tc"];
             jotacueri("textarea").value = vtt["index"] + "\n" + JSON.stringify(vtt["value"]);
         }
     });

@@ -18,12 +18,10 @@ var colorAnalyzer = ( function(){
 
 		    video.pause();
 		    
-
 		    canvas.height = video.videoHeight/2;
 		    canvas.width = video.videoWidth/2;
 		    
 		    localStorage.clear();
-
 		    video.currentTime = 0;
 
 
@@ -64,6 +62,8 @@ var colorAnalyzer = ( function(){
 				        if (vtt.index == cueIndex) {
 				            console.log(vtt)
 				            var jotacueri = document.querySelector.bind(document);
+				            var cueIn = document.getElementById("cueIn");
+				            cueIn.value = vtt["tc"]; 
 				            jotacueri("textarea").value = JSON.stringify(vtt["value"]);
 				        }
 				    });
@@ -81,7 +81,7 @@ var colorAnalyzer = ( function(){
 	            boxSize: [64,64],        // subregion dims (if method = 2)
 	            boxPxls: 2,              // min-population threshold (if method = 2)
 	            initColors: 4096,        // # of top-occurring colors  to start with (if method = 1)
-	            minHueCols: 0,           // # of colors per hue group to evaluate regardless of counts, to retain low-count hues
+	            minHueCols: 256,           // # of colors per hue group to evaluate regardless of counts, to retain low-count hues
 	            dithKern: null,          // dithering kernel name, see available kernels in docs below
 	            dithDelta: 0,            // dithering threshhold (0-1) e.g: 0.05 will not dither colors with <= 5% difference
 	            dithSerp: false,         // enable serpentine pattern dithering
