@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'/>
+    
+    <title>Patches</title>
+    <style>
+      svg text {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: default;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id='colorPatches'></div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js'></script>
+    <script src='./colorVisualizer.js'></script>
+
+    <script>
+      var frame1 = ['#283839', '#384547', '#4a5759', '#565e60', '#757c7c',
+        '#718d96', '#838c8d', '#80969c', '#959ea0', '#9da6a8', '#a9b2b3',
+        '#bfc6c6', '#c9cfcf', '#d2d9d9', '#576872', '#65767e'];
+
+      var frame2 = ['#372719' ,'#514a3f', '#6a5c45', '#8b7863', '#21221d',
+        '#010401', '#131612', '#2e3331', '#596263', '#a8b1b2', '#b7bebe',
+        '#c6cdcd', '#737b7f', '#838b8f', '#929a9e', '#9da6aa'];
+
+      var timeline = ['#283839', '#384547', '#4a5759', '#565e60', '#757c7c',
+        '#718d96', '#838c8d', '#80969c', '#959ea0', '#9da6a8', '#a9b2b3',
+        '#bfc6c6', '#c9cfcf', '#d2d9d9', '#576872', '#65767e',
+        '#372719' ,'#514a3f', '#6a5c45', '#8b7863', '#21221d',
+        '#010401', '#131612', '#2e3331', '#596263', '#a8b1b2', '#b7bebe',
+        '#c6cdcd', '#737b7f', '#838b8f', '#929a9e', '#9da6aa',
+        '#283839', '#384547', '#4a5759', '#565e60', '#757c7c',
+        '#718d96', '#838c8d', '#80969c', '#959ea0', '#9da6a8', '#a9b2b3',
+        '#bfc6c6', '#c9cfcf', '#d2d9d9', '#576872', '#65767e',
+        '#372719' ,'#514a3f', '#6a5c45', '#8b7863', '#21221d',
+        '#010401', '#131612', '#2e3331', '#596263', '#a8b1b2', '#b7bebe',
+        '#c6cdcd', '#737b7f', '#838b8f', '#929a9e', '#9da6aa',
+        '#283839', '#384547', '#4a5759', '#565e60', '#757c7c',
+        '#718d96', '#838c8d', '#80969c', '#959ea0', '#9da6a8', '#a9b2b3',
+        '#bfc6c6', '#c9cfcf', '#d2d9d9', '#576872', '#65767e',
+        '#372719' ,'#514a3f', '#6a5c45', '#8b7863', '#21221d',
+        '#010401', '#131612', '#2e3331', '#596263', '#a8b1b2', '#b7bebe',
+        '#c6cdcd', '#737b7f', '#838b8f', '#929a9e', '#9da6aa'];
+
+      var period = 2000; 
+
+      colorVisualizer.showAccordionPatchRow(frame1,
+        document.getElementById('colorPatches'));
+
+      setTimeout(function() {
+        colorVisualizer.showAccordionPatchRow(frame2,
+          document.getElementById('colorPatches'));
+      }, period);
+    </script>
+  </body>
+</html>
