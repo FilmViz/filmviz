@@ -5,6 +5,15 @@
     
     <title>Patches</title>
     <style>
+      svg text {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: default;
+      }
     </style>
   </head>
 
@@ -44,10 +53,12 @@
 
       var period = 2000; 
 
-      colorVisualizer.showAccordion(frame1, '#colorPatches');
+      colorVisualizer.showAccordionPatchRow(frame1,
+        document.getElementById('colorPatches'));
 
       setTimeout(function() {
-        colorVisualizer.showAccordion(frame2, '#colorPatches');
+        colorVisualizer.showAccordionPatchRow(frame2,
+          document.getElementById('colorPatches'));
       }, period);
     </script>
   </body>
