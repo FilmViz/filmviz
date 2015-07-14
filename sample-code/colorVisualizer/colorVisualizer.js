@@ -4,10 +4,10 @@ var colorVisualizer = (function() {
         width = patchSize * colors.length,
         height = patchSize;
 
-    var svg = d3.selection(targetElt).select('svg');
+    var svg = d3.select(targetElt).select('svg');
 
     if (svg.empty()) {
-      svg = d3.selection(targetElt)
+      svg = d3.select(targetElt)
         .append('svg')
           .attr('width', '100%')
           .attr('preserveAspectRatio','xMinYMin');
