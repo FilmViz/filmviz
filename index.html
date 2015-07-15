@@ -3,9 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<!-- <link href="css/main.css" rel="stylesheet" /> -->
-	<link rel="stylesheet" href="libs/bootstrap.min.css">
+	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 	<!-- Include the AngularJS library -->
-    <script src="libs/angular.min.js"></script>
+    <script src="node_modules/angular/angular.min.js"></script>
 	<title></title>
 
 </head>
@@ -13,16 +13,16 @@
 <body ng-controller="ProjectController as project">
 
 	<div class="tab" ng-controller="TabController as tab">
-		
+
 		<div class="container">
-			<div class="row">	
+			<div class="row">
 				<ul class="nav nav-pills">
 						<li ng-class="{ active:tab.isSelected($index)}" ng-repeat="analysis in project.project.analysis">
 						<a href ng-click="tab.selectTab($index)">{{ analysis.name }}</a>
 					</li> <!-- end scope analysis -->
 				</ul>
 			</div>
-		
+
 			<div class="row">
 				<div class="col-lg-6">
 					<section class="panel" id="video-player">
@@ -55,7 +55,7 @@
 								<a href ng-click="subTab.selectTab(1)"> Metadata Editor </a>
 							</li>
 						</ul>
-						
+
 						<section class="panel" id="tag-editor" ng-show="subTab.activeTab == 0">
 							<h4>Tag Editor</h4>
 						</section>
@@ -66,7 +66,7 @@
 					</div>    <!-- end scope subtab -->
 				</div>
 			</div>
-			
+
 			<div class="row">
 				<section class="panel" id="timeline">
 					<h4>Timeline</h4>
@@ -81,7 +81,7 @@
 				<section class="panel" id="d3-audio-timeline" ng-show="tab.activeTab == 1">
 					<h4>D3 Audio Timeline</h4>
 				</section>
-				
+
 				<section class="panel" id="d3-motion-timeline" ng-show="tab.activeTab == 2">
 					<h4>D3 Motion Timeline</h4>
 				</section>
@@ -97,7 +97,7 @@
 			</div>
 		</div>
 	</div>   <!-- end scope tab -->
-	
+
 	<div class="row">
 		<div class="col-lg-6">
 			<p>{{ project.project.name }} : {{ project.project.videosrc}}</p>

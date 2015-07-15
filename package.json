@@ -2,9 +2,10 @@
   "name": "filmviz",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.html",
   "dependencies": {
-    "localforage": "~1.2.4"
+    "angular": "^1.4.3",
+    "bootstrap": "^3.3.5"
   },
   "devDependencies": {},
   "scripts": {
@@ -15,7 +16,7 @@
     "url": "git://github.com/surreal6/filmviz.git"
   },
   "author": "",
-  "license": "BSD-2-Clause",
+  "license": "GPLv3",
   "bugs": {
     "url": "https://github.com/surreal6/filmviz/issues"
   }
