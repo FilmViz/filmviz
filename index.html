@@ -5,11 +5,14 @@
 	<!-- <link href="css/main.css" rel="stylesheet" /> -->
 	<link rel="stylesheet" href="libs/bootstrap.min.css">
 	<!-- Include the AngularJS library -->
-  <script src="libs/angular.min.js"></script>
+  	<script src="libs/angular.min.js"></script>
+  	
 	<title></title>
 </head>
 
 <body ng-controller="ProjectController as project">
+
+	<div ng-view></div>
 	<tab-navigation items="project.project.analysis">
 		<div class="row">
 			<div class="col-lg-6">
