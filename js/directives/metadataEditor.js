@@ -65,6 +65,23 @@
 					});
 
 
+					var video = document.getElementById("video");
+					var canvas = document.getElementById("canvas");
+
+
+
+					var colorVtt = [];
+
+					var cueIndex = 1;
+
+
+					jotacueri("#color-analysis").addEventListener("click", function(){
+					    console.log(colorVtt);
+					    colorAnalyzer.basicAnalyzer(video, canvas, colorVtt);
+					});
+
+
+
 					
 				}
 			};

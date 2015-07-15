@@ -27,3 +27,7 @@ header > h2 {
 	margin:auto;
 }
 
+#canvas {
+	display: none;
+}
+
