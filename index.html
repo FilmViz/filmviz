@@ -13,7 +13,7 @@
 <body ng-controller="ProjectController as project">
 
 	<tab-navigation items="project.project.analysis">
-		<p>hola {{ $parent.activeTab }}</p>
+		
 			<div class="row">
 				<div class="col-lg-6">
 					<section class="panel" id="video-player">
@@ -46,16 +46,18 @@
 						items="[{name:'Tag Editor'},{name:'Metadata Editor'}]">
  
 						
-						<section class="panel" id="tag-editor" 
-							ng-show="$parent.activeTab == 0">
-							<h4>Tag Editor</h4>
-						</section>
+							<section class="panel container-fluid" id="tag-editor" 
+								ng-show="$parent.activeTab == 0">
+								<h4>Tag Editor</h4>
+							</section>
 
-						<section class="panel" id="metadata-editor" 
-							ng-show="$parent.activeTab == 1">
-							<h4>Metadata Editor</h4>
-						</section>
-
+							<section class="panel container-fluid" id="metadata-editor" 
+								ng-show="$parent.activeTab == 1">
+								
+								<metadata-editor>
+								</metadata-editor>
+							</section>
+						
 					</tab-navigation>    <!-- end scope subtab -->
 				</div>
 			</div>
@@ -107,8 +109,9 @@
 
 	<script src="js/app.js"></script>
 	<script src="js/controllers/ProjectController.js"></script>
-	<script src="js/directives/controllers/TabController.js"></script>
+	<!-- <script src="js/directives/controllers/TabController.js"></script> -->
 	<script src="js/directives/tabNavigation.js"></script>
+	<script src="js/directives/metadataEditor.js"></script>
 
 </body>    <!-- end scope project -->
 
