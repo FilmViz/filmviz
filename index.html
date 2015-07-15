@@ -5,97 +5,86 @@
 	<!-- <link href="css/main.css" rel="stylesheet" /> -->
 	<link rel="stylesheet" href="libs/bootstrap.min.css">
 	<!-- Include the AngularJS library -->
-    <script src="libs/angular.min.js"></script>
+  <script src="libs/angular.min.js"></script>
 	<title></title>
-
 </head>
 
 <body ng-controller="ProjectController as project">
-
 	<tab-navigation items="project.project.analysis">
-		
-			<div class="row">
-				<div class="col-lg-6">
-					<section class="panel" id="video-player">
-						<h4>Video</h4>
-						<video src="" controls></video>
-					</section>
-				</div>
-				<div class="col-lg-6">
-					<section class="panel" id="d3-color-frame" 
-						ng-show="$parent.activeTab == 0">
-						<h4>D3 Color Frame</h4>
-					</section>
-				</div>
-				<div class="col-lg-6">
-					<section class="panel" id="d3-audio-frame" 
-						ng-show="$parent.activeTab == 1">
-						<h4>D3 Audio Frame</h4>
-					</section>
-				</div>
-				<div class="col-lg-6">
-					<section class="panel" id="d3-motion-frame" 
-						ng-show="$parent.activeTab == 2">
-						<h4>D3 Motion Frame</h4>
-					</section>
-				</div>
-				<div class="col-lg-6">
-
-					<tab-navigation 
-						ng-show="$parent.activeTab > 2" 
-						items="[{name:'Tag Editor'},{name:'Metadata Editor'}]">
- 
-						
-							<section class="panel container-fluid" id="tag-editor" 
-								ng-show="$parent.activeTab == 0">
-								<h4>Tag Editor</h4>
-							</section>
-
-							<section class="panel container-fluid" id="metadata-editor" 
-								ng-show="$parent.activeTab == 1">
-								
-								<metadata-editor>
-								</metadata-editor>
-							</section>
-						
-					</tab-navigation>    <!-- end scope subtab -->
-				</div>
-			</div>
-			
-			<div class="row">
-				<section class="panel" id="timeline">
-					<h4>Timeline</h4>
+		<div class="row">
+			<div class="col-lg-6">
+				<section class="panel" id="video-player">
+					<h4>Video</h4>
+					<video src="" controls></video>
 				</section>
 			</div>
-
-			<div class="row">
-				<section class="panel" id="d3-color-timeline" 
+			<div class="col-lg-6">
+				<section class="panel" id="d3-color-frame"
 					ng-show="$parent.activeTab == 0">
-					<h4>D3 Color Timeline</h4>
-				</section>
-
-				<section class="panel" id="d3-audio-timeline" 
-					ng-show="$parent.activeTab == 1">
-					<h4>D3 Audio Timeline</h4>
-				</section>
-				
-				<section class="panel" id="d3-motion-timeline" 
-					ng-show="$parent.activeTab == 2">
-					<h4>D3 Motion Timeline</h4>
-				</section>
-
-				<section class="panel" id="vtt-content">
-					<h4>VTT content</h4>
-					<ul>
-						<li ng-repeat="data in project.project.analysis[$parent.activeTab].data">
-							<p>{{ data.tc }} :  {{ data.content }}  </p>
-						</li>
-					</ul>
+					<h4>D3 Color Frame</h4>
 				</section>
 			</div>
-		
-	</tab-navigation>   <!-- end scope tab -->
-	
+			<div class="col-lg-6">
+				<section class="panel" id="d3-audio-frame"
+					ng-show="$parent.activeTab == 1">
+					<h4>D3 Audio Frame</h4>
+				</section>
+			</div>
+			<div class="col-lg-6">
+				<section class="panel" id="d3-motion-frame"
+					ng-show="$parent.activeTab == 2">
+					<h4>D3 Motion Frame</h4>
+				</section>
+			</div>
+			<div class="col-lg-6">
+				<tab-navigation items="[{name:'Tag Editor'},{name:'Metadata Editor'}]"
+					ng-show="$parent.activeTab > 2">
+					<section class="panel container-fluid" id="tag-editor"
+						ng-show="$parent.activeTab == 0">
+						<h4>Tag Editor</h4>
+					</section>
+
+					<section class="panel container-fluid" id="metadata-editor"
+						ng-show="$parent.activeTab == 1">
+						<metadata-editor></metadata-editor>
+					</section>
+				</tab-navigation>    <!-- end scope subtab -->
+			</div>
+		</div>
+
+		<div class="row">
+			<section class="panel" id="timeline">
+				<h4>Timeline</h4>
+			</section>
+		</div>
+
+		<div class="row">
+			<section class="panel" id="d3-color-timeline"
+				ng-show="$parent.activeTab == 0">
+				<h4>D3 Color Timeline</h4>
+			</section>
+
+			<section class="panel" id="d3-audio-timeline"
+				ng-show="$parent.activeTab == 1">
+				<h4>D3 Audio Timeline</h4>
+			</section>
+
+			<section class="panel" id="d3-motion-timeline"
+				ng-show="$parent.activeTab == 2">
+				<h4>D3 Motion Timeline</h4>
+			</section>
+
+			<section class="panel" id="vtt-content">
+				<h4>VTT content</h4>
+				<ul>
+					<li ng-repeat="data in project.project.analysis[$parent.activeTab].data">
+						<p>{{ data.tc }} :  {{ data.content }}  </p>
+					</li>
+				</ul>
+			</section>
+		</div>
+	</tab-navigation>	<!-- end scope tab -->
+
 	<div class="row">
 		<div class="col-lg-6">
 			<p>{{ project.project.name }} : {{ project.project.videosrc}}</p>
@@ -112,7 +101,6 @@
 	<!-- <script src="js/directives/controllers/TabController.js"></script> -->
 	<script src="js/directives/tabNavigation.js"></script>
 	<script src="js/directives/metadataEditor.js"></script>
-
-</body>    <!-- end scope project -->
+</body>	<!-- end scope project -->
 
 </html>
