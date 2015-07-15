@@ -1,4 +1,93 @@
 <!-- editor.html -->
-    <div class="jumbotron text-center">
-        <h1>Editor Page</h1>
-    </div>
+<div ng-controller="ProjectController as project">
+	<tab-navigation items="project.project.analysis">
+		<div class="row">
+			<div class="col-lg-6">
+				<section class="panel" id="video-player">
+					<h4>Video</h4>
+					<video src="SAMPLE.m4v" controls id="video"></video>
+					<canvas id=canvas></canvas>
+				</section>
+			</div>
+			<div class="col-lg-6">
+				<section class="panel" id="d3-color-frame"
+					ng-show="$parent.activeTab == 0">
+					<h4>D3 Color Frame</h4>
+				</section>
+			</div>
+			<div class="col-lg-6">
+				<section class="panel" id="d3-audio-frame"
+					ng-show="$parent.activeTab == 1">
+					<h4>D3 Audio Frame</h4>
+				</section>
+			</div>
+			<div class="col-lg-6">
+				<section class="panel" id="d3-motion-frame"
+					ng-show="$parent.activeTab == 2">
+					<h4>D3 Motion Frame</h4>
+				</section>
+			</div>
+			<div class="col-lg-6">
+				<tab-navigation items="[{name:'Tag Editor'},{name:'Metadata Editor'}]"
+					ng-show="$parent.activeTab > 2">
+					<section class="panel container-fluid" id="tag-editor"
+						ng-show="$parent.activeTab == 0">
+						<h4>Tag Editor</h4>
+					</section>
+
+					<section class="panel container-fluid" id="metadata-editor"
+						ng-show="$parent.activeTab == 1">
+						<metadata-editor></metadata-editor>
+					</section>
+				</tab-navigation>    <!-- end scope subtab -->
+			</div>
+		</div>
+
+		<div class="row">
+			<section class="panel" id="timeline">
+				<h4>Timeline</h4>
+			</section>
+		</div>
+
+		<div class="row">
+			<section class="panel" id="d3-color-timeline"
+				ng-show="$parent.activeTab == 0">
+				<h4>D3 Color Timeline</h4>
+			</section>
+
+			<section class="panel" id="d3-audio-timeline"
+				ng-show="$parent.activeTab == 1">
+				<h4>D3 Audio Timeline</h4>
+			</section>
+
+			<section class="panel" id="d3-motion-timeline"
+				ng-show="$parent.activeTab == 2">
+				<h4>D3 Motion Timeline</h4>
+			</section>
+
+			<section class="panel" id="vtt-content">
+				<h4>VTT content</h4>
+				<ul>
+					<li ng-repeat="data in project.project.analysis[$parent.activeTab].data">
+						<p>{{ data.tc }} :  {{ data.content }}  </p>
+					</li>
+				</ul>
+			</section>
+		</div>
+	</tab-navigation>	<!-- end scope tab -->
+
+	<div class="row">
+		<div class="col-lg-6">
+			<p>{{ project.project.name }} : {{ project.project.videosrc}}</p>
+		</div>
+		<div class="col-lg-6">
+			<section class="panel">
+				<h4>
+					<a href="#/" class="btn-success"> SAVE </a> 
+					<a href="#/preview" class="btn-success"> PREVIEW </a> 
+					<a href="#/init" class="btn-success"> UPLOAD </a>
+				</h4>
+			</section>
+		</div>
+	</div>
+</div> <!-- end scope project -->

@@ -1,0 +1,29 @@
+header {
+	padding: 0.5em;
+	background-color: #E6E6E6;	
+}
+
+header > h1 {
+	margin: 0;
+}
+
+header > h2 {
+	margin: 1rem 0 -1rem 0;
+	padding: 0px;
+	line-height: 6rem;
+	font-size: 2.5rem;
+}
+
+.centered {
+	margin: 0 auto;
+}
+
+.centered-content {
+	text-align: center;
+}
+
+#video {
+	width: 100%;
+	margin:auto;
+}
+
