@@ -1,7 +1,7 @@
 (function() {
 
 	angular.module('FilmVizApp')
-		.controller('ProjectController', function($scope) {
+		.controller('ProjectController', function() {
 			this.project = project;
 		});
 

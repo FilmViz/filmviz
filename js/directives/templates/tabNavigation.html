@@ -1,0 +1,15 @@
+<div class="tab">
+		
+	<div class="container-fluid">
+		<div class="row">	
+			<ul class="nav nav-pills">
+					<li ng-class="{ active:isSelected($index)}" ng-repeat="item in items">
+					<a href ng-click="selectTab($index)">{{ item.name }}</a>
+				</li> <!-- end scope item -->
+			</ul>
+		</div>
+
+		<div ng-transclude></div><!-- tab-panel placeholder -->
+	
+	</div>   <!-- end container -->
+</div>  
