@@ -10,6 +10,7 @@ var canvas = document.getElementById("canvas");
 
 
 var colorVtt = [];
+var rhythmVtt = [];
 
 var cueIndex = 1;
 
@@ -258,6 +259,11 @@ jotacueri("#PreviousCue").addEventListener("click", function(){
 jotacueri("#color-analysis").addEventListener("click", function(){
     console.log(colorVtt);
     colorAnalyzer.basicAnalyzer(video, canvas, colorVtt);
+});
+
+jotacueri("#rhythm-analysis").addEventListener("click", function(){
+    console.log(rhythmVtt);
+    rhythmAnalyzer.basicAnalyzer(video, canvas, rhythmVtt);
 });
 
 

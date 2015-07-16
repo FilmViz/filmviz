@@ -35,7 +35,7 @@ var colorVisualizer = (function() {
       hsvColors.push({ hex: hex, hue: hue, sat: sat, val: val });
     }
  
-    hsvColors.sort(function(a,b){return a.hue - b.hue;});
+    hsvColors.sort(function(a,b){return a.val - b.val;});
 
     return hsvColors.map(function(hsvColor) {
       return '#' + hsvColor.hex;
