@@ -5,7 +5,8 @@
 			<input type="text" id="Tag"/>
 			<button id="addTag">add Tag</button>
 			<hr>
-			{{ project.project.analysis[$parent.$parent.$parent.activeTab].name }}
+			<tag-buttons tags="project.project.analysis[$parent.$parent.$parent.activeTab].tags"></tag-buttons>
+			</div>
 		</div>
 	</div>  
 </div>

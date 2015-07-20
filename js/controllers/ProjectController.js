@@ -79,7 +79,7 @@
 				{
 					name:"metadata1",
 					isDone:false,
-					tags: [],
+					tags: ["perro", "casa", "etiqueta"],
 					data:[
 							{
 							tc: "00:00:30.0",
@@ -102,26 +102,26 @@
 						]
 				},
 				{
-					name:"metadata2",
+					name:"Escalas de Plano",
 					isDone:false,
-					tags: [],
+					tags: ["Plano Detalle","Primerisimo Primer Plano", "Primer Plano", "Plano Corto", "Plano Medio", "Plano Americano", "Plano Largo", "Plano General", "Gran Plano General"],
 					data:[
 							{
-							tc: "00:00:30.0",
+							tc: "00:00:00.0",
 							content: {
-								text:"hola22222"
+								text:"PP"
 								},
 							},
 							{
-							tc: "00:01:00.0",
+							tc: "00:06:00.0",
 							content: {
-								text:"hola 	que pasa22222"
+								text:"PD"
 								},
 							},
 							{
-							tc: "00:01:30.0",
+							tc: "00:20:00.0",
 							content: {
-								text:"eooooooooooooooooooooooooo2222222"
+								text:"PC"
 								},
 							},
 						]

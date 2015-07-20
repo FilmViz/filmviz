@@ -31,3 +31,18 @@ header > h2 {
 	display: none;
 }
 
+.nav > li > a.tag-button, .nav > li > a.delete-button {
+	display: inline-block;
+}
+
+.nav > li > a.tag-button, .nav > li > a.delete-button {
+	display: inline-block;
+}
+
+.nav-pills > li.active > a.delete-button {
+	background-color: red;
+}
+
+.delete-button::after {
+	content:"x";
+}

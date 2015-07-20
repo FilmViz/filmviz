@@ -1,15 +1,13 @@
 (function() {
 	
 	angular.module('filmVizApp')
-		.directive('tabNavigation', function () {
+		.directive('tagButtons', function () {
 			return {
 				restrict: 'E',
-				transclude: true,
 				scope: {
-					items: "=",
-					isDeletable: "=deletable"
+					tags: "="
 				},
-				templateUrl: 'js/directives/templates/tabNavigation.html',
+				templateUrl: 'js/directives/templates/tagButtons.html',
 				link: function(scope, element, attributes) {
 					scope.activeTab = 0;
 
@@ -23,7 +21,7 @@
 
 					scope.remove = function(setTab){
 						scope.activeTab = setTab;
-						console.log("borrarTab", scope.activeTab);
+						console.log("borrar", scope.activeTab);
 					};
 				}
 			};
