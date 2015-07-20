@@ -1,5 +1,6 @@
 <!-- editor.html -->
 <div ng-controller="ProjectController as project">
+	<!-- Analysis / webVTT   tab-navigation selector -->
 	<tab-navigation items="project.project.analysis">
 		<div class="row">
 			<div class="col-lg-6">
@@ -28,16 +29,19 @@
 				</section>
 			</div>
 			<div class="col-lg-6">
+				<!-- Metadata  TAG / EDITOR  tab-navigation selector -->
 				<tab-navigation items="[{name:'Tag Editor'},{name:'Metadata Editor'}]"
 					ng-show="$parent.activeTab > 2">
 					<section class="panel container-fluid" id="tag-editor"
 						ng-show="$parent.activeTab == 0">
-						<h4>Tag Editor</h4>
+						<metadata-tags>
+						</metadata-tags>
 					</section>
 
 					<section class="panel container-fluid" id="metadata-editor"
 						ng-show="$parent.activeTab == 1">
-						<metadata-editor></metadata-editor>
+						<metadata-editor>
+						</metadata-editor>
 					</section>
 				</tab-navigation>    <!-- end scope subtab -->
 			</div>

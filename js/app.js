@@ -1,9 +1,9 @@
 (function() {
 	
-	angular.module('FilmVizApp', ['ngRoute']);
+	angular.module('filmVizApp', ['ngRoute']);
 
 	// configure our routes
-  	angular.module('FilmVizApp').config(function($routeProvider) {
+  	angular.module('filmVizApp').config(function($routeProvider) {
   		$routeProvider
 
             // route for the home page

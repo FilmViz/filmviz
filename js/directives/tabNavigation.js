@@ -1,6 +1,6 @@
 (function() {
 	
-	angular.module('FilmVizApp')
+	angular.module('filmVizApp')
 		.directive('tabNavigation', function () {
 			return {
 				restrict: 'E',

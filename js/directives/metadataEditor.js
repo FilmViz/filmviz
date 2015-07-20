@@ -1,13 +1,9 @@
 (function() {
 	
-	angular.module('FilmVizApp')
+	angular.module('filmVizApp')
 		.directive('metadataEditor', function () {
 			return {
 				restrict: 'E',
-				transclude: true,
-				scope: {
-					items: "="
-				},
 				templateUrl: 'js/directives/templates/metadataEditor.html',
 				link: function(scope, element, attributes) {
 					// something
@@ -46,6 +42,7 @@
 					            var cueIn = document.getElementById("cueIn");
 					            cueIn.value = vtt["tc"];
 					            jotacueri("textarea").value = JSON.stringify(vtt["value"]);
+					            video.currentTime = timecodeUtils.timecodeToMilis(vtt["tc"])/1000;
 					        }
 					    });
 					});
@@ -60,35 +57,24 @@
 					            var cueIn = document.getElementById("cueIn");
 					            cueIn.value = vtt["tc"];
 					            jotacueri("textarea").value = vtt["index"] + "\n" + JSON.stringify(vtt["value"]);
+					            video.currentTime = timecodeUtils.timecodeToMilis(vtt["tc"])/1000;
+		
 					        }
 					    });
 					});
 
-
 					var video = document.getElementById("video");
 					var canvas = document.getElementById("canvas");
-
-
 
 					var colorVtt = [];
 
 					var cueIndex = 1;
 
-
 					jotacueri("#color-analysis").addEventListener("click", function(){
 					    console.log(colorVtt);
 					    colorAnalyzer.basicAnalyzer(video, canvas, colorVtt);
-					});
-
-
-
-					
+					});		
 				}
 			};
 		});
-
-
-
-
-
 }());

@@ -1,6 +1,6 @@
 (function() {
 
-	angular.module('FilmVizApp')
+	angular.module('filmVizApp')
 		.controller('ProjectController', function() {
 			this.project = project;
 		});
@@ -79,6 +79,7 @@
 				{
 					name:"metadata1",
 					isDone:false,
+					tags: [],
 					data:[
 							{
 							tc: "00:00:30.0",
@@ -103,6 +104,7 @@
 				{
 					name:"metadata2",
 					isDone:false,
+					tags: [],
 					data:[
 							{
 							tc: "00:00:30.0",
