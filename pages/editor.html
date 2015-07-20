@@ -11,22 +11,32 @@
 				</section>
 			</div>
 			<div class="col-lg-6">
-				<section class="panel" id="d3-color-frame"
-					ng-show="$parent.activeTab == 0">
-					<h4>D3 Color Frame</h4>
-				</section>
-			</div>
-			<div class="col-lg-6">
-				<section class="panel" id="d3-audio-frame"
-					ng-show="$parent.activeTab == 1">
-					<h4>D3 Audio Frame</h4>
-				</section>
-			</div>
-			<div class="col-lg-6">
-				<section class="panel" id="d3-motion-frame"
-					ng-show="$parent.activeTab == 2">
-					<h4>D3 Motion Frame</h4>
-				</section>
+
+				<tab-navigation items="[{name:'Visualization'},{name:'Metadata Editor'}]"
+					ng-show="$parent.activeTab < 3">
+
+					<section class="panel" id="frame-viz-panel"
+						ng-show="$parent.activeTab == 0">
+						<section class="panel" id="d3-color-frame"
+							ng-show="$parent.$parent.$parent.activeTab == 0">
+							<h4>D3 Color Frame</h4>
+						</section>
+						<section class="panel" id="d3-audio-frame"
+							ng-show="$parent.$parent.activeTab == 1">
+							<h4>D3 Audio Frame</h4>
+						</section>
+						<section class="panel" id="d3-motion-frame"
+							ng-show="$parent.activeTab == 2">
+							<h4>D3 Motion Frame</h4>
+						</section>
+					</section>
+
+					<section class="panel" id="frame-viz-panel"
+						ng-show="$parent.activeTab == 1">
+						<metadata-editor>
+						</metadata-editor>
+					</section>
+				</tab-navigation>
 			</div>
 			<div class="col-lg-6">
 				<!-- Metadata  TAG / EDITOR  tab-navigation selector -->
