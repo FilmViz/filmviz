@@ -43,11 +43,7 @@
 								project.analysis[activeAnalysis].tags.push(newTag);
 							}
 						}
-					};
-
-					Array.prototype.contains = function(element) {
-				    return this.indexOf(element) != -1;
-					};
+					}
 				}
 			};
 		});
