@@ -43,6 +43,12 @@ header > h2 {
 	background-color: red;
 }
 
+.add-analysis-button {
+	background-color: green;
+	color: white;
+
+}
+
 .delete-button::after {
 	content:"x";
 }

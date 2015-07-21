@@ -5,9 +5,6 @@
 			return {
 				restrict: 'E',
 				templateUrl: 'js/directives/templates/metadataEditor.html',
-				scope: {
-					analysis: "=",
-				},
 				link: function(scope, element, attributes) {
 					// something
 
@@ -74,8 +71,6 @@
 					var cueIndex = 1;
 
 					jotacueri("#color-analysis").addEventListener("click", function(){
-					    console.log(colorVtt)
-					    console.log(this.analysis);
 					    //colorAnalyzer.basicAnalyzer(video, canvas, colorVtt);
 					});	
 

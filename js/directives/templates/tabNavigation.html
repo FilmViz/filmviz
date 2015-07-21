@@ -6,6 +6,9 @@
 					<a href class="tag-button" ng-click="selectTab($index)">{{ item.name }}</a>
 					<a href class="delete-button" ng-if="isSelected($index) && $parent.isDeletable && $index>2" ng-click="remove($index)"></a>
 				</li> <!-- end scope item -->
+				<li>
+					<a href class="add-analysis-button" id="add-analysis-button" ng-show="isDeletable">+</a>
+				</li>
 			</ul>
 		</div>
 
