@@ -10,6 +10,7 @@ Object.defineProperty(Array.prototype, 'contains', {
 });
 
 (function() {
+	'use strict';
 	angular.module('filmVizApp', ['ngRoute']);
 
 	// configure our routes
