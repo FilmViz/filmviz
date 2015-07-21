@@ -1,5 +1,5 @@
 (function() {
-	
+
 	angular.module('filmVizApp')
 		.directive('tagButtons', function () {
 			return {
@@ -43,16 +43,11 @@
 								project.analysis[activeAnalysis].tags.push(newTag);
 							}
 						}
-					}	
+					};
 
 					Array.prototype.contains = function(element) {
-					    for (var i = 0; i < this.length; i++) {
-					        if (this[i] == element) {
-					            return true;
-					        }
-					    }
-					    return false;
-					}
+				    return this.indexOf(element) != -1;
+					};
 				}
 			};
 		});
