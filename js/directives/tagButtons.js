@@ -19,10 +19,40 @@
 						return scope.activeTab === checkTab;
 					};
 
-					scope.remove = function(setTab){
-						scope.activeTab = setTab;
-						console.log("borrar", scope.activeTab);
+					scope.remove = function(tagIndex){
+						scope.activeTab = tagIndex;
+						var activeAnalysis = document.getElementById("activeAnalysis").innerHTML;
+						activeAnalysis = parseInt(activeAnalysis);
+						var r = confirm("Delete analysis???");
+							if (r == true) {
+							    project.analysis[activeAnalysis].tags.splice(tagIndex,1);
+							}
 					};
+
+					scope.addTag = function (setTab) {
+						var activeAnalysis = document.getElementById("activeAnalysis").innerHTML;
+						activeAnalysis = parseInt(activeAnalysis);
+						console.log(activeAnalysis);
+						var newTag = prompt("Please enter analysis name", "Metadata");
+						if (name != null) {
+							if (project.analysis[activeAnalysis].tags) {
+								if (!project.analysis[activeAnalysis].tags.contains(newTag)) {
+									project.analysis[activeAnalysis].tags.push(newTag);
+								}
+							} else {
+								project.analysis[activeAnalysis].tags.push(newTag);
+							}
+						}
+					}	
+
+					Array.prototype.contains = function(element) {
+					    for (var i = 0; i < this.length; i++) {
+					        if (this[i] == element) {
+					            return true;
+					        }
+					    }
+					    return false;
+					}
 				}
 			};
 		});

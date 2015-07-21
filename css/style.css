@@ -40,13 +40,20 @@ header > h2 {
 }
 
 .nav-pills > li.active > a.delete-button {
+	background-color: gray;
+}
+
+.nav-pills > li.active > a.delete-button:hover {
 	background-color: red;
 }
 
-.add-analysis-button {
+.add-analysis-button, .add-tag-button {
 	background-color: green;
 	color: white;
+}
 
+.add-analysis-button:hover, .add-tag-button:hover {
+	background-color: lightgreen !important;
 }
 
 .delete-button::after {

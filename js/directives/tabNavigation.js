@@ -23,11 +23,6 @@
 
 					scope.remove = function(setTab){
 						scope.activeTab = setTab;
-						console.log("borrarTab", scope.activeTab);
-					};
-
-					scope.remove = function(setTab){
-						scope.activeTab = setTab;
 						var r = confirm("Delete analysis???");
 							if (r == true) {
 							    project.analysis.splice(scope.activeTab,1);
@@ -39,21 +34,19 @@
 					scope.addAnalysis = function() {
 						scope.analysis.name = prompt("Please enter analysis name", "Metadata");
 						if (name != null) {
-							scope.analysis.isDone = false;
-							scope.analysis.data = [];
-							project.analysis.push(this.analysis);
-							scope.activeTab = 0;
-							scope.analysis = {};
+							if (project.analysis.contains(scope.analysis.name)) {
+								console.log("???")
+							} else {
+								scope.analysis.isDone = false;
+								scope.analysis.tags = [];
+								scope.analysis.data = [];
+								project.analysis.push(this.analysis);
+								scope.activeTab = 0;
+								scope.analysis = {};
+							}
 						}
 					}
 
-					var button = document.getElementById("add-analysis-button");
-
-					button.addEventListener("click", function(evt){
-						evt.stopImmediatePropagation();
-						evt.preventDefault();
-						scope.addAnalysis();
-					});	
 
 				}
 			};
