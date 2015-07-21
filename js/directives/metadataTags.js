@@ -26,6 +26,7 @@
 					    // this should affect project.project.analysis[n].tags
 					    if (!tags.contains(newTag)) {
 					    	tags.push(newTag);
+					    	//project.analysis[activeTab].tags.push(newTag);
 					    }
 					    console.log(tags);
 					});		

@@ -28,9 +28,11 @@
 
 					scope.remove = function(setTab){
 						scope.activeTab = setTab;
-						console.log("borrarTab", scope.activeTab);
+						var r = confirm("Delete analysis???");
+							if (r == true) {
+							    project.analysis.splice(scope.activeTab,1);
+							}
 					};
-
 
 					scope.analysis = {};
 
@@ -39,9 +41,9 @@
 						if (name != null) {
 							scope.analysis.isDone = false;
 							scope.analysis.data = [];
-							console.log("eoooo", scope.analysis);
 							project.analysis.push(this.analysis);
-							scope.activeTab = 1;
+							scope.activeTab = 0;
+							scope.analysis = {};
 						}
 					}
 
