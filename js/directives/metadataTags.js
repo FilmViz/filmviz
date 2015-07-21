@@ -23,11 +23,11 @@
 
 					jotacueri("#addTag").addEventListener("click", function(){
 					    newTag = document.getElementById("Tag").value; 
+					    // this should affect project.project.analysis[n].tags
 					    if (!tags.contains(newTag)) {
 					    	tags.push(newTag);
 					    }
 					    console.log(tags);
-					    console.log(project.project)
 					});		
 				}
 			};

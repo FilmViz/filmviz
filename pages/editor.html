@@ -22,19 +22,21 @@
 							<h4>D3 Color Frame</h4>
 						</section>
 						<section class="panel" id="d3-audio-frame"
-							ng-show="$parent.$parent.activeTab == 1">
+							ng-show="$parent.$parent.$parent.activeTab == 1">
 							<h4>D3 Audio Frame</h4>
 						</section>
 						<section class="panel" id="d3-motion-frame"
-							ng-show="$parent.activeTab == 2">
+							ng-show="$parent.$parent.$parent.activeTab == 2">
 							<h4>D3 Motion Frame</h4>
 						</section>
 					</section>
 
 					<section class="panel" id="frame-viz-panel"
 						ng-show="$parent.activeTab == 1">
-						<metadata-editor>
+						<metadata-editor analysis="project.project.analysis">
 						</metadata-editor>
+						<!-- {{project.project.analysis[$parent.$parent.$parent.activeTab]}} -->
+						
 					</section>
 				</tab-navigation>
 			</div>
@@ -50,7 +52,7 @@
 
 					<section class="panel container-fluid" id="metadata-editor"
 						ng-show="$parent.activeTab == 1">
-						<metadata-editor>
+						<metadata-editor analysis="project.project.analysis">
 						</metadata-editor>
 					</section>
 				</tab-navigation>    <!-- end scope subtab -->
@@ -77,15 +79,6 @@
 			<section class="panel" id="d3-motion-timeline"
 				ng-show="$parent.activeTab == 2">
 				<h4>D3 Motion Timeline</h4>
-			</section>
-
-			<section class="panel" id="vtt-content">
-				<h4>VTT content</h4>
-				<ul>
-					<li ng-repeat="data in project.project.analysis[$parent.activeTab].data">
-						<p>{{ data.tc }} :  {{ data.content }}  </p>
-					</li>
-				</ul>
 			</section>
 		</div>
 	</tab-navigation>	<!-- end scope tab -->

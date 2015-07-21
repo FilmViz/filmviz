@@ -5,6 +5,9 @@
 			return {
 				restrict: 'E',
 				templateUrl: 'js/directives/templates/metadataEditor.html',
+				scope: {
+					analysis: "=",
+				},
 				link: function(scope, element, attributes) {
 					// something
 
@@ -66,14 +69,16 @@
 					var video = document.getElementById("video");
 					var canvas = document.getElementById("canvas");
 
-					var colorVtt = [];
+					var colorVtt = this.analysis;
 
 					var cueIndex = 1;
 
 					jotacueri("#color-analysis").addEventListener("click", function(){
-					    console.log(colorVtt);
-					    colorAnalyzer.basicAnalyzer(video, canvas, colorVtt);
-					});		
+					    console.log(colorVtt)
+					    console.log(this.analysis);
+					    //colorAnalyzer.basicAnalyzer(video, canvas, colorVtt);
+					});	
+
 				}
 			};
 		});
