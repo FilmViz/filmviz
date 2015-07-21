@@ -34,14 +34,12 @@
 					scope.addAnalysis = function() {
 						scope.analysis.name = prompt("Please enter analysis name", "Metadata");
 						if (name != null) {
-							if (project.analysis.contains(scope.analysis.name)) {
-								console.log("???")
-							} else {
+							if (!project.analysis.contains(scope.analysis.name)) {
 								scope.analysis.isDone = false;
 								scope.analysis.tags = [];
 								scope.analysis.data = [];
 								project.analysis.push(this.analysis);
-								scope.activeTab = 0;
+								scope.activeTab = project.analysis.length-1 ;
 								scope.analysis = {};
 							}
 						}

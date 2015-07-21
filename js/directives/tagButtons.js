@@ -35,13 +35,9 @@
 						console.log(activeAnalysis);
 						var newTag = prompt("Please enter analysis name", "Metadata");
 						if (name != null) {
-							if (project.analysis[activeAnalysis].tags) {
-								if (!project.analysis[activeAnalysis].tags.contains(newTag)) {
-									project.analysis[activeAnalysis].tags.push(newTag);
-								}
-							} else {
+							if (!project.analysis[activeAnalysis].tags.contains(newTag)) {
 								project.analysis[activeAnalysis].tags.push(newTag);
-							}
+							} 
 						}
 					}
 				}
