@@ -26,6 +26,7 @@
 						var r = confirm("Delete analysis???");
 							if (r == true) {
 							    project.analysis.splice(scope.activeTab,1);
+							    scope.activeTab = project.analysis.length-1 ;
 							}
 					};
 
