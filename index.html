@@ -2,36 +2,35 @@
 <html lang="en" ng-app="filmVizApp">
 <head>
 	<meta charset="UTF-8">
-	<!-- <link href="css/main.css" rel="stylesheet" /> -->
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
 	<title></title>
 </head>
 
 <body>
-
 	<header class="row">
 		<h1 class="col-lg-3 centered-content">FilmViz</h1>
 		<h2 class="col-lg-9">Tool to retrieve and analyze information from movies</h2>
 	</header>
-
 
 	<div ng-view class="row"></div>
 
 	<!-- Include the AngularJS library -->
 	<script src="node_modules/angular/angular.min.js"></script>
 	<script src="node_modules/angular-route/angular-route.min.js"></script>
+	<!-- Include our libraries -->
 	<script src="js/app.js"></script>
 	<script src="js/timecodeUtils.js"></script>
 	<script src="js/fileUtils.js"></script>
 	<script src="js/colorAnalyzer.js"></script>
+	<!-- Include Vendor libraries -->
 	<script src="node_modules/rgbquant/src/rgbquant.js"></script>
+	<script src="node_modules/jszip/lib/index.js"></script>
+	<!-- Include Directives -->
 	<script src="js/controllers/ProjectController.js"></script>
 	<script src="js/directives/tabNavigation.js"></script>
 	<script src="js/directives/metadataEditor.js"></script>
 	<script src="js/directives/metadataTags.js"></script>
-	<script src="js/directives/tagButtons.js"></script>
-	<script src="node_modules/jszip/lib/index.js"></script>
 </body>
 
 </html>
