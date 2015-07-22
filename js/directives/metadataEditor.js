@@ -65,23 +65,23 @@
 
 					scope.colorAnalysis = function () {
 
-						var activeAnalysis = document.getElementById("activeAnalysis").innerHTML;
-						activeAnalysis = parseInt(activeAnalysis);
-					    colorAnalyzer.basicAnalyzer(video, canvas, project.analysis[activeAnalysis]);
+						var analysisIndex = document.getElementById("activeAnalysis").innerHTML;
+						analysisIndex = parseInt(analysisIndex);
+					    colorAnalyzer.basicAnalyzer(video, canvas, project, analysisIndex);
 					};	
 
 
-					scope.seekedListener = function () {
+					//scope.seekedListener = function () {
 						//
-					};
+					//};
 
-					video.addEventListener('seeked', seekedListener, false);
+					//video.addEventListener('seeked', seekedListener, false);
 
-		    }
+		    	}
 
 		    
 
-				}
+				
 			};
 		});
 }());

@@ -5,7 +5,7 @@ var colorAnalyzer = ( function(){
 	return {
     
 
-		basicAnalyzer : function(video, canvas, analysis){
+		basicAnalyzer : function(video, canvas,project, analysisIndex){
 			console.log("starting color analyzer");
 		    canvas.height = video.videoHeight/2;
 		    canvas.width = video.videoWidth/2;
@@ -27,7 +27,8 @@ var colorAnalyzer = ( function(){
 		        var tc = timecodeUtils.milisToTimecode(i*1000);
 
 		        var cueObj = {};
-		        cueObj['tc'] = tc;
+		        cueObj['tcIn'] = tc;
+		        cueObj['tcOut'] = "";
     			cueObj['content'] = {"colors": pal};
     			data.push(cueObj);
 
@@ -39,10 +40,11 @@ var colorAnalyzer = ( function(){
 		        if (i <= video.duration) {
 		            video.currentTime = i;
 		        } else {
-					//fileUtils.saveTextAsVtt();
 					console.log(data);
+					analysis = project.analysis[analysisIndex];
 					analysis.data = data;
 					analysis.isDone = True;
+					fileUtils.saveTextAsVtt(project, analysisIndex);
 		            video.removeEventListener('seeked', seekedListener, false ); 
 		            video.pause();
 		            cueIndex = 1;
