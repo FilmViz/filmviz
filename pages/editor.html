@@ -14,21 +14,17 @@
       </div>
       <div class="col-lg-6">
 
-        <tab-navigation items="[{name:'Visualization'},{name:'Metadata Editor'}]" ng-show="$parent.activeTab < 3">
+        <tab-navigation items="[{name:'Visualization'},
+          {name:'Metadata Editor'}]" 
+          ng-show="$parent.activeTab < 3">
           <!-- automatic analysis selected -->
-          <section class="panel" id="frame-viz-panel" ng-show="$parent.activeTab == 0">
-            <section class="panel" id="d3-color-frame" ng-show="$parent.$parent.$parent.activeTab == 0">
-              <h4>D3 Color Frame</h4>
-            </section>
-            <section class="panel" id="d3-audio-frame" ng-show="$parent.$parent.$parent.activeTab == 1">
-              <h4>D3 Audio Frame</h4>
-            </section>
-            <section class="panel" id="d3-motion-frame" ng-show="$parent.$parent.$parent.activeTab == 2">
-              <h4>D3 Motion Frame</h4>
-            </section>
+          <section class="panel" id="frame-viz-panel" 
+            ng-show="$parent.activeTab == 0">
+            <frame-viz></frame-viz>
           </section>
 
-          <section class="panel" id="frame-viz-panel" ng-show="$parent.activeTab == 1">
+          <section class="panel" id="frame-viz-panel" 
+            ng-show="$parent.activeTab == 1">
             <metadata-editor analysis="project.project.analysis">
             </metadata-editor>
           </section>
@@ -53,29 +49,8 @@
       </div>
     </div>
 
-    <div class="row">
-      <section class="panel" id="timeline">
-        <h4>Timeline</h4>
-      </section>
-    </div>
+    <timeline-viz class="row"></timeline-viz>
 
-    <div class="row">
-      <section class="panel" id="d3-color-timeline" ng-show="$parent.activeTab == 0">
-        <h4>D3 Color Timeline</h4>
-      </section>
-
-      <section class="panel" id="d3-audio-timeline" ng-show="$parent.activeTab == 1">
-        <h4>D3 Audio Timeline</h4>
-      </section>
-
-      <section class="panel" id="d3-motion-timeline" ng-show="$parent.activeTab == 2">
-        <h4>D3 Motion Timeline</h4>
-      </section>
-    </div>
-
-    <div id="activeAnalysis" ng-show="false">
-      {{ $parent.activeTab }}
-    </div>
   </tab-navigation> <!-- end scope tab -->
 
   <div class="row">

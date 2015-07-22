@@ -17,6 +17,7 @@
 
           scope.selectTab = function (setTab) {
             scope.activeTab = setTab;
+            project.selectedAnalysis = setTab;
           };
 
           scope.isSelected = function (checkTab) {

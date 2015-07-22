@@ -64,9 +64,7 @@
           };
 
           scope.colorAnalysis = function () {
-
-            var analysisIndex = document.getElementById("activeAnalysis").innerHTML;
-            analysisIndex = parseInt(analysisIndex);
+            analysisIndex = project.selectedAnalysis;
             colorAnalyzer.basicAnalyzer(video, canvas, project, analysisIndex);
           };
 
