@@ -46,7 +46,7 @@
 					ng-show="$parent.activeTab > 2">
 					<section class="panel container-fluid" id="tag-editor"
 						ng-show="$parent.activeTab == 0">
-						<metadata-tags>
+						<metadata-tags tags="project.project.analysis[$parent.$parent.$parent.activeTab].tags">
 						</metadata-tags>
 					</section>
 
