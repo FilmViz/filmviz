@@ -1,18 +1,18 @@
-<div class="tab">
-	<div class="container-fluid">
-		<div class="row">	
-			<ul class="nav nav-pills">
-				<li ng-class="{ active:isSelected($index)}" ng-repeat="item in items">
-					<a href class="tag-button" ng-click="selectTab($index)">{{ item.name }}</a>
-					<a href class="delete-button" ng-if="isSelected($index) && $parent.isDeletable && $index>2" ng-click="remove($index)"></a>
-				</li> <!-- end scope item -->
-				<li>
-					<a href class="add-analysis-button" id="add-analysis-button" ng-show="isDeletable" ng-click="addAnalysis($index)">+</a>
-				</li>
-			</ul>
-		</div>
+<div class="tab container-fluid">
+  <div class="row">
+    <ul class="nav nav-pills">
+      <li ng-class="{ active:isSelected($index)}" ng-repeat="item in items">
+        <a href class="tag-button" ng-click="selectTab($index)">{{ item.name }}</a>
+        <a href class="delete-button" ng-if="isSelected($index) && $parent.isDeletable && $index>2" ng-click="remove($index)"></a>
+      </li> <!-- end scope item -->
 
-		<div ng-transclude></div><!-- tab-panel placeholder -->
-	
-	</div>   <!-- end container -->
-</div>  
+      <li>
+        <a href class="add-analysis-button" id="add-analysis-button" ng-show="isDeletable" ng-click="addAnalysis($index)">+</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- tab-panel placeholder -->
+  <div ng-transclude></div>
+
+</div> <!-- end container -->

@@ -1,61 +1,65 @@
 header {
-	padding: 0.5em;
-	background-color: #E6E6E6;	
+  padding: 0.5em;
+  background-color: #E6E6E6;
 }
 
 header > h1 {
-	margin: 0;
+  margin: 0;
 }
 
 header > h2 {
-	margin: 1rem 0 -1rem 0;
-	padding: 0px;
-	line-height: 6rem;
-	font-size: 2.5rem;
+  margin: 1rem 0 -1rem 0;
+  padding: 0px;
+  line-height: 6rem;
+  font-size: 2.5rem;
 }
 
 .centered {
-	margin: 0 auto;
+  margin: 0 auto;
 }
 
 .centered-content {
-	text-align: center;
+  text-align: center;
 }
 
 #video {
-	width: 100%;
-	margin:auto;
+  width: 100%;
+  margin: auto;
 }
 
 #canvas {
-	display: none;
+  display: none;
 }
 
-.nav > li > a.tag-button, .nav > li > a.delete-button {
-	display: inline-block;
+.nav > li > a.tag-button,
+.nav > li > a.delete-button {
+  display: inline-block;
 }
 
-.nav > li > a.tag-button, .nav > li > a.delete-button {
-	display: inline-block;
+.nav > li > a.tag-button,
+.nav > li > a.delete-button {
+  display: inline-block;
 }
 
 .nav-pills > li.active > a.delete-button {
-	background-color: gray;
+  background-color: gray;
 }
 
 .nav-pills > li.active > a.delete-button:hover {
-	background-color: red;
+  background-color: red;
 }
 
-.add-analysis-button, .add-tag-button {
-	background-color: green;
-	color: white;
+.add-analysis-button,
+.add-tag-button {
+  background-color: green;
+  color: white;
 }
 
-.add-analysis-button:hover, .add-tag-button:hover {
-	background-color: lightgreen !important;
+.add-analysis-button:hover,
+.add-tag-button:hover {
+  background-color: lightgreen !important;
 }
 
 .delete-button::after {
-	content:"x";
+  content: "x";
 }
