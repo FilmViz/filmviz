@@ -1,23 +1,23 @@
 <div ng-controller="ProjectController as project">
-	<section class="tab" ng-controller="TabController as tab">
+  <section class="tab" ng-controller="TabController as tab">
 
-				<ul class="nav nav-pills">
-					<li ng-class="{ active:tab.isSelected($index)}" ng-repeat="analysis in project.project.analysis">
-						<a href ng-click="tab.selectTab($index)">{{ analysis.name }}</a>
-					</li>
-				</ul>
+    <ul class="nav nav-pills">
+      <li ng-class="{ active:tab.isSelected($index)}" ng-repeat="analysis in project.project.analysis">
+        <a href ng-click="tab.selectTab($index)">{{ analysis.name }}</a>
+      </li>
+    </ul>
 
-				<h1>{{ project.project.name }}</h1>
-				<h2>{{ project.project.videosrc}}</h2>
-				
-				<div class="panel">
-					<h4>Video</h4>
-				</div>
-				<div class="panel" ng-show="tab.isSelected(0)">
-					<h4>Color VIZ D3</h4>
-				</div>
-				<div class="panel" ng-show="tab.isSelected(1)">
-					<h4>Editor de subtitulos</h4>
-				</div>
-	</section>
+    <h1>{{ project.project.name }}</h1>
+    <h2>{{ project.project.videosrc}}</h2>
+
+    <div class="panel">
+      <h4>Video</h4>
+    </div>
+    <div class="panel" ng-show="tab.isSelected(0)">
+      <h4>Color VIZ D3</h4>
+    </div>
+    <div class="panel" ng-show="tab.isSelected(1)">
+      <h4>Editor de subtitulos</h4>
+    </div>
+  </section>
 </div>
