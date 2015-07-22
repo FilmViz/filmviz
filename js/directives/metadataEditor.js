@@ -8,11 +8,12 @@
 				link: function(scope, element, attributes) {
 					// something
 
-					var jotacueri = document.querySelector.bind(document);
+					var video = document.getElementById("video");
+					var canvas = document.getElementById("canvas");
+					var data = [];
+					var cueIndex = 1;
 
-					// Menu Manual Editor event handlers
-
-					jotacueri("#InTc").addEventListener("click", function(){
+					scope.InTc = function() {
 					    var cueIn = document.getElementById("cueIn");
 					    cueIn.value = timecodeUtils.milisToTimecode(Math.round(video.currentTime*1000));
 					    
@@ -20,9 +21,9 @@
 					    var cueDuration = document.getElementById("cueDuration");
 
 					    cueDuration.value = timecodeUtils.calcCueDuration(cueIn.value, cueOut.value);
-					});
+					};
 
-					jotacueri("#OutTc").addEventListener("click", function(){
+					scope.OutTc = function () {
 					    var cueOut = document.getElementById("cueOut");
 					    cueOut.value = timecodeUtils.milisToTimecode(Math.round(video.currentTime*1000));
 					    
@@ -30,9 +31,9 @@
 					    var cueDuration = document.getElementById("cueDuration");
 
 					    cueDuration.value = timecodeUtils.calcCueDuration(cueIn.value, cueOut.value);
-					});
+					};
 
-					jotacueri("#NextCue").addEventListener("click", function(){
+					scope.NextCue = function () {
 					    cueIndex += 1;
 					    if (cueIndex > colorVtt.length) {
 					        cueIndex = colorVtt.length;
@@ -45,9 +46,9 @@
 					            video.currentTime = timecodeUtils.timecodeToMilis(vtt["tc"])/1000;
 					        }
 					    });
-					});
+					};
 
-					jotacueri("#PreviousCue").addEventListener("click", function(){
+					scope.PreviousCue = function () {
 					    cueIndex -= 1;
 					    if (cueIndex < 1) {
 					        cueIndex = 1;
@@ -58,21 +59,27 @@
 					            cueIn.value = vtt["tc"];
 					            jotacueri("textarea").value = vtt["index"] + "\n" + JSON.stringify(vtt["value"]);
 					            video.currentTime = timecodeUtils.timecodeToMilis(vtt["tc"])/1000;
-		
 					        }
 					    });
-					});
+					};
 
-					var video = document.getElementById("video");
-					var canvas = document.getElementById("canvas");
+					scope.colorAnalysis = function () {
 
-					var colorVtt = this.analysis;
+						var activeAnalysis = document.getElementById("activeAnalysis").innerHTML;
+						activeAnalysis = parseInt(activeAnalysis);
+					    colorAnalyzer.basicAnalyzer(video, canvas, project.analysis[activeAnalysis]);
+					};	
 
-					var cueIndex = 1;
 
-					jotacueri("#color-analysis").addEventListener("click", function(){
-					    //colorAnalyzer.basicAnalyzer(video, canvas, colorVtt);
-					});	
+					scope.seekedListener = function () {
+						//
+					};
+
+					video.addEventListener('seeked', seekedListener, false);
+
+		    }
+
+		    
 
 				}
 			};

@@ -5,26 +5,19 @@ var colorAnalyzer = ( function(){
 	return {
     
 
-		basicAnalyzer : function(video, canvas, colorVtt){
-
-			console.log("starting color analyzer")
-
-		    var context = canvas.getContext("2d");
-
-		    var interval = prompt("Please insert interval in seconds", "30");		
-		    var i = 0;
-
-		    var cueIndex = 1;
-
-		    video.pause();
-		    
+		basicAnalyzer : function(video, canvas, analysis){
+			console.log("starting color analyzer");
 		    canvas.height = video.videoHeight/2;
 		    canvas.width = video.videoWidth/2;
-		    
-		    localStorage.clear();
+		    var context = canvas.getContext("2d");
+		    var interval = prompt("Please insert interval in seconds", "30");		
+		    interval = parseInt(interval)
+		    var i = 0;
+		    var cueIndex = 1;
+		    data = [];
+		    video.pause();
 		    video.currentTime = 0;
-
-
+		    
 		    function seekedListener() {
 				context.drawImage(video, 0, 0, canvas.width, canvas.height);
 		        var img = new Image();
@@ -33,40 +26,37 @@ var colorAnalyzer = ( function(){
 		        var pal = colorAnalyzer.convertPalette(colorAnalyzer.capturePalette(img));
 		        var tc = timecodeUtils.milisToTimecode(i*1000);
 
-		        localStorage.setItem(tc, pal);
-		        
 		        var cueObj = {};
-		        cueObj['index'] = cueIndex;
 		        cueObj['tc'] = tc;
-    			cueObj['value'] = pal;
-    			colorVtt.push(cueObj);
+    			cueObj['content'] = {"colors": pal};
+    			data.push(cueObj);
 
-		        console.log(tc, pal);
+		        console.log(cueObj);
 
-
-		        i += parseInt(interval);
+		        i += interval;
 		        cueIndex += 1;
 
 		        if (i <= video.duration) {
 		            video.currentTime = i;
 		        } else {
-
-		            //fileUtils.saveTextAsJson(filenameToSaveAs);
-		            fileUtils.saveTextAsVtt();
-
+					//fileUtils.saveTextAsVtt();
+					console.log(data);
+					analysis.data = data;
+					analysis.isDone = True;
 		            video.removeEventListener('seeked', seekedListener, false ); 
 		            video.pause();
-		            console.log(colorVtt);
 		            cueIndex = 1;
-				    colorVtt.forEach( function (vtt) {
+				    data.forEach( function (vtt) {
 				        if (vtt.index == cueIndex) {
 				            console.log(vtt)
 				            var jotacueri = document.querySelector.bind(document);
 				            var cueIn = document.getElementById("cueIn");
 				            cueIn.value = vtt["tc"]; 
-				            jotacueri("textarea").value = JSON.stringify(vtt["value"]);
+				            jotacueri("textarea").value = JSON.stringify(vtt["content"]);
 				        }
 				    });
+
+				    return data;
 		        }
 
 		    }

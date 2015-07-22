@@ -3,11 +3,11 @@
 		<div class="row">
 			<h4>Metadata Editor</h4>
 			<div class="col-lg-4">
-				<button id="InTc">Set IN timecode</button>
+				<button ng-click="InTc()">Set IN timecode</button>
 		 		IN:<input type="time" step="1" id="cueIn">
 	 		</div>
 	 		<div class="col-lg-4">
-	    		<button id="OutTc">Set OUT timecode</button>
+	    		<button ng-click="OutTc">Set OUT timecode</button>
 				OUT:<input type="time" step="1" id="cueOut">
 			</div>
 			<div class="col-lg-4">
@@ -25,19 +25,19 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-4">
-		  		<button id="PreviousCue"><< Previous Cue</button>
+		  		<button ng-click="PreviousCue"><< Previous Cue</button>
 			</div>
 			<div class="col-lg-4">
 				<input id="cueIndex" type="number" min="0" step="1">
 		  	</div>
 		  	<div class="col-lg-4">	
-		  		<button id="NextCue">Next Cue >></button> 
+		  		<button ng-click="NextCue">Next Cue >></button> 
 		  	</div>
 		</div>	
 
 		<div class="row">
 			<div class="col-lg-6">
-		  		<button id="color-analysis"> Color Analysis >></button>
+		  		<button ng-click="colorAnalysis()"> Color Analysis >></button>
 			</div>
 		</div>	
 		<div class="row">
