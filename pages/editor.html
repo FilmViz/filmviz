@@ -2,10 +2,13 @@
 <div ng-controller="ProjectController as project">
 	<!-- Analysis / webVTT   tab-navigation selector -->
 	<tab-navigation items="project.project.analysis" deletable="true">
+		
 		<div class="row">
+
 			<div class="col-lg-6">
 				<section class="panel" id="video-player">
 					<h4>Video</h4>
+					<!-- ñapa de pruebas -->
 					<video src="SAMPLE.m4v" controls id="video"></video>
 					<canvas id="canvas"></canvas>
 				</section>
@@ -14,7 +17,7 @@
 
 				<tab-navigation items="[{name:'Visualization'},{name:'Metadata Editor'}]"
 					ng-show="$parent.activeTab < 3">
-
+					<!-- automatic analysis selected -->
 					<section class="panel" id="frame-viz-panel"
 						ng-show="$parent.activeTab == 0">
 						<section class="panel" id="d3-color-frame"
@@ -35,15 +38,16 @@
 						ng-show="$parent.activeTab == 1">
 						<metadata-editor analysis="project.project.analysis">
 						</metadata-editor>
-						<!-- {{project.project.analysis[$parent.$parent.$parent.activeTab]}} -->
-						
 					</section>
+
 				</tab-navigation>
 			</div>
 			<div class="col-lg-6">
-				<!-- Metadata  TAG / EDITOR  tab-navigation selector -->
-				<tab-navigation items="[{name:'Tag Editor'},{name:'Metadata Editor'}]"
+				<tab-navigation items="[{name:'Tag Editor'},
+					{name:'Metadata Editor'}]"
 					ng-show="$parent.activeTab > 2">
+					<!-- manual analysis selected -->
+
 					<section class="panel container-fluid" id="tag-editor"
 						ng-show="$parent.activeTab == 0">
 						<metadata-tags tags="project.project.analysis[$parent.$parent.$parent.activeTab].tags">

@@ -11,7 +11,10 @@
 				},
 				templateUrl: 'js/directives/templates/tabNavigation.html',
 				link: function(scope, element, attributes) {
+					
 					scope.activeTab = 0;
+
+					scope.analysis = {};
 
 					scope.selectTab = function(setTab) {
 						scope.activeTab = setTab;
@@ -24,13 +27,11 @@
 					scope.remove = function(setTab){
 						scope.activeTab = setTab;
 						var r = confirm("Delete analysis???");
-							if (r == true) {
+							if (r === true) {
 							    project.analysis.splice(scope.activeTab,1);
-							    scope.activeTab = project.analysis.length-1 ;
+							    scope.activeTab = project.analysis.length-1;
 							}
 					};
-
-					scope.analysis = {};
 
 					scope.addAnalysis = function() {
 						scope.analysis.name = prompt("Please enter analysis name", "Metadata");

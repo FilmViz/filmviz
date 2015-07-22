@@ -42,6 +42,7 @@
 					        if (vtt.index == cueIndex) {
 					            var cueIn = document.getElementById("cueIn");
 					            cueIn.value = vtt["tc"];
+					            //
 					            jotacueri("textarea").value = JSON.stringify(vtt["value"]);
 					            video.currentTime = timecodeUtils.timecodeToMilis(vtt["tc"])/1000;
 					        }
@@ -57,6 +58,7 @@
 					        if (vtt.index == cueIndex) {
 					            var cueIn = document.getElementById("cueIn");
 					            cueIn.value = vtt["tc"];
+					            //
 					            jotacueri("textarea").value = vtt["index"] + "\n" + JSON.stringify(vtt["value"]);
 					            video.currentTime = timecodeUtils.timecodeToMilis(vtt["tc"])/1000;
 					        }

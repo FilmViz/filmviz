@@ -1,21 +1,11 @@
-/*
- * Extending Array.prototype using Object.defineProperty allows
- * you to keep looping arrays with 'for in', because 'contains()'
- * is not 'enumerable'.
- */
-Object.defineProperty(Array.prototype, 'contains', {
-	value: function(item) {
-		return this.indexOf(item) != -1;
-	}
-});
-
 (function() {
-	'use strict';
-	angular.module('filmVizApp', ['ngRoute']);
+  
+  'use strict';
+  angular.module('filmVizApp', ['ngRoute']);
 
-	// configure our routes
-	angular.module('filmVizApp').config(function($routeProvider) {
-		$routeProvider
+  // configure our routes
+  angular.module('filmVizApp').config(function($routeProvider) {
+    $routeProvider
       // route for the home page
       .when('/', {
           templateUrl : 'pages/main.html',
@@ -40,4 +30,17 @@ Object.defineProperty(Array.prototype, 'contains', {
           controller  : 'ProjectController'
       });
   });
+
+  /*
+  * Extending Array.prototype using Object.defineProperty allows
+  * you to keep looping arrays with 'for in', because 'contains()'
+  * is not 'enumerable'.
+  */
+  Object.defineProperty(Array.prototype, 'contains', {
+    value: function(item) {
+      return this.indexOf(item) != -1;
+    }
+  });
+
+
 }());
