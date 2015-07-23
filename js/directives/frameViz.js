@@ -1,5 +1,4 @@
 (function() {
-	
 	angular.module('filmVizApp')
 		.directive('frameViz', function () {
 			return {
