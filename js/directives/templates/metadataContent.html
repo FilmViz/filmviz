@@ -1,0 +1,12 @@
+<div class="metadata-content">
+	<div class="container-fluid">		
+		<div class="row">
+			<section class="panel" id="metadata-content">
+				<h4>Metadata Content</h4> 
+				<li ng-repeat="cue in project.project.analysis[$parent.activeTab].data">
+				{{ cue[0]["tcIn"] }} : {{ cue[0]["content"] | limitTo : 20 }}
+				</li>
+		    </section>
+		</div>		
+	</div>
+</div>  

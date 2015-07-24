@@ -4,12 +4,11 @@
     <ul class="nav nav-pills">
       <li ng-class="{ active:isSelected($index)}" ng-repeat="tag in tags">
         <a href class="tag-button" ng-click="selectTab($index)">{{ tag }}</a>
-        <a href class="delete-button" ng-show="isSelected($index)" ng-click="remove($index)"></a>
+        <a href class="delete-button" ng-show="isSelected($index) && isPaused()" ng-click="remove($index)"></a>
       </li> <!-- end scope item -->
       
       <li><a href class="add-tag-button" id="add-tag-button" ng-click="addTag($index)">+</a>
       </li>
     </ul>
-    <h4>temp info:</h4> {{project.project.analysis[$parent.$parent.$parent.activeTab].content}}
   </div>
 </div>

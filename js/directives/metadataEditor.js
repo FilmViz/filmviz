@@ -63,18 +63,7 @@
             });
           };
 
-          scope.colorAnalysis = function () {
-            analysisIndex = project.selectedAnalysis;
-            colorAnalyzer.basicAnalyzer(video, canvas, project, analysisIndex);
-          };
-
-
-          //scope.seekedListener = function () {
-          //
-          //};
-
-          //video.addEventListener('seeked', seekedListener, false);
-
+        
         }
       };
     });

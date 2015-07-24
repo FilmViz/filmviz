@@ -1,8 +1,9 @@
 var colorAnalyzer = (function() {
   return {
 
-
-    basicAnalyzer: function (video, canvas, project, analysisIndex) {
+    basicAnalyzer: function (project, analysisIndex) {
+      var video = document.getElementById("video");
+      var canvas = document.getElementById("canvas");
       console.log("starting color analyzer");
       //canvas.height = video.videoHeight / 2;
       //canvas.width = video.videoWidth / 2;
@@ -69,7 +70,9 @@ var colorAnalyzer = (function() {
 
     // ##########
 
-    ultraAnalyzer: function (video, canvas, project, analysisIndex, data, type, tag) {
+    ultraAnalyzer: function (project, analysisIndex, data, type, tag) {
+      var video = document.getElementById("video");
+      var canvas = document.getElementById("canvas");
       console.log("starting color analyzer");
       var context = canvas.getContext("2d");
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -83,6 +86,14 @@ var colorAnalyzer = (function() {
       if (type === "color") {
         cueObj['content'] = {
           "colors": pal
+        }
+      } else if (type === "audio") {
+        cueObj['content'] = {
+          "audio": 0
+        }
+      } else if (type === "motion") {
+        cueObj['content'] = {
+          "motion": 1
         }
       } else {
         cueObj['content'] = {

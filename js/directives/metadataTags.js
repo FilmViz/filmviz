@@ -12,24 +12,19 @@
 
           scope.data = []
 
-          document.getElementById('video').addEventListener('ended',endHandler,false);
-          
-          function endHandler(e) {
-              // What you want to do after the event
-              project.analysis[project.selectedAnalysis].data = scope.data;
-              project.analysis[project.selectedAnalysis].isDone = true;
-              video.removeEventListener('ended', endHandler, false);
-              vtt = fileUtils.createVtt(project);
-              fileUtils.download(vtt);
+          scope.isPaused = function () {
+            return video.paused
           }
 
           scope.selectTab = function (tagIndex) {
             scope.activeTab = tagIndex;
             if (!video.paused) {
-              console.log(project.analysis[project.selectedAnalysis].name); 
               tag = project.analysis[project.selectedAnalysis].tags[tagIndex];
               type = project.analysis[project.selectedAnalysis].name;
-              scope.data = colorAnalyzer.ultraAnalyzer(video, canvas, project, project.selectedAnalysis,scope.data,type,tag);
+              console.log(type, tag);
+              scope.data = colorAnalyzer.ultraAnalyzer(project, project.selectedAnalysis,scope.data,type,tag);
+              project.analysis[project.selectedAnalysis].data.push(scope.data);
+              scope.data=[];
             }
           };
 

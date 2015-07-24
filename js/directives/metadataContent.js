@@ -1,15 +1,15 @@
 (function() {
 	
 	angular.module('filmVizApp')
-		.directive('frameViz', function () {
+		.directive('metadataContent', function () {
 			return {
 				restrict: 'E',
-				templateUrl: 'js/directives/templates/frameViz.html',
+				templateUrl: 'js/directives/templates/metadataContent.html',
 				link: function(scope, element, attributes) {
-					// something
-
 					
 		    	}
+
+		   
 			};
 		});
 }());
