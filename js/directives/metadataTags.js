@@ -10,8 +10,27 @@
         link: function (scope, element, attributes) {
           scope.activeTab = 0;
 
-          scope.selectTab = function (setTab) {
-            scope.activeTab = setTab;
+          scope.data = []
+
+          document.getElementById('video').addEventListener('ended',endHandler,false);
+          
+          function endHandler(e) {
+              // What you want to do after the event
+              project.analysis[project.selectedAnalysis].data = scope.data;
+              project.analysis[project.selectedAnalysis].isDone = true;
+              video.removeEventListener('ended', endHandler, false);
+              vtt = fileUtils.createVtt(project);
+              fileUtils.download(vtt);
+          }
+
+          scope.selectTab = function (tagIndex) {
+            scope.activeTab = tagIndex;
+            if (!video.paused) {
+              console.log(project.analysis[project.selectedAnalysis].name); 
+              tag = project.analysis[project.selectedAnalysis].tags[tagIndex];
+              type = project.analysis[project.selectedAnalysis].name;
+              scope.data = colorAnalyzer.ultraAnalyzer(video, canvas, project, project.selectedAnalysis,scope.data,type,tag);
+            }
           };
 
           scope.isSelected = function (checkTab) {
@@ -20,21 +39,19 @@
 
           scope.remove = function (tagIndex) {
             scope.activeTab = tagIndex;
-            var activeAnalysis = document.getElementById("activeAnalysis").innerHTML;
-            activeAnalysis = parseInt(activeAnalysis);
             var r = confirm("Delete analysis???");
             if (r == true) {
-              project.analysis[activeAnalysis].tags.splice(tagIndex, 1);
+              project.analysis[project.selectedAnalysis].tags.splice(tagIndex, 1);
             }
           };
 
           scope.addTag = function (setTab) {
-            var activeAnalysis = document.getElementById("activeAnalysis").innerHTML;
-            activeAnalysis = parseInt(activeAnalysis);
             console.log(activeAnalysis);
             var newTag = prompt("Please enter analysis name", "Metadata");
-            if (newTag && !project.analysis[activeAnalysis].tags.contains(newTag)) {
-              project.analysis[activeAnalysis].tags.push(newTag);
+            if (newTag && !project.analysis[project.selectedAnalysis].tags.contains(newTag)) {
+              project.analysis[project.selectedAnalysis].tags.push(newTag);
+
+
             }
           };
         }

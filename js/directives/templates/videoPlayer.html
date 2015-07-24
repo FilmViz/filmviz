@@ -1,0 +1,17 @@
+<div class="video-player">
+	<div class="container-fluid">		
+		<div class="row">
+			<section class="panel" id="video-player">
+
+				<video controls id="video" ng-click="play($index)"></video>
+		        <!-- <video src="SAMPLE.m4v" controls id="video" ng-click="play($index)"></video> -->
+		        <input type="file" accept="video/*"/>
+		        <div id="message"></div>
+		        
+		        <track kind="metadata" label="Color Analysis" 
+		        src="color.vtt" nocontrols></track>
+		        <canvas id="canvas"></canvas>
+		      </section>
+		</div>		
+	</div>
+</div>  

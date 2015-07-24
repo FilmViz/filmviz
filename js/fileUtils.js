@@ -37,16 +37,16 @@ var fileUtils = (function() {
 		},
 
     download: function(blob, name) {
-      // var fileNameToSaveAs = "colors.vtt";
-      // var downloadLink = document.createElement("a");
-	    // downloadLink.download = fileNameToSaveAs;
-	    // downloadLink.innerHTML = "My Hidden Link";
-	    // window.URL = window.URL || window.webkitURL;
-	    // downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-	    // downloadLink.onclick = fileUtils.destroyClickedElement;
-	    // downloadLink.style.display = "none";
-	    // document.body.appendChild(downloadLink);
-	    // downloadLink.click();
+      var fileNameToSaveAs = "colors.vtt";
+      var downloadLink = document.createElement("a");
+	    downloadLink.download = fileNameToSaveAs;
+	    downloadLink.innerHTML = "My Hidden Link";
+	    window.URL = window.URL || window.webkitURL;
+	    downloadLink.href = window.URL.createObjectURL(blob);
+	    downloadLink.onclick = fileUtils.destroyClickedElement;
+	    downloadLink.style.display = "none";
+	    document.body.appendChild(downloadLink);
+	    downloadLink.click();
     },
 
     destroyClickedElement: function(event) {

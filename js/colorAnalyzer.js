@@ -1,9 +1,11 @@
 var colorAnalyzer = (function() {
   return {
+
+
     basicAnalyzer: function (video, canvas, project, analysisIndex) {
       console.log("starting color analyzer");
-      canvas.height = video.videoHeight / 2;
-      canvas.width = video.videoWidth / 2;
+      //canvas.height = video.videoHeight / 2;
+      //canvas.width = video.videoWidth / 2;
       var context = canvas.getContext("2d");
       var interval = prompt("Please insert interval in seconds", "30");
       interval = parseInt(interval)
@@ -18,7 +20,7 @@ var colorAnalyzer = (function() {
         var img = new Image();
         img.src = canvas.toDataURL("image/jpg");
 
-        var pal = colorAnalyzer.convertPalette(colorAnalyzer.capturePalette(img));
+        var pal = colorAnalyzer.convertPalette(colorAnalyzer.capturePalette(img, 16));
         var tc = timecodeUtils.milisToTimecode(i * 1000);
 
         var cueObj = {};
@@ -40,8 +42,10 @@ var colorAnalyzer = (function() {
           console.log(data);
           analysis = project.analysis[analysisIndex];
           analysis.data = data;
-          analysis.isDone = True;
-          fileUtils.saveTextAsVtt(project, analysisIndex);
+          analysis.isDone = true;
+          //fileUtils.saveTextAsVtt(project, analysisIndex);
+          vtt = fileUtils.createVtt(project);
+          fileUtils.download(vtt);
           video.removeEventListener('seeked', seekedListener, false);
           video.pause();
           cueIndex = 1;
@@ -63,9 +67,43 @@ var colorAnalyzer = (function() {
       video.addEventListener('seeked', seekedListener, false);
     },
 
-    capturePalette: function (img) {
+    // ##########
+
+    ultraAnalyzer: function (video, canvas, project, analysisIndex, data, type, tag) {
+      console.log("starting color analyzer");
+      var context = canvas.getContext("2d");
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      var img = new Image();
+      img.src = canvas.toDataURL("image/jpg");
+      var pal = colorAnalyzer.convertPalette(colorAnalyzer.capturePalette(img, 32));
+      var tc = timecodeUtils.milisToTimecode(video.currentTime*1000);
+      var cueObj = {};
+      cueObj['tcIn'] = tc;
+      cueObj['tcOut'] = "";
+      if (type === "color") {
+        cueObj['content'] = {
+          "colors": pal
+        }
+      } else {
+        cueObj['content'] = {
+          "tag": tag
+        }
+      }
+      data.push(cueObj);
+      console.log(tag,data);
+
+      return data;
+    
+
+    },
+
+
+    // ###############
+
+
+
+    capturePalette: function (img, colors) {
       var opts = {
-        colors: 16, // desired palette size
         method: 2, // histogram method, 2: min-population threshold within subregions; 1: global top-population
         boxSize: [64, 64], // subregion dims (if method = 2)
         boxPxls: 2, // min-population threshold (if method = 2)
