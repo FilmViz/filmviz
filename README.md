@@ -47,6 +47,7 @@ We concluded that getting a frame every half second (500 ms) will be good enough
 - http://www.smartjava.org/content/movie-color-analysis-xbmc-boblight-java-and-d3js
 - https://en.wikipedia.org/wiki/Color_quantization
 - http://www.runtime-era.com/2011/11/grouping-html-hex-colors-by-hue-in.html
+- http://paletton.com/widget/
 
 ### Motion analysis
 - http://cinemetrics.lv/cinemetrics.php
