@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "homepage": "https://github.com/surreal6/filmviz",
   "main": "index.html",
-  "license": "GPLv3",
+  "license": "GPL-3.0",
   "ignore": [
     "**/.*",
     "node_modules",
