@@ -1,74 +1,93 @@
 var fileUtils = (function() {
-	return {
-		saveTextAsJson: function() {
-			var textToWrite = JSON.stringify(localStorage);
-			console.log(textToWrite);
-			var textFileAsBlob = new Blob([textToWrite], {
-				type: 'text/plain'
-			});
-			var downloadLink = document.createElement("a");
-			downloadLink.innerHTML = "My Hidden Link";
-			window.URL = window.URL || window.webkitURL;
-			downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-			downloadLink.onclick = fileUtils.destroyClickedElement;
-			downloadLink.style.display = "none";
-			document.body.appendChild(downloadLink);
-			downloadLink.click();
-		},
+  return {
+    jsonToString: function(json, replacer) {
+      // Prettify String output with 2 spaces
+      return JSON.stringify(json, replacer, 2);
+    },
 
-		createVtt: function(project, analysisIndex, Blob) {
-			var analysis = (analysisIndex) ? analysisIndex : project.analysis[project.selectedAnalysis];
+    createVtt: function(project, analysisIndex, isBlob) {
+      var that = this;
+      var text = '';
+      // Select analysis to write
+      var analysis = (analysisIndex) ? analysisIndex : project.analysis[project.selectedAnalysis];
 
-			var text = '';
+      function newLine(string) {
+        text += (string) ? string + '\n' : '\n';
+      };
 
-			function newLine(string) {
-				text += (string) ? string + '\n' : '\n';
-			};
+      // File header
+      newLine('WEBVTT' + ' - ' + project.name + ' - ' + analysis.name);
+      newLine();
 
-			newLine('WEBVTT' + ' - ' + project.name + ' - ' + analysis.name);
-			newLine();
+      // Filmviz comment
+      newLine('NOTE');
+      newLine('Analysis courtesy of FilmViz, ;)');
+      newLine();
 
-			newLine('NOTE');
-			newLine('Analysis courtesy of FilmViz, ;)');
-			newLine();
+      // Write data
+      if (analysis.data) {
+        analysis.data.forEach(function(data, index) {
+          newLine(index + 1);
+          newLine((data.tcOut) ? data.tcIn + ' --> ' + data.tcOut : data.tcIn);
+          newLine(that.jsonToString(data.content));
+          newLine();
+        });
+      }
 
-			for (var i = 0; i < analysis.data.length; i++) {
-				newLine(i + 1);
-				newLine((analysis.data[i].tcOut) ? analysis.data[i].tcIn + ' --> ' +
-					analysis.data[i].tcOut : analysis.data[i].tcIn);
-				newLine(JSON.stringify(analysis.data[i].content));
-				newLine();
-			}
+      // Return Blob or String
+      return (isBlob) ? new Blob([text], {
+        type: 'text/plain'
+      }) : text;
+    },
 
-			return (isBlob) ? new Blob([text], { type: 'text/plain'	}) : text;
-		},
+    download: function(blob, filename) {
+      // Create fake anchor tag
+      var link = document.createElement("a");
+      // Establish filename
+      link.download = filename || 'file';
+      // Link file
+      window.URL = window.URL || window.webkitURL;
+      link.href = window.URL.createObjectURL(blob);
+      // Remove link element from DOM after click
+      link.addEventListener('click', function(evt) {
+        evt.target.parent.removeChild(evt.target);
+      });
+      // Hide the link
+      link.style.display = "none";
+      // Add link to DOM
+      document.body.appendChild(link);
+      // Programmatically clicking on link --> Download starts
+      link.click();
+    },
 
-		download: function(blob, filename) {
-			//filename = (filename) ? filename + ".vtt" : "vtt.vtt";
-			var downloadLink = document.createElement("a");
-			downloadLink.download = filename;
-			window.URL = window.URL || window.webkitURL;
-			downloadLink.href = window.URL.createObjectURL(blob);
-			downloadLink.addEventListener('click', function(evt) {
-				console.log(evt.target);
-				evt.target.parent.removeChild(evt.target);
-			});
-			downloadLink.style.display = "none";
-			document.body.appendChild(downloadLink);
-			downloadLink.click();
-		},
+    getMediaFilename: function(mediaElement) {
+      // Route for an user file will be 'C:\fakepath\<FileName>' always
+      name = mediaElement.currentSrc.split("\\");
+      return name[name.length - 1];
+    },
 
-		getFilename: function(videoElement) {
-			name = videoElement.currentSrc.split("\\");
-			return name[name.length - 1];
-		},
+    createZip: function(project) {
+      var that = this;
+      var zip = new JSZip();
 
-		createZip: function(project) {
-			var zip = new JSZip();
-			zip.file('vtt.vtt', this.createVtt(project));
-			console.log(zip);
-			// WIP
-			return zip.generate({type:"blob"});
-		}
-	};
+      // Add project info on 'project.json'
+      zip.file('project.json', this.jsonToString({
+        name: project.name,
+        video_source: project.videosrc,
+        current_analysis: project.selectedAnalysis
+      }));
+
+      // Create folder called 'analysis'
+      var analysisFolder = zip.folder('analysis');
+
+      // Add VTT file for every analysis
+      project.analysis.forEach(function(analysis, index) {
+        analysisFolder.file(analysis.name + '.vtt', that.createVtt(project, index));
+      });
+
+      return zip.generate({
+        type: "blob"
+      });
+    }
+  };
 })();
