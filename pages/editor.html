@@ -67,8 +67,9 @@
     <div class="col-lg-6">
       <section class="panel">
         <h4>
-          <a href="#/" class="btn-success">SAVE</a>
-          <a href="#/preview" class="btn-success">PREVIEW</a> 
+          <!-- Temporal onclick to test-->
+          <a href="#/" class="btn-success" onclick="fileUtils.download(fileUtils.createZip(project), project.name + '.zip')">SAVE</a>
+          <a href="#/preview" class="btn-success">PREVIEW</a>
           <a href="#/init" class="btn-success">UPLOAD</a>
         </h4>
       </section>
