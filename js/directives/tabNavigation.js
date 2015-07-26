@@ -36,7 +36,13 @@
           scope.addAnalysis = function () {
             scope.analysis.name = prompt("Please enter analysis name", "Metadata");
             if (name != null) {
-              if (!project.analysis.contains(scope.analysis.name)) {
+
+              keys = [];
+              for (var key in project.analysis) {
+                keys.push(project.analysis[key].name);
+              }
+
+              if (!keys.contains(scope.analysis.name)) {
                 scope.analysis.isDone = false;
                 scope.analysis.tags = [];
                 scope.analysis.data = [];
