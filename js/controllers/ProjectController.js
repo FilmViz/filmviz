@@ -7,7 +7,7 @@
   project = {
     name: 'prueba',
     videosrc: 'video.mp4',
-    selectedAnalysis: 0,
+    selectedAnalysis: 2,
     analysis: [
       {
         name: 'color',

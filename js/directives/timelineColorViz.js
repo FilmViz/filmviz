@@ -59,7 +59,7 @@
               .attr('y', function(d, i) { return scale(i); });
           };
 
-          var colors = project.analysis[project.selectedAnalysis].data;
+          var colors = project.analysis[0].data;
 
           var patchSize = 40;
           var patchesPerCol = d3.max(colors, function(d) {
@@ -68,7 +68,9 @@
           var width = patchSize * colors.length;
           var height = patchSize * patchesPerCol;
           
-          var svg = d3.select('div.timeline-viz svg')
+          var svg = d3.select('svg#timeline-color-viz')
+            .attr('height', '100%')
+            .attr('preserveAspectRatio','xMinYMin')
             .attr('viewBox', '0 0 ' + width + ' ' + height);
 
           var scale = d3.scale.ordinal()
