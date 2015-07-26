@@ -1,21 +1,41 @@
-# Filmviz
+# FilmViz
 
+## About the project
 
-## Description
+### Description
 
 The final aim of this project is to build an online database of film analysis that allows users to visually compare different aspects of films, such as their main colors, their motion or rhythm through the number of cuts, the amount of dialogue and music, etc.
 
 The project is inspired by a number of independent analysis of different films that are available out there (such as [this](http://moviesincolor.com/), [this](http://moviebarcode.tumblr.com/), [this](http://www.smartjava.org/examples/movie-viz/index.html) or [this](http://www.smartjava.org/examples/movie-viz/batman.html)). We want to provide a common tool for film analysis and comparison to the community.
 
 
-## Objectives
+### Objectives
 
 The first logical step is to build a **film analysis tool**. The tool will run locally in the browser and will perform automatic color, motion and audio analysis, and will also allow the user to manually input additional metadata (such as types of camera shots, actors in the shots or a day/night classification). The tool will show visualizations for all the data gathered as well. Once the analysis is done, the user will be able to share it by uploading it to an online database.
 
 The second part of the project would be to build an **online film analysis database**, to which users will upload the analysis performed locally with the tool. A website will display visualizations for all the film analysis uploaded, and will allow users to see comparisons between films.
 
 
-## Findings
+## Get it running
+
+Before you can run FilmViz you need to install the `bower` dependencies. Execute this command on a terminal:
+```
+bower install
+```
+(You need to [install](https://nodejs.org/download/) `node.js` first and run `npm install bower -g` to install `bower`)
+
+That's it! Now you can run a static HTTP server and enjoy FilmViz:
+```
+python -m SimpleHTTPServer 8000  # Python 2
+python -m http.server 8000  # Python 3
+```
+
+Then go to `http://0.0.0.0:8000/`. Please keep in mind that the development is still in early stages. A lot of things are broken or not implemented yet.
+
+
+## Documentation
+
+### Findings
 
 We run some tests to figure out an acceptable sample rate for the motion analysis, since we needed to find the right balance between accuracy and the time the analysis takes: getting a lot of samples per second would make the analysis unbearably slow, but getting too few would affect our ability to detect cuts in the video.
 
@@ -32,28 +52,13 @@ We performed a few motion analysis for the same one minute video with different 
 We concluded that getting a frame every half second (500 ms) will be good enough for our application. This conclusion is however susceptible of being revisited in the future.
 
 
-## Get it running
+### References
 
-Before you can run FilmViz you need to install the `npm` and `bower` dependencies. Execute this commands on a terminal:
-```
-npm install
-bower install
-```
-(You need to [install](https://nodejs.org/download/) `node.js` for `npm` and run `npm install bower -g` for `bower`)
-
-That's it! Now you can run an static HTTP server and enjoy FilmViz.
-```
-python -m SimpleHTTPServer 8000  # Go to http://0.0.0.0:8000/
-```
-
-
-## Documentation
-
-### WebVTT
+#### WebVTT
 - http://dev.w3.org/html5/webvtt/
 - https://developer.mozilla.org/en-US/docs/Web/API/Web_Video_Text_Tracks_Format
 
-### Color analysis
+#### Color analysis
 - http://moviesincolor.com/
 - http://moviebarcode.tumblr.com/page/7
 - http://thecreatorsproject.vice.com/blog/visualizing-a-movies-color-footprint
@@ -64,15 +69,15 @@ python -m SimpleHTTPServer 8000  # Go to http://0.0.0.0:8000/
 - http://www.runtime-era.com/2011/11/grouping-html-hex-colors-by-hue-in.html
 - http://paletton.com/widget/
 
-### Motion analysis
+#### Motion analysis
 - http://cinemetrics.lv/cinemetrics.php
 - http://huddle.github.io/Resemble.js/
 
-### Audio analysis
+#### Audio analysis
 - https://en.wikipedia.org/wiki/Voice_activity_detection
 - http://dsp.stackexchange.com/questions/1499/how-to-extract-vocal-part-from-stereo-audio-signal
 - https://www.math.ucdavis.edu/~aberrian/research/voice_separation/
 - https://github.com/corbanbrook/dsp.js/
 
-### Metadata analysis
+#### Metadata analysis
 - http://fathom.info/rocky/
