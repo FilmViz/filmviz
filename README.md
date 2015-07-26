@@ -33,6 +33,15 @@ python -m http.server 8000  # Python 3
 Then go to `http://0.0.0.0:8000/`. Please keep in mind that the development is still in early stages. A lot of things are broken or not implemented yet.
 
 
+## Tips for contributing
+
+We follow the rules of JavaScript Code Style [from Airbnb](https://github.com/airbnb/javascript).
+
+You'll fit better with us if you install `jscs` with `npm install jscs -g` an run `jscs your-file-or-path` before requesting a pull.
+
+Every contribution is appreciated, but they will be better if they cause a good impression to us. Thanks!
+
+
 ## Documentation
 
 ### Findings
