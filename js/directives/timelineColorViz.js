@@ -56,24 +56,27 @@
           scope.updateColorViz = function(sortingMode) {
             patch.sort(function(a, b) { return sortColors(a, b, sortingMode); })
               .transition().duration(500)
-              .attr('y', function(d, i) { return scale(i); });
+              .attr('y', function(d, i) { return yScale(i); });
           };
 
           var colors = project.analysis[0].data;
 
-          var patchSize = 40;
+          var width = d3.select('svg#timeline-color-viz').node().offsetWidth;
+          var height = d3.select('svg#timeline-color-viz').node().offsetHeight;
+
+          var svg = d3.select('svg#timeline-color-viz')
+            .attr('preserveAspectRatio','none')
+            .attr('viewBox', '0 0 ' + width + ' ' + height);
+          
           var patchesPerCol = d3.max(colors, function(d) {
             return d.content.colors.length;
           });
-          var width = patchSize * colors.length;
-          var height = patchSize * patchesPerCol;
-          
-          var svg = d3.select('svg#timeline-color-viz')
-            .attr('height', '100%')
-            .attr('preserveAspectRatio','xMinYMin')
-            .attr('viewBox', '0 0 ' + width + ' ' + height);
 
-          var scale = d3.scale.ordinal()
+          var xScale = d3.scale.ordinal()
+            .domain(d3.range(0, colors.length))
+            .rangeBands([0, width]);
+          
+          var yScale = d3.scale.ordinal()
             .domain(d3.range(0, patchesPerCol))
             .rangeBands([0, height]);
 
@@ -82,15 +85,15 @@
 
           patchCol.enter().append('g')
             .attr('transform', function(d, i) {
-              return 'translate(' + i * scale.rangeBand() + ', 0)';
+              return 'translate(' + i * xScale.rangeBand() + ', 0)';
             });
 
           var patch = patchCol.selectAll('rect')
             .data(function(d) { return d.content.colors; });
 
           patch.enter().append('rect')
-            .attr('width', scale.rangeBand())
-            .attr('height', scale.rangeBand())
+            .attr('width', xScale.rangeBand())
+            .attr('height', yScale.rangeBand())
             .style('fill', function(d) { return d; });
 
           scope.updateColorViz('val');

@@ -66,6 +66,7 @@ header > h2 {
 
 div.timeline-viz svg {
   height: 200px;
+  width: 100%;
 }
 
 svg#timeline-motion-viz .axis path,
