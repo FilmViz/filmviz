@@ -1,9 +1,9 @@
-(function () {
-  'use strict';
+(function() {
+
   angular.module('filmVizApp', ['ngRoute']);
 
   // configure our routes
-  angular.module('filmVizApp').config(function ($routeProvider) {
+  angular.module('filmVizApp').config(function($routeProvider) {
     $routeProvider
       .when('/', {
         // route for the home page
@@ -33,8 +33,8 @@
    * is not 'enumerable'.
    */
   Object.defineProperty(Array.prototype, 'contains', {
-    value: function (item) {
+    value: function(item) {
       return this.indexOf(item) != -1;
     }
   });
-})();
+}());

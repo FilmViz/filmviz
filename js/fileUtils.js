@@ -1,13 +1,14 @@
 var fileUtils = (function() {
+
   return {
-    jsonToString: function(json, replacer) {
-      // Prettify String output with 2 spaces
+    jsonToString: function(json, replacer) { // Prettify String output with 2 spaces
       return JSON.stringify(json, replacer, 2);
     },
 
     createVtt: function(project, analysisIndex, isBlob) {
-      var that = this;
+      var _this = this;
       var text = '';
+
       // Select analysis to write
       var analysis = (analysisIndex) ? analysisIndex : project.analysis[project.selectedAnalysis];
 
@@ -29,7 +30,7 @@ var fileUtils = (function() {
         analysis.data.forEach(function(data, index) {
           newLine(index + 1);
           newLine((data.tcOut) ? data.tcIn + ' --> ' + data.tcOut : data.tcIn);
-          newLine(that.jsonToString(data.content));
+          newLine(_this.jsonToString(data.content));
           newLine();
         });
       }
@@ -42,39 +43,45 @@ var fileUtils = (function() {
 
     download: function(blob, filename) {
       // Create fake anchor tag
-      var link = document.createElement("a");
+      var link = document.createElement('a');
+
       // Establish filename
       link.download = filename || 'file';
+
       // Link file
       window.URL = window.URL || window.webkitURL;
       link.href = window.URL.createObjectURL(blob);
+
       // Remove link element from DOM after click
       link.addEventListener('click', function(evt) {
         evt.target.parent.removeChild(evt.target);
       });
+
       // Hide the link
-      link.style.display = "none";
+      link.style.display = 'none';
+
       // Add link to DOM
       document.body.appendChild(link);
+
       // Programmatically clicking on link --> Download starts
       link.click();
     },
 
     getMediaFilename: function(mediaElement) {
       // Route for an user file will be 'C:\fakepath\<FileName>' always
-      name = mediaElement.currentSrc.split("\\");
+      name = mediaElement.currentSrc.split('\\');
       return name[name.length - 1];
     },
 
     createZip: function(project) {
-      var that = this;
+      var _this = this;
       var zip = new JSZip();
 
       // Add project info on 'project.json'
       zip.file('project.json', this.jsonToString({
         name: project.name,
-        video_source: project.videosrc,
-        current_analysis: project.selectedAnalysis
+        videoSource: project.videosrc,
+        currentAnalysis: project.selectedAnalysis
       }));
 
       // Create folder called 'analysis'
@@ -82,12 +89,12 @@ var fileUtils = (function() {
 
       // Add VTT file for every analysis
       project.analysis.forEach(function(analysis, index) {
-        analysisFolder.file(analysis.name + '.vtt', that.createVtt(project, index));
+        analysisFolder.file(analysis.name + '.vtt', _this.createVtt(project, index));
       });
 
       return zip.generate({
-        type: "blob"
+        type: 'blob'
       });
     }
   };
-})();
+}());
