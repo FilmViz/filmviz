@@ -21,7 +21,7 @@ We run some tests to figure out an acceptable sample rate for the motion analysi
 
 We performed a few motion analysis for the same one minute video with different sample rates. The results can be seen in the graph below (the x axis is time, while the y axis indicates the motion difference between two samples, ranging from 0 to 1). The video used for testing has two cuts, around second 6 and second 20.
 
-![Sample rates graph](sample_rates_for_motion.png) 
+![Sample rates graph](sample_rates_for_motion.png)
 
 - For 2000 ms, the analysis took 8.143 s (13.6% of the video duration)
 - For 1000 ms, the analysis took 17.119 s (28.5% of the video duration)
@@ -30,6 +30,21 @@ We performed a few motion analysis for the same one minute video with different 
 - For 100 ms, the analysis took 182.665 s (304% of the video duration)
 
 We concluded that getting a frame every half second (500 ms) will be good enough for our application. This conclusion is however susceptible of being revisited in the future.
+
+
+## Get it running
+
+Before you can run FilmViz you need to install the `npm` and `bower` dependencies. Execute this commands on a terminal:
+```
+npm install
+bower install
+```
+(You need to [install](https://nodejs.org/download/) `node.js` for `npm` and run `npm install bower -g` for `bower`)
+
+That's it! Now you can run an static HTTP server and enjoy FilmViz.
+```
+python -m SimpleHTTPServer 8000  # Go to http://0.0.0.0:8000/
+```
 
 
 ## Documentation
