@@ -41,7 +41,7 @@ We run some tests to figure out an acceptable sample rate for the motion analysi
 
 We performed a few motion analysis for the same one minute video with different sample rates. The results can be seen in the graph below (the x axis is time, while the y axis indicates the motion difference between two samples, ranging from 0 to 1). The video used for testing has two cuts, around second 6 and second 20.
 
-![Sample rates graph](sample_rates_for_motion.png)
+![Sample rates graph](img/sample_rates_for_motion.png)
 
 - For 2000 ms, the analysis took 8.143 s (13.6% of the video duration)
 - For 1000 ms, the analysis took 17.119 s (28.5% of the video duration)
