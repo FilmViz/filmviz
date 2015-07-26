@@ -68,20 +68,3 @@ div.timeline-viz svg {
   height: 200px;
   width: 100%;
 }
-
-svg#timeline-motion-viz .axis path,
-svg#timeline-motion-viz .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-svg#timeline-motion-viz .x.axis path {
-  display: none;
-}
-
-svg#timeline-motion-viz .line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}

@@ -7,45 +7,33 @@
         link: function(scope, element, attributes) {
           var values = project.analysis[2].data;
 
-          var width = 960,
-              height = 500;
-
-          var x = d3.scale.linear()
-              .range([0, width]);
-
-          var y = d3.scale.linear()
-              .range([height, 0]);
-
-          var xAxis = d3.svg.axis()
-              .scale(x)
-              .orient("bottom");
-
-          var yAxis = d3.svg.axis()
-              .scale(y)
-              .orient("left");
-
-          var line = d3.svg.line()
-              .x(function(d) { return x(d.tcIn); })
-              .y(function(d) { return y(d.content.value); });
-
-          var svg = d3.select('svg#timeline-motion-viz')
-              .attr('width', '100%')
-              .attr('height', '200')
-              .attr('preserveAspectRatio','none')
-              .attr('viewBox', '0 0 ' + width + ' ' + height)
-            .append("g")
-
           values.forEach(function(d) {
-            d.tcIn = timecodeUtils.timecodeToMilis(d.tcIn) / 1000;
+            d.tcIn = timecodeUtils.timecodeToMilis(d.tcIn);
           });
 
-          x.domain(d3.extent(values, function(d) { return d.tcIn; }));
-          y.domain(d3.extent(values, function(d) { return d.content.value; }));
+          var width = d3.select('svg#timeline-color-viz').node().offsetWidth;
+          var height = d3.select('svg#timeline-color-viz').node().offsetHeight;
 
-          svg.append("path")
-              .datum(values)
-              .attr("class", "line")
-              .attr("d", line);
+          var svg = d3.select('svg#timeline-motion-viz')
+            .attr('preserveAspectRatio','none')
+            .attr('viewBox', '0 0 ' + width + ' ' + height);
+
+          var xScale = d3.scale.linear()
+            .domain(d3.extent(values, function(d) { return d.tcIn; }))
+            .range([0, width]);
+
+          var yScale = d3.scale.linear()
+            .domain(d3.extent(values, function(d) { return d.content.value; }))
+            .range([height, 0]);
+
+          var line = d3.svg.line()
+            .x(function(d) { return xScale(d.tcIn); })
+            .y(function(d) { return yScale(d.content.value); })
+
+          svg.append('path')
+            .datum(values)
+            .attr('d', line)
+            .style({ 'fill': 'none', 'stroke': '#337ab7', 'stroke-width': '2px' });
         }
       };
     });
