@@ -1,11 +1,9 @@
 <div class="timeline-viz">
   <div class="container-fluid">
     <div class="row">
-      <h4>timelineViz</h4>
-      <button ng-click="setColorSortingMode('hue')">Hue</button>
-      <button ng-click="setColorSortingMode('sat')">Saturation</button>
-      <button ng-click="setColorSortingMode('val')">Value</button>
-      <svg></svg>
+      <timeline-color-viz class="row" ng-show="$parent.activeTab == 0"></timeline-color-viz>
+      <timeline-audio-viz class="row" ng-show="$parent.activeTab == 1"></timeline-audio-viz>
+      <timeline-motion-viz class="row" ng-show="$parent.activeTab == 2"></timeline-motion-viz>
     </div>
   </div>
 </div>
