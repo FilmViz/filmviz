@@ -9,6 +9,7 @@
 
           values.forEach(function(d) {
             d.tcIn = timecodeUtils.timecodeToMilis(d.tcIn);
+            d.content.value = d.content.value * 100;
           });
 
           var width = d3.select('svg#timeline-color-viz').node().offsetWidth;
@@ -22,14 +23,15 @@
             .domain(d3.extent(values, function(d) { return d.tcIn; }))
             .range([0, width]);
 
-          var yScale = d3.scale.linear()
+          var yScale = d3.scale.pow().exponent(1.5)
             .domain(d3.extent(values, function(d) { return d.content.value; }))
             .range([height, 0]);
 
           var area = d3.svg.area()
             .x(function(d) { return xScale(d.tcIn); })
             .y0(height)
-            .y1(function(d) { return yScale(d.content.value); });
+            .y1(function(d) { return yScale(d.content.value); })
+            .interpolate('cardinal');
 
           svg.append('path')
             .datum(values)
