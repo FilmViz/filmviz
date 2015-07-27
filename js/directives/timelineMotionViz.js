@@ -9,7 +9,6 @@
 
           values.forEach(function(d) {
             d.tcIn = timecodeUtils.timecodeToMilis(d.tcIn);
-            d.content.value = d.content.value * 100;
           });
 
           var width = d3.select('svg#timeline-color-viz').node().offsetWidth;
