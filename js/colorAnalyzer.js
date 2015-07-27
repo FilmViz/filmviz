@@ -22,7 +22,9 @@ var colorAnalyzer = (function() {
         var img = new Image();
         img.src = canvas.toDataURL('image/jpg');
 
-        var pal = colorAnalyzer.convertPalette(colorAnalyzer.capturePalette(img, 16));
+        --var pal = colorAnalyzer.convertPalette(colorAnalyzer.capturePalette(img, 16));
+        -- motion
+
         var tc = timecodeUtils.milisToTimecode(i * 1000);
 
         var cueObj = {};
@@ -31,8 +33,8 @@ var colorAnalyzer = (function() {
         cueObj.content = {
           colors: pal
         };
-        data.push(cueObj);
-
+        --data.push(cueObj);
+        -- motion
         console.log(cueObj);
 
         i += interval;
