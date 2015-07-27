@@ -63,3 +63,8 @@ header > h2 {
 .delete-button::after {
   content: "x";
 }
+
+div.timeline-viz svg {
+  height: 200px;
+  width: 100%;
+}

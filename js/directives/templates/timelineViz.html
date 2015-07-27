@@ -1,6 +1,12 @@
-<section class="timeline-viz container-fluid">
-	<div class="row">
-		<h4>timelineViz</h4>
-		<svg></svg>
-	</div>
-</section>  
+<div class="timeline-viz">
+  <div class="container-fluid">
+    <div class="row">
+      <timeline-color-viz class="row" ng-show="$parent.activeTab == 0">
+      </timeline-color-viz>
+      <timeline-audio-viz class="row" ng-show="$parent.activeTab == 1">
+      </timeline-audio-viz>
+      <timeline-motion-viz class="row" ng-show="$parent.activeTab == 2">
+      </timeline-motion-viz>
+    </div>
+  </div>
+</div>
