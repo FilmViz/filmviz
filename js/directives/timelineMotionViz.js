@@ -26,14 +26,15 @@
             .domain(d3.extent(values, function(d) { return d.content.value; }))
             .range([height, 0]);
 
-          var line = d3.svg.line()
+          var area = d3.svg.area()
             .x(function(d) { return xScale(d.tcIn); })
-            .y(function(d) { return yScale(d.content.value); })
+            .y0(height)
+            .y1(function(d) { return yScale(d.content.value); });
 
           svg.append('path')
             .datum(values)
-            .attr('d', line)
-            .style({ 'fill': 'none', 'stroke': '#337ab7', 'stroke-width': '2px' });
+            .attr('d', area)
+            .style('fill', '#337ab7');
         }
       };
     });
