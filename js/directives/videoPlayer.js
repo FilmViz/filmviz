@@ -1,18 +1,18 @@
 (function() {
 
   angular.module('filmVizApp')
-		.directive('videoPlayer', function() {
+    .directive('videoPlayer', function() {
   return {
     restrict: 'E',
     templateUrl: 'js/directives/templates/videoPlayer.html',
     link: function(scope, element, attributes) {
       var video = document.getElementById('video');
-      var canvas = document.getElementById('canvas');
 
       (function localFileVideoPlayerInit(win) {
         var URL = win.URL || win.webkitURL;
         var displayMessage = (function displayMessageInit() {
           var node = document.querySelector('#message');
+
           return function displayMessage(message, isError) {
             node.innerHTML = message;
             node.className = isError ? 'error' : 'info';
@@ -58,6 +58,7 @@
       scope.seek = function(second) {
         video.currentTime(second);
       };
+
     }
   };
 		});
