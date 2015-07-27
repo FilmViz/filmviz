@@ -10,6 +10,11 @@ var timecodeUtils = (function() {
 
     milisToTimecode: function(s) {
 
+      function pad (str, max) {
+        str = str.toString();
+        return str.length < max ? pad("0" + str, max) : str;
+      }
+
       function addZ(n) {
         return (n < 10 ? '0' : '') + n;
       }
@@ -23,7 +28,7 @@ var timecodeUtils = (function() {
       var mins = s % 60;
       var hrs = (s - mins) / 60;
 
-      return addZ(hrs) + ':' + addZ(mins) + ':' + addZ(secs) + '.' + ms;
+      return addZ(hrs) + ':' + addZ(mins) + ':' + addZ(secs) + '.' + pad(ms, 3);
     },
 
     timecodeToMilis: function(tc) {

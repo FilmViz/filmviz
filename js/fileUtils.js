@@ -27,9 +27,15 @@ var fileUtils = (function() {
 
       // Write data
       if (analysis.data) {
-        analysis.data.forEach(function(data, index) {
+        analysis.data.forEach(function(data, index, arr) {
           newLine(index + 1);
-          newLine((data.tcOut) ? data.tcIn + ' --> ' + data.tcOut : data.tcIn);
+          if (index == arr.length) {
+            var tcOut = milisToTimecode(video.duration * 1000);
+            newLine(data.tcIn + ' --> ' + tcOut);
+          } else {
+            newLine(data.tcIn + ' --> ' + data.tcOut);
+          };
+
           newLine(_this.jsonToString(data.content));
           newLine();
         });
