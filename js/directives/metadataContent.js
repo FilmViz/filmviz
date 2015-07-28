@@ -23,6 +23,7 @@
 
           if (typeof cue.text === 'string') {
             console.log(cue.text);
+            data.innerHTML = cue.text;
           }
 
           if (typeof cue.text === 'object') {
