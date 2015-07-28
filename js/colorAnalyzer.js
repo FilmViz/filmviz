@@ -1,10 +1,84 @@
 var colorAnalyzer = (function() {
 
   return {
-    basicAnalyzer: function(project, analysisIndex) {
+    colorAnalysis: function(project, analysisIndex) {
       var video = document.getElementById('video');
       var canvas = document.getElementById('canvas');
       console.log('starting color analyzer');
+
+      canvas.height = video.videoHeight / 4;
+      canvas.width = video.videoWidth / 4;
+
+      var context = canvas.getContext('2d');
+      var interval = 30;
+      var i = 0;
+      var cueIndex = 1;
+      data = [];
+      video.pause();
+      video.currentTime = 0;
+
+      function seekedListener() {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        var img = new Image();
+        img.src = canvas.toDataURL('image/jpg');
+        var pal = colorAnalyzer.convertPalette(colorAnalyzer.capturePalette(img, 16));
+        var tc = timecodeUtils.milisToTimecode(i * 1000);
+        var cueObj = {};
+        cueObj.tcIn = tc;
+        cueObj.tcOut = '';
+        cueObj.content = {
+          colors: pal
+        };
+        data.push(cueObj);
+        i += interval;
+        cueIndex += 1;
+
+        if (i <= video.duration) {
+          video.currentTime = i;
+        } else {
+          // analysis is finished, lets save data
+          console.log(data);
+          analysis = project.analysis[analysisIndex];
+          analysis.data = data;
+          analysis.isDone = true;
+          video.pause();
+          cueIndex = 1;
+
+          // create track
+          // maybe we need to check if track exists...
+          var track = video.addTextTrack('metadata', analysis.name);
+
+          // generate cues
+          data.forEach(function(cueObj, index, arr) {
+            var tcIn = timecodeUtils.timecodeToMilis(cueObj.tcIn) / 1000
+            if (index === arr.length - 1) {
+              var tcOut = video.duration;
+              console.log(tcIn, tcOut, cueObj.content);
+              track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
+            } else {
+              var tcOut = timecodeUtils.timecodeToMilis(arr[index + 1].tcIn) / 1000;
+              console.log(tcIn, tcOut, cueObj.content);
+              track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
+            };
+
+            // track.addEventListener('cuechange', function() {
+            //   console.log(track.activeCues[0].text)
+            // });
+
+            return data;
+          });
+
+          video.removeEventListener('seeked', seekedListener, false);
+        }
+      };
+
+      video.addEventListener('seeked', seekedListener, false);
+    },
+
+    basicAnalyzer: function(project, analysisIndex) {
+      var video = document.getElementById('video');
+      var canvas = document.getElementById('canvas');
+      console.log('starting basic analyzer');
 
       //canvas.height = video.videoHeight / 2;
       //canvas.width = video.videoWidth / 2;
@@ -31,8 +105,7 @@ var colorAnalyzer = (function() {
         cueObj.content = {
           colors: pal
         };
-        --data.push(cueObj);
-        -- motion
+        data.push(cueObj);
         console.log(cueObj);
 
         i += interval;
@@ -113,6 +186,7 @@ var colorAnalyzer = (function() {
 
     capturePalette: function(img, colors) {
       var opts = {
+        colors: colors,
         method: 2, // histogram method, 2: min-population threshold within subregions; 1: global top-population
         boxSize: [64, 64], // subregion dims (if method = 2)
         boxPxls: 2, // min-population threshold (if method = 2)

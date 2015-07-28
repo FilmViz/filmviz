@@ -29,11 +29,13 @@ var fileUtils = (function() {
       if (analysis.data) {
         analysis.data.forEach(function(data, index, arr) {
           newLine(index + 1);
-          if (index == arr.length) {
-            var tcOut = milisToTimecode(video.duration * 1000);
+          if (index === arr.length - 1) {
+            var tcOut = timecodeUtils.milisToTimecode(video.duration * 1000);
             newLine(data.tcIn + ' --> ' + tcOut);
+            console.log(data.tcIn + ' --> ' + tcOut);
           } else {
-            newLine(data.tcIn + ' --> ' + data.tcOut);
+            newLine(data.tcIn + ' --> ' + arr[index + 1].tcIn);
+            console.log(data.tcIn + ' --> ' + arr[index + 1].tcIn);
           };
 
           newLine(_this.jsonToString(data.content));
@@ -101,6 +103,11 @@ var fileUtils = (function() {
       return zip.generate({
         type: 'blob'
       });
+    },
+
+    readZip: function(project, zipBlob) {
+      var new_zip = new JSZip();
+      new_zip.load(zipBlob);
     }
   };
 }());
