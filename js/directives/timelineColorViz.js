@@ -61,8 +61,8 @@
 
           var colors = project.analysis[0].data;
 
-          var width = d3.select('svg#timeline-color-viz').node().offsetWidth;
-          var height = d3.select('svg#timeline-color-viz').node().offsetHeight;
+          var width = d3.select('div.timeline-viz').node().offsetWidth;
+          var height = d3.select('div.timeline-viz').node().offsetHeight;
 
           var svg = d3.select('svg#timeline-color-viz')
             .attr('preserveAspectRatio','none')

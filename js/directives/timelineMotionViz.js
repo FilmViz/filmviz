@@ -11,8 +11,8 @@
             d.tcIn = timecodeUtils.timecodeToMilis(d.tcIn);
           });
 
-          var width = d3.select('svg#timeline-color-viz').node().offsetWidth;
-          var height = d3.select('svg#timeline-color-viz').node().offsetHeight;
+          var width = d3.select('div.timeline-viz').node().offsetWidth;
+          var height = d3.select('div.timeline-viz').node().offsetHeight;
 
           var svg = d3.select('svg#timeline-motion-viz')
             .attr('preserveAspectRatio','none')
