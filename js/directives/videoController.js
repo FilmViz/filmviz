@@ -37,6 +37,9 @@
             }
           };
 
+          scope.automatic = function() {
+            colorAnalyzer.colorAnalysis(project, project.selectedAnalysis);
+          }
         }
       };
     });
