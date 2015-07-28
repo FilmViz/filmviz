@@ -10,7 +10,7 @@ var colorAnalyzer = (function() {
       canvas.width = video.videoWidth / 4;
 
       var context = canvas.getContext('2d');
-      var interval = 30;
+      var interval = 10;
       var i = 0;
       var cueIndex = 1;
       data = [];
