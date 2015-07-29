@@ -48,7 +48,8 @@
                 scope.analysis.tags = [];
                 scope.analysis.data = [];
                 project.analysis.push(this.analysis);
-                scope.activeTab = project.analysis.length - 1;
+                scope.activeTab = project.analysis.length -1;
+                project.selectedAnalysis = scope.activeTab;
                 scope.analysis = {};
               }
             }
