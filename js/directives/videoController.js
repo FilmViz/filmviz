@@ -22,23 +22,8 @@
             video.currentTime = 0;
           };
 
-          scope.colorAnalysis = function() {
-            analysisIndex = project.selectedAnalysis;
-            colorAnalyzer.basicAnalyzer(project, analysisIndex);
-          };
-
-          scope.ultra = function() {
-            if (!video.paused) {
-              console.log(project.analysis[project.selectedAnalysis].name);
-              type = project.analysis[project.selectedAnalysis].name;
-              scope.data = colorAnalyzer.ultraAnalyzer(project, project.selectedAnalysis, scope.data, type);
-              project.analysis[project.selectedAnalysis].data.push(scope.data);
-              scope.data = [];
-            }
-          };
-
           scope.automatic = function() {
-            colorAnalyzer.colorAnalysis(project, project.selectedAnalysis);
+            colorAnalyzer.colorAnalysis(project);
           }
         }
       };

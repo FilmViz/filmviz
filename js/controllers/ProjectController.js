@@ -23,6 +23,12 @@
         name: 'motion',
         isDone: false,
         data: []
+      },
+      {
+        name: 'Escalas de Plano',
+        isDone: false,
+        tags: ['Plano Detalle', 'Primerisimo Primer Plano', 'Primer Plano', 'Plano Corto', 'Plano Medio', 'Plano Americano', 'Plano Largo', 'Plano General', 'Gran Plano General'],
+        data: []
       }
     ]
   };

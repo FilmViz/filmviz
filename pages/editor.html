@@ -50,7 +50,6 @@
         </tab-navigation>
         <!-- end sub-scope tab-nav -->
       </div>
-      <metadata-content></metadata-content>
     </div>
 
     <!-- timeline -->
@@ -67,7 +66,7 @@
       <section class="panel">
         <h4>
           <!-- Temporal onclick to test-->
-          <a href="#/" class="btn-success" onclick="fileUtils.download(fileUtils.createZip(project), project.name + '.zip')">SAVE</a>
+          <a class="btn-success" onclick="fileUtils.download(fileUtils.createZip(project), project.name + '.zip')">SAVE</a>
           <a href="#/preview" class="btn-success">PREVIEW</a>
           <a href="#/init" class="btn-success">UPLOAD</a>
         </h4>
