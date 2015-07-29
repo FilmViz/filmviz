@@ -100,14 +100,51 @@ var fileUtils = (function() {
         analysisFolder.file(analysis.name + '.vtt', _this.createVtt(project, index));
       });
 
+      zip.file('all.json', JSON.stringify(project));
+
       return zip.generate({
         type: 'blob'
       });
     },
 
     readZip: function(project, zipBlob) {
-      var new_zip = new JSZip();
-      new_zip.load(zipBlob);
+      var newZip;
+      var reader = new FileReader();
+      var video = document.getElementById('video');
+
+      reader.onload = (function(file) {
+        return function(evt) {
+          newZip = new JSZip(evt.target.result);
+          console.log("loading zip into project")
+          // var keys = [];
+          // for (var k in newZip.files) {
+          //   console.log(newZip.files[k].asText());
+          // };
+          project = JSON.parse(newZip.files['all.json'].asText());
+          var data = project.analysis[0].data;
+          var name = project.analysis[0].name;
+          var track = video.addTextTrack('metadata', name);
+          data.forEach(function(cueObj, index, arr) {
+            var tcIn = timecodeUtils.timecodeToMilis(cueObj.tcIn) / 1000
+            if (index === arr.length - 1) {
+              var tcOut = video.duration;
+              //console.log(tcIn, tcOut, cueObj.content);
+              track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
+            } else {
+              var tcOut = timecodeUtils.timecodeToMilis(arr[index + 1].tcIn) / 1000;
+              //console.log(tcIn, tcOut, cueObj.content);
+              track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
+            };
+          });
+
+          track.addEventListener('cuechange', function() {
+              console.log(track.activeCues[0].text)
+          });
+
+        }
+      }(zipBlob));
+
+      reader.readAsArrayBuffer(zipBlob);
     }
   };
 }());

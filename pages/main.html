@@ -8,8 +8,9 @@
     <div class="col-lg-6 centered-content">
       <div class="">
         <h4>Open Project</h4>
-        <input type="file" value="OPEN PROJECT" accept=".zip" />
+        <input type="file" value="OPEN PROJECT" accept=".zip" onchange="fileUtils.readZip(project, event.target.files[0])"/>
       </div>
     </div>
+    <video-player></video-player>
   </div>
 </div>
