@@ -1,7 +1,7 @@
 var colorAnalyzer = (function() {
 
   return {
-    colorAnalysis: function(project, analysisIndex) {
+    colorAnalysis: function(project) {
       var video = document.getElementById('video');
       var canvas = document.getElementById('canvas');
       console.log('starting color analyzer');
@@ -10,178 +10,147 @@ var colorAnalyzer = (function() {
       canvas.width = video.videoWidth / 4;
 
       var context = canvas.getContext('2d');
-      var interval = 10;
+      var interval = 20;
       var i = 0;
       var cueIndex = 1;
-      data = [];
+      colorData = [];
+      motionData = [];
+      audioData = [];
       video.pause();
       video.currentTime = 0;
 
+      var lastImg;
+
       function seekedListener() {
+        console.log('seeked: analyzing frame')
+
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         var img = new Image();
         img.src = canvas.toDataURL('image/jpg');
+
+        //generate color analysis
         var pal = colorAnalyzer.convertPalette(colorAnalyzer.capturePalette(img, 16));
+        console.log('color ready')
+
+        //generate audio analysis
+        var audio = 1;
+
+        //generate motion analysis
+        if (!lastImg) { lastImg = img; };
+        var mot;
+        // warning!!! ñapa
+        var motion = resemble(img.src).compareTo(lastImg.src).onComplete(function(results) {
+          console.log("motion result", results.misMatchPercentage / 100);
+          mot = results.misMatchPercentage / 100;
+          return results.misMatchPercentage / 100;
+        });
+        console.log('motion ready', mot)
+
+        // get current timecode
         var tc = timecodeUtils.milisToTimecode(i * 1000);
+
+        // create cueObjects
         var cueObj = {};
         cueObj.tcIn = tc;
         cueObj.tcOut = '';
         cueObj.content = {
           colors: pal
         };
-        data.push(cueObj);
+        colorData.push(cueObj);
+
+        cueObj = {};
+        cueObj.tcIn = tc;
+        cueObj.tcOut = '';
+        cueObj.content = {
+          audio: audio
+        };
+        audioData.push(cueObj);
+
+        cueObj = {};
+        cueObj.tcIn = tc;
+        cueObj.tcOut = '';
+        cueObj.content = {
+          motion: mot
+        };
+        motionData.push(cueObj);
+
+        // update variables
         i += interval;
         cueIndex += 1;
+        lastImg = img;
+
+        console.log(i, video.duration, interval)
 
         if (i <= video.duration) {
           video.currentTime = i;
+          console.log('loop', video.currentTime)
         } else {
-          // analysis is finished, lets save data
-          console.log(data);
-          analysis = project.analysis[analysisIndex];
-          analysis.data = data;
-          analysis.isDone = true;
+          console.log('analysis finished')
+          // stop video
           video.pause();
           cueIndex = 1;
 
-          // create track
-          // maybe we need to check if track exists...
-          var track = video.addTextTrack('metadata', analysis.name);
+          // analysis is finished, lets save data
+          colorAnalysis = project.analysis[0];
+          colorAnalysis.data = colorData;
+          colorAnalysis.isDone = true;
+          audioAnalysis = project.analysis[1];
+          audioAnalysis.data = audioData;
+          audioAnalysis.isDone = true;
+          motionAnalysis = project.analysis[2];
+          motionAnalysis.data = motionData;
+          motionAnalysis.isDone = true;
 
-          // generate cues
-          data.forEach(function(cueObj, index, arr) {
-            var tcIn = timecodeUtils.timecodeToMilis(cueObj.tcIn) / 1000
-            if (index === arr.length - 1) {
-              var tcOut = video.duration;
-              console.log(tcIn, tcOut, cueObj.content);
-              track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
-            } else {
-              var tcOut = timecodeUtils.timecodeToMilis(arr[index + 1].tcIn) / 1000;
-              console.log(tcIn, tcOut, cueObj.content);
-              track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
-            };
+          // create tracks
+          var colortrack = video.addTextTrack('metadata', 'color');
+          var audiotrack = video.addTextTrack('metadata', 'audio');
+          var motiontrack = video.addTextTrack('metadata', 'motion');
 
-            // track.addEventListener('cuechange', function() {
-            //   console.log(track.activeCues[0].text)
-            // });
+          colorAnalyzer.generateCues(colortrack, colorData, video);
+          colorAnalyzer.generateCues(audiotrack, audioData, video);
+          colorAnalyzer.generateCues(motiontrack, motionData, video);
 
-            return data;
+          colortrack.addEventListener('cuechange', function() {
+            console.log(colortrack.activeCues[0].text)
+            showFrameColorViz();
+            showTimelineColorViz();
+          });
+
+          motiontrack.addEventListener('cuechange', function() {
+            console.log(motiontrack.activeCues[0].text)
+            showFrameMotionViz();
+            showTimelineMotionViz();
           });
 
           video.removeEventListener('seeked', seekedListener, false);
-        }
+
+          console.log('analysis finished');
+
+          }  //end else (analysis finished)
+
+          
       };
 
       video.addEventListener('seeked', seekedListener, false);
     },
 
-    basicAnalyzer: function(project, analysisIndex) {
-      var video = document.getElementById('video');
-      var canvas = document.getElementById('canvas');
-      console.log('starting basic analyzer');
-
-      //canvas.height = video.videoHeight / 2;
-      //canvas.width = video.videoWidth / 2;
-      var context = canvas.getContext('2d');
-      var interval = prompt('Please insert interval in seconds', '30');
-      interval = parseInt(interval)
-      var i = 0;
-      var cueIndex = 1;
-      data = [];
-      video.pause();
-      video.currentTime = 0;
-
-      function seekedListener() {
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        var img = new Image();
-        img.src = canvas.toDataURL('image/jpg');
-
-        var pal = colorAnalyzer.convertPalette(colorAnalyzer.capturePalette(img, 16));
-        var tc = timecodeUtils.milisToTimecode(i * 1000);
-
-        var cueObj = {};
-        cueObj.tcIn = tc;
-        cueObj.tcOut = '';
-        cueObj.content = {
-          colors: pal
-        };
-        data.push(cueObj);
-        console.log(cueObj);
-
-        i += interval;
-        cueIndex += 1;
-
-        if (i <= video.duration) {
-          video.currentTime = i;
+    generateCues: function(track, data, video) {
+      // generate color cues
+      data.forEach(function(cueObj, index, arr) {
+        var tcIn = timecodeUtils.timecodeToMilis(cueObj.tcIn) / 1000
+        if (index === arr.length - 1) {
+          var tcOut = video.duration;
+          console.log(tcIn, tcOut, cueObj.content);
+          track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
         } else {
-          console.log(data);
-          analysis = project.analysis[analysisIndex];
-          analysis.data = data;
-          analysis.isDone = true;
-
-          //fileUtils.saveTextAsVtt(project, analysisIndex);
-          vtt = fileUtils.createVtt(project);
-          fileUtils.download(vtt);
-          video.removeEventListener('seeked', seekedListener, false);
-          video.pause();
-          cueIndex = 1;
-          data.forEach(function(vtt) {
-            if (vtt.index == cueIndex) {
-              console.log(vtt)
-              var jotacueri = document.querySelector.bind(document);
-              var cueIn = document.getElementById('cueIn');
-              cueIn.value = vtt.tc;
-              jotacueri('textarea').value = JSON.stringify(vtt.content);
-            }
-          });
-
-          return data;
-        }
-
-      }
-
-      video.addEventListener('seeked', seekedListener, false);
+          var tcOut = timecodeUtils.timecodeToMilis(arr[index + 1].tcIn) / 1000;
+          console.log(tcIn, tcOut, cueObj.content);
+          track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
+        };
+      });
     },
 
-    // ##########
-
-    ultraAnalyzer: function(project, analysisIndex, data, type, tag) {
-      var video = document.getElementById('video');
-      var canvas = document.getElementById('canvas');
-      console.log('starting color analyzer');
-      var context = canvas.getContext('2d');
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      var img = new Image();
-      img.src = canvas.toDataURL('image/jpg');
-      var pal = colorAnalyzer.convertPalette(colorAnalyzer.capturePalette(img, 32));
-      var tc = timecodeUtils.milisToTimecode(video.currentTime * 1000);
-      var cueObj = {};
-      cueObj.tcIn = tc;
-      cueObj.tcOut = '';
-      if (type === 'color') {
-        cueObj.content = {
-          colors: pal
-        }
-      } else if (type === 'audio') {
-        cueObj.content = {
-          audio: 0
-        }
-      } else if (type === 'motion') {
-        cueObj.content = {
-          motion: 1
-        }
-      } else {
-        cueObj.content = {
-          tag: tag
-        }
-      }
-
-      data.push(cueObj);
-      console.log(tag, data);
-
-      return data;
-    },
-
+ 
     // ###############
 
     capturePalette: function(img, colors) {
