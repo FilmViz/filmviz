@@ -37,13 +37,16 @@ var colorAnalyzer = (function() {
 
         //generate motion analysis
         if (!lastImg) { lastImg = img; };
+
         var mot;
+
         // warning!!! ñapa
         var motion = resemble(img.src).compareTo(lastImg.src).onComplete(function(results) {
-          console.log("motion result", results.misMatchPercentage / 100);
+          console.log('motion result', results.misMatchPercentage / 100);
           mot = results.misMatchPercentage / 100;
           return results.misMatchPercentage / 100;
         });
+
         console.log('motion ready', mot)
 
         // get current timecode
@@ -85,7 +88,8 @@ var colorAnalyzer = (function() {
           video.currentTime = i;
           console.log('loop', video.currentTime)
         } else {
-          console.log('analysis finished')
+          console.log('analysis finished');
+
           // stop video
           video.pause();
           cueIndex = 1;
@@ -113,22 +117,20 @@ var colorAnalyzer = (function() {
           colortrack.addEventListener('cuechange', function() {
             console.log(colortrack.activeCues[0].text)
             showFrameColorViz();
-            showTimelineColorViz();
           });
 
           motiontrack.addEventListener('cuechange', function() {
             console.log(motiontrack.activeCues[0].text)
             showFrameMotionViz();
-            showTimelineMotionViz();
           });
 
           video.removeEventListener('seeked', seekedListener, false);
-
+          showTimelineMotionViz();
+          showTimelineColorViz();
           console.log('analysis finished');
+        }
 
-          }  //end else (analysis finished)
-
-          
+        //end else (analysis finished)
       };
 
       video.addEventListener('seeked', seekedListener, false);
