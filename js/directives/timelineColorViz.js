@@ -94,9 +94,10 @@
           patch.enter().append('rect')
             .attr('width', xScale.rangeBand())
             .attr('height', yScale.rangeBand())
-            .style('fill', function(d) { return d; });
+            .style('fill', function(d) { return d; })
+            .style('stroke', function(d) { return d; });
 
-          scope.updateColorViz('val');
+          scope.updateColorViz('hue');
         }
       };
     });
