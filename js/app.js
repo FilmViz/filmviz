@@ -10,7 +10,7 @@
         //templateUrl: 'pages/main.html',
         templateUrl: 'pages/editor.html',
         controller: 'ProjectController'
-      })
+      });
       
       // .when('/init', {
       //   // route for the project initialization page
