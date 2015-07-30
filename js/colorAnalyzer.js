@@ -10,12 +10,12 @@ var colorAnalyzer = (function() {
       canvas.width = video.videoWidth / 4;
 
       var context = canvas.getContext('2d');
-      var interval = 20;
+      var interval = 1;
       var i = 0;
       var cueIndex = 1;
-      colorData = [];
-      motionData = [];
-      audioData = [];
+      var colorData = [];
+      var motionData = [];
+      var audioData = [];
       video.pause();
       video.currentTime = 0;
 
@@ -152,7 +152,6 @@ var colorAnalyzer = (function() {
       });
     },
 
- 
     // ###############
 
     capturePalette: function(img, colors) {

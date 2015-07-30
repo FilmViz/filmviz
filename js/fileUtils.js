@@ -10,7 +10,8 @@ var fileUtils = (function() {
       var text = '';
 
       // Select analysis to write
-      var analysis = (analysisIndex) ? analysisIndex : project.analysis[project.selectedAnalysis];
+      analysisIndex = analysisIndex || project.selectedAnalysis;
+      var analysis = project.analysis[analysisIndex];
 
       function newLine(string) {
         text += (string) ? string + '\n' : '\n';
@@ -98,6 +99,7 @@ var fileUtils = (function() {
       // Add VTT file for every analysis
       project.analysis.forEach(function(analysis, index) {
         analysisFolder.file(analysis.name + '.vtt', _this.createVtt(project, index));
+        analysisFolder.file(analysis.name + '.json', JSON.stringify(project.analysis[index]));
       });
 
       zip.file('all.json', JSON.stringify(project));
@@ -115,31 +117,40 @@ var fileUtils = (function() {
       reader.onload = (function(file) {
         return function(evt) {
           newZip = new JSZip(evt.target.result);
-          console.log("loading zip into project")
-          // var keys = [];
-          // for (var k in newZip.files) {
-          //   console.log(newZip.files[k].asText());
-          // };
+          console.log('loading zip into project')
+
           project = JSON.parse(newZip.files['all.json'].asText());
-          var data = project.analysis[0].data;
-          var name = project.analysis[0].name;
-          var track = video.addTextTrack('metadata', name);
-          data.forEach(function(cueObj, index, arr) {
-            var tcIn = timecodeUtils.timecodeToMilis(cueObj.tcIn) / 1000
-            if (index === arr.length - 1) {
-              var tcOut = video.duration;
-              //console.log(tcIn, tcOut, cueObj.content);
-              track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
-            } else {
-              var tcOut = timecodeUtils.timecodeToMilis(arr[index + 1].tcIn) / 1000;
-              //console.log(tcIn, tcOut, cueObj.content);
-              track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
-            };
+
+          colorData = project.analysis[0].data;
+          project.analysis[0].isDone = true;
+
+          audioData = project.analysis[1].data;
+          project.analysis[1].isDone = true;
+
+          motionData = project.analysis[2].data;
+          project.analysis[2].isDone = true;
+
+          // create tracks
+          var colortrack = video.addTextTrack('metadata', 'color');
+          var audiotrack = video.addTextTrack('metadata', 'audio');
+          var motiontrack = video.addTextTrack('metadata', 'motion');
+
+          colorAnalyzer.generateCues(colortrack, colorData, video);
+          colorAnalyzer.generateCues(audiotrack, audioData, video);
+          colorAnalyzer.generateCues(motiontrack, motionData, video);
+
+          colortrack.addEventListener('cuechange', function() {
+            console.log(colortrack.activeCues[0].text)
+            showFrameColorViz();
           });
 
-          track.addEventListener('cuechange', function() {
-              console.log(track.activeCues[0].text)
+          motiontrack.addEventListener('cuechange', function() {
+            console.log(motiontrack.activeCues[0].text)
+            showFrameMotionViz();
           });
+
+          showTimelineMotionViz();
+          showTimelineColorViz();
 
         }
       }(zipBlob));
