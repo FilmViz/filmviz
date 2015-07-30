@@ -33,10 +33,8 @@ var fileUtils = (function() {
           if (index === arr.length - 1) {
             var tcOut = timecodeUtils.milisToTimecode(video.duration * 1000);
             newLine(data.tcIn + ' --> ' + tcOut);
-            console.log(data.tcIn + ' --> ' + tcOut);
           } else {
             newLine(data.tcIn + ' --> ' + arr[index + 1].tcIn);
-            console.log(data.tcIn + ' --> ' + arr[index + 1].tcIn);
           };
 
           newLine(_this.jsonToString(data.content));
@@ -117,7 +115,6 @@ var fileUtils = (function() {
       reader.onload = (function(file) {
         return function(evt) {
           newZip = new JSZip(evt.target.result);
-          // console.log('loading zip into project')
 
           project = JSON.parse(newZip.files['all.json'].asText());
 
@@ -140,12 +137,10 @@ var fileUtils = (function() {
           colorAnalyzer.generateCues(motiontrack, motionData, video);
 
           colortrack.addEventListener('cuechange', function() {
-            // console.log(colortrack.activeCues[0].text)
             showFrameColorViz();
           });
 
           motiontrack.addEventListener('cuechange', function() {
-            // console.log(motiontrack.activeCues[0].text)
             showFrameMotionViz();
           });
 

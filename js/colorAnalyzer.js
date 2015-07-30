@@ -30,7 +30,6 @@ var colorAnalyzer = (function() {
 
         //generate color analysis
         var pal = colorAnalyzer.convertPalette(colorAnalyzer.capturePalette(img, 16));
-        console.log('color ready')
 
         //generate audio analysis
         var audio = 1;
@@ -42,12 +41,9 @@ var colorAnalyzer = (function() {
 
         // warning!!! ñapa
         var motion = resemble(img.src).compareTo(lastImg.src).onComplete(function(results) {
-          console.log('motion result', results.misMatchPercentage / 100);
           mot = results.misMatchPercentage / 100;
           return results.misMatchPercentage / 100;
         });
-
-        console.log('motion ready', mot)
 
         // get current timecode
         var tc = timecodeUtils.milisToTimecode(i * 1000);
@@ -82,13 +78,10 @@ var colorAnalyzer = (function() {
         cueIndex += 1;
         lastImg = img;
 
-        console.log(i, video.duration, interval)
-
         if (i <= video.duration) {
           video.currentTime = i;
-          console.log('loop', video.currentTime)
         } else {
-          console.log('analysis finished');
+          console.log('creating tracks and cues');
 
           // stop video
           video.pause();
@@ -115,18 +108,18 @@ var colorAnalyzer = (function() {
           colorAnalyzer.generateCues(motiontrack, motionData, video);
 
           colortrack.addEventListener('cuechange', function() {
-            console.log(colortrack.activeCues[0].text)
             showFrameColorViz();
           });
 
           motiontrack.addEventListener('cuechange', function() {
-            console.log(motiontrack.activeCues[0].text)
             showFrameMotionViz();
           });
 
           video.removeEventListener('seeked', seekedListener, false);
           showTimelineMotionViz();
           showTimelineColorViz();
+
+          // analysis finished
           console.log('analysis finished');
         }
 
@@ -142,11 +135,9 @@ var colorAnalyzer = (function() {
         var tcIn = timecodeUtils.timecodeToMilis(cueObj.tcIn) / 1000
         if (index === arr.length - 1) {
           var tcOut = video.duration;
-          console.log(tcIn, tcOut, cueObj.content);
           track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
         } else {
           var tcOut = timecodeUtils.timecodeToMilis(arr[index + 1].tcIn) / 1000;
-          console.log(tcIn, tcOut, cueObj.content);
           track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
         };
       });
