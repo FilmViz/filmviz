@@ -31,6 +31,11 @@ header > h2 {
   display: none;
 }
 
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
 .nav > li > a.tag-button,
 .nav > li > a.delete-button {
   display: inline-block;
