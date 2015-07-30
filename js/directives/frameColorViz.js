@@ -95,7 +95,7 @@ var showFrameColorViz = function() {
 
   var scale = d3.scale.ordinal()
     .rangeBands([0, width])
-    .domain(d3.range(0, colors.length));
+    .domain(d3.range(0, 16));
 
   var patch = svg.selectAll('rect')
     .data(colors);
