@@ -27,7 +27,7 @@
           canPlay = (canPlay === '' ? 'no' : canPlay);
           var message = 'Can play type \"' + type + '\": ' + canPlay;
           var isError = canPlay === 'no';
-          displayMessage(message, isError);
+          //displayMessage(message, isError);
           if (isError) {
             return;
           }
