@@ -10,8 +10,18 @@
 
 <body>
   <header class="row">
-    <h1 class="col-lg-3 centered-content">FilmViz</h1>
-    <h2 class="col-lg-9">Tool to retrieve and analyze information from movies</h2>
+    <div class="col-lg-10">
+      <h1 class="col-lg-3 centered-content">FilmViz</h1>
+      <h2 class="col-lg-9">Compare movies at a glace</h2>
+    </div>
+    <div class="col-lg-2">
+      <h4>
+        <!-- Temporal onclick to test-->
+        <a class="btn-success" onclick="fileUtils.download(fileUtils.createZip(project), project.name + '.zip')">SAVE</a>
+        <!-- <a href="#/preview" class="btn-success">PREVIEW</a>
+        <a href="#/init" class="btn-success">UPLOAD</a> -->
+      </h4>
+    </div>
   </header>
 
   <div ng-view class="row"></div>
@@ -29,7 +39,6 @@
   <script src="js/timecodeUtils.js"></script>
   <script src="js/fileUtils.js"></script>
   <script src="js/colorAnalyzer.js"></script>
-  <script src="js/motionAnalyzer.js"></script>
 
   <!-- Angular Controllers -->
   <script src="js/controllers/ProjectController.js"></script>
