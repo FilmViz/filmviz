@@ -77,3 +77,10 @@ div.timeline-viz svg {
 div.frame-viz {
   height: 150px;
 }
+
+#frame-motion-viz {
+  font-size: 60px;
+  text-align: center;
+  padding: 20px 0;
+  transition: color 0.5s ease;
+}

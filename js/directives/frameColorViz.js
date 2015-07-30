@@ -108,6 +108,7 @@ var showFrameColorViz = function() {
 
   patch.transition()
     .style('fill', function(d) { return d; })
+    .style('stroke', function(d) { return d; })
     .style('opacity', 1);
 
   patch.exit().transition()
