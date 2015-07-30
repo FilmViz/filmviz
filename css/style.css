@@ -68,3 +68,7 @@ div.timeline-viz svg {
   height: 200px;
   width: 100%;
 }
+
+div.frame-viz {
+  height: 150px;
+}
