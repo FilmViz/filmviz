@@ -3,15 +3,14 @@ header {
   background-color: #E6E6E6;
 }
 
-header > h1 {
-  margin: 0;
+header > * {
+  margin: .25em .75em;
 }
 
-header > h2 {
-  margin: 1rem 0 -1rem 0;
-  padding: 0px;
-  line-height: 6rem;
-  font-size: 2.5rem;
+header > nav {
+  margin-top: 1.25em;
+  margin-right: 2em;
+  float: right;
 }
 
 .centered {
@@ -83,4 +82,16 @@ div.frame-viz {
   text-align: center;
   padding: 20px 0;
   transition: color 0.5s ease;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.inline {
+  display: inline;
+}
+
+.block {
+  display: block;
 }
