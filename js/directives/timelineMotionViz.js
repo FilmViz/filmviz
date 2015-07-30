@@ -30,13 +30,13 @@ var showTimelineMotionViz = function() {
     .range([0, width]);
 
   var yScale = d3.scale.pow().exponent(1.5)
-    .domain(d3.extent(values, function(d) { return d.content.value; }))
+    .domain(d3.extent(values, function(d) { return d.content.motion; }))
     .range([height, 0]);
 
   var area = d3.svg.area()
     .x(function(d) { return xScale(d.tcIn); })
     .y0(height)
-    .y1(function(d) { return yScale(d.content.value); })
+    .y1(function(d) { return yScale(d.content.motion); })
     .interpolate('cardinal');
 
   svg.append('path')
