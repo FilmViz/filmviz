@@ -114,5 +114,6 @@ var showTimelineColorViz = function(colors) {
     .attr('width', xScale.rangeBand())
     .attr('height', yScale.rangeBand())
     .attr('y', function(d, i) { return yScale(i); })
-    .style('fill', function(d) { return d; });
+    .style('fill', function(d) { return d; })
+    .style('stroke', function(d) { return d; });
 };

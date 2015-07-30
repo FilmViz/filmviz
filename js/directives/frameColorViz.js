@@ -52,7 +52,17 @@
                 return (hsvColors[0].val - hsvColors[1].val);
             }
           };
-          
+
+          // var video = document.getElementById('video');
+          // var track = video.textTracks[0];
+          // var colors = JSON.parse(track.activeCues[0].text).colors;
+
+          var width = d3.select('div.frame-viz').node().offsetWidth;
+          var height = d3.select('div.frame-viz').node().offsetHeight;
+          var svg = d3.select('#frame-color-viz')
+            .attr('preserveAspectRatio', 'none')
+            .attr('viewBox', '0 0 ' + width + ' ' + height);
+
           scope.updateColorViz = function(sortingMode) {
             var video = document.getElementById('video');
             var track = video.textTracks[0];
@@ -81,10 +91,7 @@ var showFrameColorViz = function() {
   var colors = JSON.parse(track.activeCues[0].text).colors;
 
   var width = d3.select('div.frame-viz').node().offsetWidth;
-  var height = d3.select('div.frame-viz').node().offsetHeight;
-  var svg = d3.select('#frame-color-viz')
-    .attr('preserveAspectRatio', 'none')
-    .attr('viewBox', '0 0 ' + width + ' ' + height);
+  var svg = d3.select('#frame-color-viz');
 
   var scale = d3.scale.ordinal()
     .rangeBands([0, width])
