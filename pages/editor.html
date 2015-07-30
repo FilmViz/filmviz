@@ -12,6 +12,7 @@
 
       <!-- automatic analysis selected -->
       <div class="col-lg-6">
+      
         <video-controller></video-controller>
         <!-- start  sub-scope tab-nav -->
         <tab-navigation items="[{name:'Visualization'},
@@ -20,7 +21,7 @@
           <!-- option 0: visualization -->
           <section class="panel" id="frame-viz-panel" 
             ng-show="$parent.activeTab == 0">
-            <h4>frameViz</h4>
+            <frame-viz></frame-viz>
           </section>
           <!-- option 1: metadata Editor -->
           <section class="panel" id="frame-viz-panel" 
@@ -30,10 +31,8 @@
           </section>
 
         </tab-navigation>
-      </div>
 
       <!-- manual analysis selected -->
-      <div class="col-lg-6">
         <!-- start sub-scope tab-nav  -->
         <tab-navigation items="[{name:'Tag Editor'},
 					{name:'Metadata Editor'}]" ng-show="$parent.activeTab > 2">
