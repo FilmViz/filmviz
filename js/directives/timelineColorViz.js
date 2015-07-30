@@ -75,8 +75,8 @@
     });
 }());
 
-var showTimelineColorViz = function() {
-  var colors = project.analysis[0].data;
+var showTimelineColorViz = function(colors) {
+  // var colors = project.analysis[0].data;
 
   var width = d3.select('div.timeline-viz').node().offsetWidth;
   var height = d3.select('div.timeline-viz').node().offsetHeight;
@@ -106,7 +106,9 @@ var showTimelineColorViz = function() {
     });
 
   var patch = patchCol.selectAll('rect')
-    .data(function(d) { return d.content.colors; });
+    .data(function(d) {
+      return d.content.colors;
+    });
 
   patch.enter().append('rect')
     .attr('width', xScale.rangeBand())

@@ -10,9 +10,8 @@
     });
 }());
 
-var showTimelineMotionViz = function() {
-  console.log('Timeline viz');
-  var values = project.analysis[2].data;
+var showTimelineMotionViz = function(values) {
+  // var values = project.analysis[2].data;
 
   values.forEach(function(d) {
     d.tcIn = timecodeUtils.timecodeToMilis(d.tcIn);

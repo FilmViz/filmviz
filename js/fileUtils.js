@@ -117,7 +117,7 @@ var fileUtils = (function() {
       reader.onload = (function(file) {
         return function(evt) {
           newZip = new JSZip(evt.target.result);
-          console.log('loading zip into project')
+          // console.log('loading zip into project')
 
           project = JSON.parse(newZip.files['all.json'].asText());
 
@@ -140,17 +140,17 @@ var fileUtils = (function() {
           colorAnalyzer.generateCues(motiontrack, motionData, video);
 
           colortrack.addEventListener('cuechange', function() {
-            console.log(colortrack.activeCues[0].text)
+            // console.log(colortrack.activeCues[0].text)
             showFrameColorViz();
           });
 
           motiontrack.addEventListener('cuechange', function() {
-            console.log(motiontrack.activeCues[0].text)
+            // console.log(motiontrack.activeCues[0].text)
             showFrameMotionViz();
           });
 
-          showTimelineMotionViz();
-          showTimelineColorViz();
+          showTimelineMotionViz(project.analysis[2].data);
+          showTimelineColorViz(project.analysis[0].data);
 
         }
       }(zipBlob));
