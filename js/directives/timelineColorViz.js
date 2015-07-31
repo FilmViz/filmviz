@@ -118,4 +118,10 @@ var showTimelineColorViz = function(colors) {
     .attr('y', function(d, i) { return yScale(i); })
     .style('fill', function(d) { return d; })
     .style('stroke', function(d) { return d; });
+
+  patchCol.on('click', function(d, i) {
+    console.log(d.tcIn);
+    document.getElementById('video')
+      .currentTime = timecodeUtils.timecodeToMilis(d.tcIn) / 1000;
+  })
 };
