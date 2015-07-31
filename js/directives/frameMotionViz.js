@@ -21,7 +21,7 @@ var showFrameMotionViz = function() {
   var motion = JSON.parse(track.activeCues[0].text).motion;
 
   var div = d3.select('#frame-motion-viz');
-  if (motion > 0.9) {
+  if (motion > 0.8) {
     div.style('color', 'red');
   } else {
     div.style('color', '#337ab7');
