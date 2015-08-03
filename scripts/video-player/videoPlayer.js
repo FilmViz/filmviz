@@ -4,7 +4,7 @@
     .directive('videoPlayer', function() {
   return {
     restrict: 'E',
-    templateUrl: 'js/directives/templates/videoPlayer.html',
+    templateUrl: 'scripts/video-player/videoPlayer.html',
     link: function(scope, element, attributes) {
       var video = document.getElementById('video');
 
@@ -27,6 +27,7 @@
           canPlay = (canPlay === '' ? 'no' : canPlay);
           var message = 'Can play type \"' + type + '\": ' + canPlay;
           var isError = canPlay === 'no';
+
           //displayMessage(message, isError);
           if (isError) {
             return;
@@ -59,7 +60,7 @@
         video.currentTime(second);
       };
 
-    }
+    },
   };
 		});
 }());

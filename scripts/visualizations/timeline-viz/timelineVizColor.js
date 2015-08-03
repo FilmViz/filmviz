@@ -3,7 +3,7 @@
     .directive('timelineColorViz', function() {
       return {
         restrict: 'E',
-        templateUrl: 'js/directives/templates/timelineColorViz.html',
+        templateUrl: 'scripts/visualizations/timeline-viz/timelineVizColor.html',
         link: function(scope, element, attributes) {
 
           // scope.updateColorViz = function(sortingMode) {
@@ -36,7 +36,7 @@ var sortColors = function(a, b, sortingMode) {
 
   for (var c = 0; c < hexColors.length; c++) {
     var hex = hexColors[c].substring(1);
-     
+
     var r = parseInt(hex.substring(0,2),16)/255;
     var g = parseInt(hex.substring(2,4),16)/255;
     var b = parseInt(hex.substring(4,6),16)/255;
@@ -52,17 +52,17 @@ var sortColors = function(a, b, sortingMode) {
     if (val > 0) {
       sat = chr/val;
       if (sat > 0) {
-        if (r == max) { 
+        if (r == max) {
           hue = 60*(((g-min)-(b-min))/chr);
           if (hue < 0) {hue += 360;}
-        } else if (g == max) { 
-          hue = 120+60*(((b-min)-(r-min))/chr); 
-        } else if (b == max) { 
-          hue = 240+60*(((r-min)-(g-min))/chr); 
+        } else if (g == max) {
+          hue = 120+60*(((b-min)-(r-min))/chr);
+        } else if (b == max) {
+          hue = 240+60*(((r-min)-(g-min))/chr);
         }
       }
     }
-     
+
     hsvColors.push({ hex: hex, hue: hue, sat: sat, val: val });
   }
 
@@ -85,7 +85,7 @@ var showTimelineColorViz = function(colors) {
   var svg = d3.select('svg#timeline-color-viz')
     .attr('preserveAspectRatio','none')
     .attr('viewBox', '0 0 ' + width + ' ' + height);
-  
+
   var patchesPerCol = d3.max(colors, function(d) {
     return d.content.colors.length;
   });
@@ -93,7 +93,7 @@ var showTimelineColorViz = function(colors) {
   var xScale = d3.scale.ordinal()
     .domain(d3.range(0, colors.length))
     .rangeBands([0, width]);
-  
+
   var yScale = d3.scale.ordinal()
     .domain(d3.range(0, patchesPerCol))
     .rangeBands([0, height]);
