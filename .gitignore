@@ -1,5 +1,5 @@
 # Dependencies
-bower_components/
+vendor/
 bower_components.zip
 
 # Dev files
