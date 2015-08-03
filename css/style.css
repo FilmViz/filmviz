@@ -57,7 +57,7 @@ header > h2 {
 }
 
 header > nav {
-  margin-top: 1.25em;
+  margin-top: .5em;
   margin-right: 2em;
   float: right;
 }
@@ -144,3 +144,20 @@ div.frame-viz {
 .block {
   display: block;
 }
+
+.git-link {
+  vertical-align: middle;
+}
+
+.git-link::before {
+  content: "|";
+  margin: 0 .75em;
+}
+
+.frame-viz, .metadata-tags, .metadata-editor, .video-controls, .input-zip, .input-video {
+  margin: 0.5em;
+}
+
+
+
+

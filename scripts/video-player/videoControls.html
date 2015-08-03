@@ -1,14 +1,14 @@
 <div class="video-controller">
   <div class="container-fluid">   
-    <div class="row">
+    <div class="row input-zip">
       <div class="col-lg-3">
         2) LOAD ZIP:
       </div>
       <div class="col-lg-9">  
-        <input type="file" value="OPEN PROJECT" accept=".zip" onchange="fileUtils.readZip(project, event.target.files[0])"></input>
+        <input type="file" value="OPEN PROJECT" accept=".zip" onchange="fileUtils.readZip(project, event.target.files[0])"/>
       </div>
     </div>
-    <div class="row">
+    <div class="row video-controls">
       <input type="button" id="first-frame" value="|<" ng-click="firstFrame()"/>
       <input type="button" id="play" value=">" ng-click="play()"/>
       <input type="button" id="pause" value="||" ng-click="pause()"/>
