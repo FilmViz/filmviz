@@ -1,6 +1,9 @@
 (function() {
 
-  angular.module('filmViz', ['ngRoute']);
+  angular.module('filmViz', [
+    'ngRoute',
+    'utils',
+  ]);
 
   // configure our routes
   angular.module('filmViz').config(function($routeProvider) {
@@ -20,7 +23,7 @@
    */
   Object.defineProperty(Array.prototype, 'contains', {
     value: function(item) {
-      return this.indexOf(item) != -1;
+      return this.indexOf(item) !== -1;
     },
   });
 }());

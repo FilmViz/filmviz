@@ -1,7 +1,9 @@
 (function() {
 
   angular.module('filmViz')
-    .directive('tabNavigation', function() {
+    .directive('tabNavigation', ['ProjectData', function(ProjectData) {
+      var project = ProjectData;
+
       return {
         restrict: 'E',
         transclude: true,
@@ -56,5 +58,5 @@
           };
         },
       };
-    });
+    },]);
 }());

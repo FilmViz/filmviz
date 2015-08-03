@@ -9,16 +9,7 @@
 </head>
 
 <body>
-  <header>
-    <h1 class="inline-block">FilmViz</h1>
-    <h2 class="inline-block">Compare movies at a glance</h2>
-    <nav class="inline-block">
-      <!-- Temporal onclick to test-->
-      <a class="btn-success" onclick="fileUtils.download(fileUtils.createZip(project), project.name + '.zip')">SAVE</a>
-      <!-- <a href="#/preview" class="btn-success">PREVIEW</a>
-      <a href="#/init" class="btn-success">UPLOAD</a> -->
-    </nav>
-  </header>
+  <app-header></app-header>
 
   <div ng-view class="row"></div>
 
@@ -32,6 +23,7 @@
 
   <!-- FilmViz libraries -->
   <script src="scripts/app.js"></script>
+  <script src="scripts/services/utils.js"></script>
   <script src="scripts/services/timecodeUtils.js"></script>
   <script src="scripts/services/fileUtils.js"></script>
   <script src="scripts/services/analyzer.js"></script>
@@ -40,6 +32,7 @@
   <script src="scripts/services/projectData.js"></script>
   <!-- Angular Directives -->
   <script src="scripts/common/tabNavigation.js"></script>
+  <script src="scripts/app-header/appHeader.js"></script>
   <script src="scripts/metadata-editor/metadataEditor.js"></script>
   <script src="scripts/metadata-tags/metadataTags.js"></script>
   <script src="scripts/visualizations/timeline-viz/timelineViz.js"></script>

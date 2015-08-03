@@ -1,7 +1,8 @@
 (function() {
 
   angular.module('filmViz')
-    .directive('videoController', function() {
+    .directive('videoController', ['ProjectData', 'fileUtils', function(ProjectData, fileUtils) {
+
       return {
         restrict: 'E',
         templateUrl: 'scripts/video-player/videoControls.html',
@@ -23,9 +24,13 @@
           };
 
           scope.automatic = function() {
-            colorAnalyzer.colorAnalysis(project);
+            colorAnalyzer.colorAnalysis(ProjectData);
+          };
+
+          scope.loadProject = function(event) {
+            fileUtils.readZip(ProjectData, event.target.files[0]);
           };
         },
       };
-    });
+    },]);
 }());
