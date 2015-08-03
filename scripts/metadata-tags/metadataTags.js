@@ -1,6 +1,6 @@
 (function() {
 
-  angular.module('filmVizApp')
+  angular.module('filmViz')
     .directive('metadataTags', function() {
       return {
         restrict: 'E',

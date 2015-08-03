@@ -1,35 +1,28 @@
 (function() {
-  angular.module('filmVizApp')
-    .controller('ProjectController', function() {
-      this.project = project;
+  angular.module('filmViz')
+    .controller('ProjectController', ['ProjectData', function(ProjectData) {
+      this.project = ProjectData;
+    }])
+    .service('ProjectData', function () {
+      this.selectedAnalysis = 0;
+      this.name = '';
+      this.videoSrc = '';
+      this.analysis = [
+        {
+          name: 'color',
+          isDone: false,
+          data: [],
+        },
+        {
+          name: 'audio',
+          isDone: false,
+          data: [],
+        },
+        {
+          name: 'motion',
+          isDone: false,
+          data: [],
+        },
+      ];
     });
-
-  project = {
-    selectedAnalysis: 0,
-    name: 'prueba',
-    videosrc: 'video.mp4',
-    analysis: [
-      {
-        name: 'color',
-        isDone: false,
-        data: []
-      },
-      {
-        name: 'audio',
-        isDone: false,
-        data: []
-      },
-      {
-        name: 'motion',
-        isDone: false,
-        data: []
-      },
-      {
-        name: 'Escalas de Plano',
-        isDone: false,
-        tags: ['Plano Detalle', 'Primerisimo Primer Plano', 'Primer Plano', 'Plano Corto', 'Plano Medio', 'Plano Americano', 'Plano Largo', 'Plano General', 'Gran Plano General'],
-        data: []
-      }
-    ]
-  };
 }());

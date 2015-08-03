@@ -1,32 +1,16 @@
 (function() {
 
-  angular.module('filmVizApp', ['ngRoute']);
+  angular.module('filmViz', ['ngRoute']);
 
   // configure our routes
-  angular.module('filmVizApp').config(function($routeProvider) {
+  angular.module('filmViz').config(function($routeProvider) {
     $routeProvider
       .when('/', {
         // route for the home page
         //templateUrl: 'pages/main.html',
         templateUrl: 'pages/editor.html',
-        controller: 'ProjectController'
+        controller: 'ProjectController',
       });
-      
-      // .when('/init', {
-      //   // route for the project initialization page
-      //   templateUrl: 'pages/init.html',
-      //   controller: 'ProjectController'
-      // })
-      // .when('/editor', {
-      //   // route for the project editor page
-      //   templateUrl: 'pages/editor.html',
-      //   controller: 'ProjectController'
-      // })
-      // .when('/preview', {
-      //   // route for the full project preview page
-      //   templateUrl: 'pages/preview.html',
-      //   controller: 'ProjectController'
-      // });
   });
 
   /*
@@ -37,6 +21,6 @@
   Object.defineProperty(Array.prototype, 'contains', {
     value: function(item) {
       return this.indexOf(item) != -1;
-    }
+    },
   });
 }());

@@ -1,5 +1,5 @@
 (function() {
-  angular.module('filmVizApp')
+  angular.module('filmViz')
     .directive('frameMotionViz', function() {
       return {
         restrict: 'E',
