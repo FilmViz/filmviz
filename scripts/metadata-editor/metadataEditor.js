@@ -4,7 +4,7 @@
     .directive('metadataEditor', function() {
       return {
         restrict: 'E',
-        templateUrl: 'js/directives/templates/metadataEditor.html',
+        templateUrl: 'scripts/metadata-editor/metadataEditor.html',
         link: function(scope, element, attributes) {
 
           var video = document.getElementById('video');
@@ -68,7 +68,7 @@
             });
           };
 
-        }
+        },
       };
     });
 }());

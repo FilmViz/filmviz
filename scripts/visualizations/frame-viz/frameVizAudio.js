@@ -3,7 +3,7 @@
     .directive('frameAudioViz', function() {
       return {
         restrict: 'E',
-        templateUrl: 'js/directives/templates/frameAudioViz.html'
+        templateUrl: 'scripts/visualizations/frame-viz/frameVizAudio.html',
       };
     });
 }());

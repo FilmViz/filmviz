@@ -3,7 +3,7 @@
     .directive('timelineViz', function() {
       return {
         restrict: 'E',
-        templateUrl: 'js/directives/templates/timelineViz.html'
+        templateUrl: 'scripts/visualizations/timeline-viz/timelineViz.html',
       };
     });
 }());

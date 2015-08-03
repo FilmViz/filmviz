@@ -4,11 +4,11 @@
     .directive('videoController', function() {
       return {
         restrict: 'E',
-        templateUrl: 'js/directives/templates/videoController.html',
+        templateUrl: 'scripts/video-player/videoControls.html',
         link: function(scope, element, attributes) {
           var video = document.getElementById('video');
 
-          scope.data = []
+          scope.data = [];
 
           scope.play = function() {
             video.play();
@@ -24,8 +24,8 @@
 
           scope.automatic = function() {
             colorAnalyzer.colorAnalysis(project);
-          }
-        }
+          };
+        },
       };
     });
 }());

@@ -3,7 +3,7 @@
     .directive('frameViz', function() {
       return {
         restrict: 'E',
-        templateUrl: 'js/directives/templates/frameViz.html'
+        templateUrl: 'scripts/visualizations/frame-viz/frameViz.html',
       };
     });
 }());

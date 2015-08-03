@@ -3,7 +3,7 @@
     .directive('timelineMotionViz', function() {
       return {
         restrict: 'E',
-        templateUrl: 'js/directives/templates/timelineMotionViz.html',
+        templateUrl: 'scripts/visualizations/timeline-viz/timelineVizMotion.html',
         link: function(scope, element, attributes) {
         }
       };

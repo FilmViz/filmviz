@@ -5,17 +5,17 @@
       return {
         restrict: 'E',
         scope: {
-          tags: '='
+          tags: '=',
         },
-        templateUrl: 'js/directives/templates/metadataTags.html',
+        templateUrl: 'scripts/metadata-tags/metadataTags.html',
         link: function(scope, element, attributes) {
           scope.activeTab = 0;
 
-          scope.data = []
+          scope.data = [];
 
           scope.isPaused = function() {
-            return video.paused
-          }
+            return video.paused;
+          };
 
           scope.selectTab = function(tagIndex) {
             scope.activeTab = tagIndex;
@@ -49,7 +49,7 @@
 
             }
           };
-        }
+        },
       };
     });
 }());
