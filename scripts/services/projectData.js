@@ -2,27 +2,21 @@
   angular.module('filmViz')
     .controller('ProjectController', ['ProjectData', function(ProjectData) {
       this.project = ProjectData;
-    }])
-    .service('ProjectData', function () {
-      this.selectedAnalysis = 0;
+    },])
+    .service('ProjectData', function() {
+      function Analysis(name)  {
+        this.name = name;
+        this.isDone = false;
+        this.data = [];
+      };
+
       this.name = '';
       this.videoSrc = '';
       this.analysis = [
-        {
-          name: 'color',
-          isDone: false,
-          data: [],
-        },
-        {
-          name: 'audio',
-          isDone: false,
-          data: [],
-        },
-        {
-          name: 'motion',
-          isDone: false,
-          data: [],
-        },
+        new Analysis('color'),
+        new Analysis('audio'),
+        new Analysis('motion'),
       ];
+      this.currentAnalysisIndex = 0;
     });
 }());
