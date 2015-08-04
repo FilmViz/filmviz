@@ -29,15 +29,15 @@ It's still a work in progress, but we can already get automatic analysis for col
 
 #### Here you can see the color analysis of Sin City. 
 
-![Sin City](img/screenshot1.jpg)
-
 Uhm, let's see... where does the yellow character appear on screen? Yep, you guessed it.You can also add your own tags to measure any other aspect of the film you want, and the tool can even tell you things like the number and duration of cuts.
+
+![Sin City](img/screenshot1.jpg)
 
 #### Another example: The Goonies. 
 
-![The Goonies](img/screenshot2.jpg)
-
 Here you can appreciate the rhythm of the film through the motion analysis.
+
+![The Goonies](img/screenshot2.jpg)
 
 ### Test it!
 
