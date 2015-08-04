@@ -2,11 +2,19 @@
 
 ## About the project
 
+There are many film analysis on the internet, particularly of color. Some are manual and subjective, some analyze just a frame while others span the whole film, and many use their own private tools. 
+
+That's why we're building **FilmViz**: a web tool that helps you **analyze** your favorite films, **compare** them in a visual way and **share** your discoveries with others.
+
+![FilmViz](img/filmviz_poster.jpg)
+
+We want to provide a **common tool** for film analysis and comparison to the community.
+
 ### Description
 
-The final aim of this project is to build an online database of film analysis that allows users to visually compare different aspects of films, such as their main colors, their motion or rhythm through the number of cuts, the amount of dialogue and music, etc.
+The final aim of this project is to build an online database of film analysis that allows users to visually compare different aspects of films, such as their main colors, their motion or rhythm through the number of cuts, the amount of dialogue and music, etc. Combining all this information will allow you to understand the whole picture.
 
-The project is inspired by a number of independent analysis of different films that are available out there (such as [this](http://moviesincolor.com/), [this](http://moviebarcode.tumblr.com/), [this](http://www.smartjava.org/examples/movie-viz/index.html) or [this](http://www.smartjava.org/examples/movie-viz/batman.html)). We want to provide a common tool for film analysis and comparison to the community.
+The project is inspired by a number of independent analysis of different films that are available out there (such as [this](http://moviesincolor.com/), [this](http://moviebarcode.tumblr.com/), [this](http://www.smartjava.org/examples/movie-viz/index.html), [this](http://www.smartjava.org/examples/movie-viz/batman.html) or [this](http://fathom.info/rocky/)).
 
 
 ### Objectives
@@ -15,10 +23,33 @@ The first logical step is to build a **film analysis tool**. The tool will run l
 
 The second part of the project would be to build an **online film analysis database**, to which users will upload the analysis performed locally with the tool. A website will display visualizations for all the film analysis uploaded, and will allow users to see comparisons between films.
 
+### Sample images
 
-## Get it running
+It's still a work in progress, but we can already get automatic analysis for color and motion. 
 
-Before you can run FilmViz you need to install the `bower` dependencies. Execute this command on a terminal:
+#### Here you can see the color analysis of Sin City. 
+
+![Sin City](img/screenshot1.jpg)
+
+Uhm, let's see... where does the yellow character appear on screen? Yep, you guessed it.You can also add your own tags to measure any other aspect of the film you want, and the tool can even tell you things like the number and duration of cuts.
+
+#### Another example: The Goonies. 
+
+![The Goonies](img/screenshot2.jpg)
+
+Here you can appreciate the rhythm of the film through the motion analysis.
+
+### Test it!
+
+You can try an early prototype of the analysis tool at [filmviz.kinoraw.net](http://filmviz.kinoraw.net) (kinoraw are kindly hosting us for now)
+
+### Tell us what you think
+
+Follow us on Twitter (@filmviz) to get updates about the project. We're eager to hear what you think, so please don't hesitate to come talk to us.
+
+## Installation  
+
+Before you can run a development version of FilmViz you need to install the `bower` dependencies. Execute this command on a terminal:
 ```
 bower install
 ```
