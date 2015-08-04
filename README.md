@@ -6,16 +6,16 @@ There are many film analysis on the internet, particularly of color. Some are ma
 
 That's why we're building **FilmViz**: a web tool that helps you **analyze** your favorite films, **compare** them in a visual way and **share** your discoveries with others.
 
+We want to provide a **common tool** for film analysis and comparison to the community.
+
 ![FilmViz](img/filmviz_poster.jpg)
 
-We want to provide a **common tool** for film analysis and comparison to the community.
 
 ### Description
 
 The final aim of this project is to build an online database of film analysis that allows users to visually compare different aspects of films, such as their main colors, their motion or rhythm through the number of cuts, the amount of dialogue and music, etc. Combining all this information will allow you to understand the whole picture.
 
 The project is inspired by a number of independent analysis of different films that are available out there (such as [this](http://moviesincolor.com/), [this](http://moviebarcode.tumblr.com/), [this](http://www.smartjava.org/examples/movie-viz/index.html), [this](http://www.smartjava.org/examples/movie-viz/batman.html) or [this](http://fathom.info/rocky/)).
-
 
 ### Objectives
 
