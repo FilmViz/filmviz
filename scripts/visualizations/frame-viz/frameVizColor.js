@@ -88,7 +88,7 @@
 var showFrameColorViz = function() {
   var video = document.getElementById('video');
   var track = video.textTracks[0];
-  var colors = JSON.parse(track.activeCues[0].text).colors;
+  var colors = JSON.parse(track.activeCues[0].text);
 
   var width = d3.select('div.frame-viz').node().offsetWidth;
   var svg = d3.select('#frame-color-viz');

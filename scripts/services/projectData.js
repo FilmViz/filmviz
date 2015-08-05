@@ -18,7 +18,7 @@ angular.module('filmViz')
 
     /**
      * Cue object (like in html track cues)
-     * @param [array || string] content Information stored in the cue
+     * @param [array || string || number] content Information stored in the cue
      * @param [number] tcIn start Timecode of cue in seconds with three decimal digits format
      * @param [number] tcOut end Timecode of cue in seconds with three decimal digits format
      */

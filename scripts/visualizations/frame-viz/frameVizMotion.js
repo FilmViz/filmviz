@@ -19,7 +19,7 @@
 var showFrameMotionViz = function() {
   var video = document.getElementById('video');
   var track = video.textTracks[2];
-  var motion = JSON.parse(track.activeCues[0].text).motion;
+  var motion = JSON.parse(track.activeCues[0].text);
 
   var div = d3.select('#frame-motion-viz');
   if (motion > 0.8) {

@@ -76,10 +76,7 @@ var sortColors = function(a, b, sortingMode) {
   }
 };
 
-var showTimelineColorViz = function(colors) {
-  // var colors = project.analysis[0].data;
-
-  var colors = colors.analysis[0].data;
+var showTimelineColorViz = function(data) {
 
   var width = d3.select('div.timeline-viz').node().offsetWidth;
   var height = d3.select('div.timeline-viz').node().offsetHeight;
@@ -88,12 +85,12 @@ var showTimelineColorViz = function(colors) {
     .attr('preserveAspectRatio','none')
     .attr('viewBox', '0 0 ' + width + ' ' + height);
 
-  var patchesPerCol = d3.max(colors, function(d) {
+  var patchesPerCol = d3.max(data, function(d) {
     return d.content.length;
   });
 
   var xScale = d3.scale.ordinal()
-    .domain(d3.range(0, colors.length))
+    .domain(d3.range(0, data.length))
     .rangeBands([0, width]);
 
   var yScale = d3.scale.ordinal()
@@ -101,7 +98,7 @@ var showTimelineColorViz = function(colors) {
     .rangeBands([0, height]);
 
   var patchCol = svg.selectAll('g')
-    .data(colors);
+    .data(data);
 
   patchCol.enter().append('g')
     .attr('transform', function(d, i) {
@@ -112,7 +109,7 @@ var showTimelineColorViz = function(colors) {
     .data(function(d) {
       return d.content;
     })
-    .sort(function(a, b) { return sortColors(a, b, 'hue'); });
+    //.sort(function(a, b) { return sortColors(a, b, 'hue'); });
 
   patch.enter().append('rect')
     .attr('width', xScale.rangeBand())
