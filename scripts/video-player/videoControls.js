@@ -1,7 +1,7 @@
 (function() {
 
   angular.module('filmViz')
-    .directive('videoController', ['ProjectData', function(ProjectData) {
+    .directive('videoController', ['ProjectData', 'Analyzer', function(ProjectData, Analyzer) {
 
       return {
         restrict: 'E',
@@ -24,7 +24,7 @@
           };
 
           scope.automatic = function() {
-            colorAnalyzer.colorAnalysis(ProjectData);
+            Analyzer.runAnalysis();
           };
 
           scope.loadProject = function(event) {

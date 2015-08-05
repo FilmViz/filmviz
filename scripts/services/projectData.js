@@ -32,7 +32,7 @@ angular.module('filmViz')
 
     this.name = 'alcachofas';
     this.videoSrc = '';
-    this.analysis = [
+    this.analysisCollection = [
       new this.Analysis('color'),
       new this.Analysis('audio'),
       new this.Analysis('motion'),
