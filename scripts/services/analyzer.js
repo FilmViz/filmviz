@@ -82,6 +82,7 @@ var colorAnalyzer = (function() {
           cueIndex = 1;
 
           // analysis is finished, lets save data
+
           colorAnalysis = project.analysis[0];
           colorAnalysis.data = colorData;
           colorAnalysis.isDone = true;
@@ -91,6 +92,8 @@ var colorAnalyzer = (function() {
           motionAnalysis = project.analysis[2];
           motionAnalysis.data = motionData;
           motionAnalysis.isDone = true;
+
+
 
           // create tracks
           var colortrack = video.addTextTrack('metadata', 'color');

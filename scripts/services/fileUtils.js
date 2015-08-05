@@ -8,6 +8,7 @@ var fileUtils = (function() {
     },
 
     download: function(blob, filename) {
+
       // Create fake anchor tag
       var link = document.createElement('a');
 
@@ -20,7 +21,7 @@ var fileUtils = (function() {
 
       // Remove link element from DOM after click
       link.addEventListener('click', function(evt) {
-        evt.target.parent.removeChild(evt.target);
+        evt.target.parentNode.removeChild(evt.target);
       });
 
       // Hide the link

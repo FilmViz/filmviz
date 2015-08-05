@@ -30,7 +30,7 @@ angular.module('filmViz')
       this.tcOut = tcOut || null;
     };
 
-    this.name = '';
+    this.name = 'alcachofas';
     this.videoSrc = '';
     this.analysis = [
       new this.Analysis('color'),
@@ -88,6 +88,7 @@ angular.module('filmViz')
       var zip = new JSZip();
 
       // Add project data on 'project.json'
+      console.log(_this.Analysis)
       zip.file('project.json', JSON.stringify({
         name: _this.name,
         videoSrc: _this.videoSrc,
