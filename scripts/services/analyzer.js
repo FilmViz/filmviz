@@ -116,8 +116,8 @@ var colorAnalyzer = (function() {
           });
 
           video.removeEventListener('seeked', seekedListener, false);
-          showTimelineMotionViz();
-          showTimelineColorViz();
+          showTimelineMotionViz(project.analysis[2].data);
+          showTimelineColorViz(project.analysis[0].data);
 
           // analysis finished
           console.log('analysis finished');
