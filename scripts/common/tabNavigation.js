@@ -20,7 +20,7 @@
 
           scope.selectTab = function(setTab) {
             scope.activeTab = setTab;
-            project.selectedAnalysis = setTab;
+            ProjectData.currentAnalysisIndex = setTab;
           };
 
           scope.isSelected = function(checkTab) {
@@ -31,8 +31,8 @@
             scope.activeTab = setTab;
             var r = confirm('Delete analysis???');
             if (r === true) {
-              project.analysis.splice(scope.activeTab, 1);
-              scope.activeTab = project.analysis.length - 1;
+              ProjectData.analysisCollection.splice(scope.activeTab, 1);
+              scope.activeTab = ProjectData.analysisCollection.length - 1;
             }
           };
 
@@ -41,17 +41,14 @@
             if (name != null) {
 
               keys = [];
-              for (var key in project.analysis) {
-                keys.push(project.analysis[key].name);
+              for (var key in ProjectData.analysisCollection) {
+                keys.push(ProjectData.analysisCollection[key].name);
               }
 
               if (!keys.contains(scope.analysis.name)) {
-                scope.analysis.isDone = false;
-                scope.analysis.tags = [];
-                scope.analysis.data = [];
-                project.analysis.push(this.analysis);
-                scope.activeTab = project.analysis.length - 1;
-                project.selectedAnalysis = scope.activeTab;
+                ProjectData.analysisCollection.push(new ProjectData.Analysis(scope.analysis.name));
+                scope.activeTab = ProjectData.analysisCollection.length - 1;
+                ProjectData.currentAnalysisIndex = scope.activeTab;
                 scope.analysis = {};
               }
             }

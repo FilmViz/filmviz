@@ -36,7 +36,7 @@ angular.module('filmViz')
         currentImg.src = canvas.toDataURL('image/jpg');
 
         // Generate color analysis
-        var palette = colorUtils.convertPalette(colorUtils.capturePalette(img, 16));
+        var palette = colorUtils.convertPalette(colorUtils.capturePalette(currentImg, 16));
 
         // Generate audio analysis
         var audio = 1;
@@ -44,17 +44,17 @@ angular.module('filmViz')
         // Generate motion analysis
         var motion;
 
-        if (!lastImg) { 
+        if (!lastImg) {
           motion = 0;
         } else {
 
           // warning!!! ñapa
-          var mot = resemble(img.src).compareTo(lastImg.src).onComplete(function(results) {
+          var mot = resemble(currentImg.src).compareTo(lastImg.src).onComplete(function(results) {
             motion = results.misMatchPercentage / 100;
             return results.misMatchPercentage / 100;
           });
         }
-        
+
         // create cueObjects and store in each analysis
         var colorCue = new ProjectData.Cue(palette, currentTime);
         var audioCue = new ProjectData.Cue(audio, currentTime);
@@ -104,8 +104,8 @@ angular.module('filmViz')
           });
 
           video.removeEventListener('seeked', seekedListener, false);
-          showTimelineMotionViz(project.analysis[2].data);
-          showTimelineColorViz(project.analysis[0].data);
+          showTimelineMotionViz(motionAnalysis.data);
+          showTimelineColorViz(colorAnalysis.data);
 
           // analysis finished
           console.log('analysis finished');

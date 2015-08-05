@@ -21,9 +21,10 @@ angular.module('filmViz')
      * @param [array || string || number] content Information stored in the cue
      * @param [number] tcIn start Timecode of cue in seconds with three decimal digits format
      * @param [number] tcOut end Timecode of cue in seconds with three decimal digits format
-     */
-     // tcIn --> startTime
-     // tcOut --> endTime
+    */
+
+    // tcIn --> startTime
+    // tcOut --> endTime
     this.Cue = function(content, tcIn, tcOut)  {
       this.content = content;
       this.tcIn = tcIn;
@@ -32,11 +33,7 @@ angular.module('filmViz')
 
     this.name = 'alcachofas';
     this.videoSrc = '';
-    this.analysisCollection = [
-      new this.Analysis('color'),
-      new this.Analysis('audio'),
-      new this.Analysis('motion'),
-    ];
+    this.analysisCollection = [];
     this.currentAnalysisIndex = 0;
 
     this.createVtt = function(analysisIndex, isBlob) {
@@ -44,8 +41,8 @@ angular.module('filmViz')
       var text = '';
 
       // Select analysis to write
-      analysisIndex = analysisIndex || project.selectedAnalysis;
-      var analysis = project.analysis[analysisIndex];
+      analysisIndex = analysisIndex || project.currentAnalysisIndex;
+      var analysis = project.analysisCollection[analysisIndex];
 
       function newLine(string) {
         text += (string) ? string + '\n' : '\n';
@@ -92,7 +89,7 @@ angular.module('filmViz')
       zip.file('project.json', JSON.stringify({
         name: _this.name,
         videoSrc: _this.videoSrc,
-        analysis: _this.Analysis,
+        analysisCollection: _this.analysisCollection,
         currentAnalysisIndex: _this.currentAnalysisIndex,
       }));
 
