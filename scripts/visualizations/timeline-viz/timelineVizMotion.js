@@ -13,6 +13,8 @@
 var showTimelineMotionViz = function(values) {
   // var values = project.analysis[2].data;
 
+  var values = values.analysis[2].data;
+
   values.forEach(function(d) {
     d.tcIn = timecodeUtils.timecodeToMilis(d.tcIn);
   });

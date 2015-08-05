@@ -1,7 +1,7 @@
 (function() {
 
   angular.module('filmViz')
-    .directive('videoController', ['ProjectData', 'fileUtils', function(ProjectData, fileUtils) {
+    .directive('videoController', ['ProjectData', function(ProjectData) {
 
       return {
         restrict: 'E',

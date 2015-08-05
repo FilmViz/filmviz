@@ -2,7 +2,6 @@
 
   angular.module('filmViz', [
     'ngRoute',
-    'utils',
   ]);
 
   // configure our routes

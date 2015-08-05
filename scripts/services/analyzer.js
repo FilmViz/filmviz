@@ -10,7 +10,7 @@ var colorAnalyzer = (function() {
       canvas.width = video.videoWidth / 4;
 
       var context = canvas.getContext('2d');
-      var interval = 1;
+      var interval = 30;
       var i = 0;
       var cueIndex = 1;
       var colorData = [];
@@ -21,15 +21,17 @@ var colorAnalyzer = (function() {
 
       var lastImg;
 
+      var _this = this;
+
       function seekedListener() {
-        console.log('seeked: analyzing frame')
+        console.log('seeked: analyzing frame');
 
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         var img = new Image();
         img.src = canvas.toDataURL('image/jpg');
 
         //generate color analysis
-        var pal = colorAnalyzer.convertPalette(colorAnalyzer.capturePalette(img, 16));
+        var pal = colorUtils.convertPalette(colorUtils.capturePalette(img, 16));
 
         //generate audio analysis
         var audio = 1;
@@ -53,7 +55,7 @@ var colorAnalyzer = (function() {
         cueObj.tcIn = tc;
         cueObj.tcOut = '';
         cueObj.content = {
-          colors: pal
+          colors: pal,
         };
         colorData.push(cueObj);
 
@@ -61,7 +63,7 @@ var colorAnalyzer = (function() {
         cueObj.tcIn = tc;
         cueObj.tcOut = '';
         cueObj.content = {
-          audio: audio
+          audio: audio,
         };
         audioData.push(cueObj);
 
@@ -69,7 +71,7 @@ var colorAnalyzer = (function() {
         cueObj.tcIn = tc;
         cueObj.tcOut = '';
         cueObj.content = {
-          motion: mot
+          motion: mot,
         };
         motionData.push(cueObj);
 
@@ -103,21 +105,21 @@ var colorAnalyzer = (function() {
           var audiotrack = video.addTextTrack('metadata', 'audio');
           var motiontrack = video.addTextTrack('metadata', 'motion');
 
-          colorAnalyzer.generateCues(colortrack, colorData, video);
-          colorAnalyzer.generateCues(audiotrack, audioData, video);
-          colorAnalyzer.generateCues(motiontrack, motionData, video);
+          _this.generateCues(colortrack, colorData, video);
+          _this.generateCues(audiotrack, audioData, video);
+          _this.generateCues(motiontrack, motionData, video);
 
           colortrack.addEventListener('cuechange', function() {
-            showFrameColorViz();
+            showFrameColorViz(project);
           });
 
           motiontrack.addEventListener('cuechange', function() {
-            showFrameMotionViz();
+            showFrameMotionViz(project);
           });
 
           video.removeEventListener('seeked', seekedListener, false);
-          showTimelineMotionViz();
-          showTimelineColorViz();
+          showTimelineMotionViz(project);
+          showTimelineColorViz(project);
 
           // analysis finished
           console.log('analysis finished');
@@ -132,7 +134,7 @@ var colorAnalyzer = (function() {
     generateCues: function(track, data, video) {
       // generate color cues
       data.forEach(function(cueObj, index, arr) {
-        var tcIn = timecodeUtils.timecodeToMilis(cueObj.tcIn) / 1000
+        var tcIn = timecodeUtils.timecodeToMilis(cueObj.tcIn) / 1000;
         if (index === arr.length - 1) {
           var tcOut = video.duration;
           track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
@@ -142,53 +144,5 @@ var colorAnalyzer = (function() {
         };
       });
     },
-
-    // ###############
-
-    capturePalette: function(img, colors) {
-      var opts = {
-        colors: colors,
-        method: 2, // histogram method, 2: min-population threshold within subregions; 1: global top-population
-        boxSize: [64, 64], // subregion dims (if method = 2)
-        boxPxls: 2, // min-population threshold (if method = 2)
-        initColors: 4096, // # of top-occurring colors  to start with (if method = 1)
-        minHueCols: 256, // # of colors per hue group to evaluate regardless of counts, to retain low-count hues
-        dithKern: null, // dithering kernel name, see available kernels in docs below
-        dithDelta: 0, // dithering threshhold (0-1) e.g: 0.05 will not dither colors with <= 5% difference
-        dithSerp: false, // enable serpentine pattern dithering
-        palette: [], // a predefined palette to start with in r,g,b tuple format: [[r,g,b],[r,g,b]...]
-        reIndex: false, // affects predefined palettes only. if true, allows compacting of sparsed palette once target palette size is reached. also enables palette sorting.
-        useCache: true, // enables caching for perf usually, but can reduce perf in some cases, like pre-def palettes
-        cacheFreq: 10, // min color occurance count needed to qualify for caching
-        colorDist: 'euclidean' // method used to determine color distance, can also be 'manhattan'
-      };
-      var q = new RgbQuant(opts);
-
-      // analyze histograms
-      q.sample(img);
-
-      // build palette
-      var pal = q.palette();
-      return pal
-    },
-
-    convertPalette: function(pal) {
-      var newpalette = [];
-      for (var index = 0; index < pal.length / 4; index++) {
-        color = colorAnalyzer.rgbToHex(pal[index * 4 + 0], pal[index * 4 + 1], pal[index * 4 + 2]);
-        newpalette.push(color);
-      }
-
-      return newpalette;
-    },
-
-    componentToHex: function(c) {
-      var hex = c.toString(16);
-      return hex.length == 1 ? '0' + hex : hex;
-    },
-
-    rgbToHex: function(r, g, b) {
-      return '#' + colorAnalyzer.componentToHex(r) + colorAnalyzer.componentToHex(g) + colorAnalyzer.componentToHex(b);
-    }
   };
 })();

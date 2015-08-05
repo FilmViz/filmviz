@@ -79,6 +79,8 @@ var sortColors = function(a, b, sortingMode) {
 var showTimelineColorViz = function(colors) {
   // var colors = project.analysis[0].data;
 
+  var colors = colors.analysis[0].data;
+
   var width = d3.select('div.timeline-viz').node().offsetWidth;
   var height = d3.select('div.timeline-viz').node().offsetHeight;
 
@@ -87,7 +89,7 @@ var showTimelineColorViz = function(colors) {
     .attr('viewBox', '0 0 ' + width + ' ' + height);
 
   var patchesPerCol = d3.max(colors, function(d) {
-    return d.content.colors.length;
+    return d.content.length;
   });
 
   var xScale = d3.scale.ordinal()
@@ -108,7 +110,7 @@ var showTimelineColorViz = function(colors) {
 
   var patch = patchCol.selectAll('rect')
     .data(function(d) {
-      return d.content.colors;
+      return d.content;
     })
     .sort(function(a, b) { return sortColors(a, b, 'hue'); });
 

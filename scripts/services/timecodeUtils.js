@@ -39,6 +39,6 @@ var timecodeUtils = (function() {
 
       seconds = sec + min * 60 + hrs * 3600;
       return seconds * 1000;
-    }
+    },
   };
 }());
