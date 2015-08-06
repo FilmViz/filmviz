@@ -21,10 +21,9 @@ angular.module('filmViz')
      * @param [array || string || number] content Information stored in the cue
      * @param [number] tcIn start Timecode of cue in seconds with three decimal digits format
      * @param [number] tcOut end Timecode of cue in seconds with three decimal digits format
+     * TODO tcIn --> startTime
+     * TODO tcOut --> endTime
     */
-
-    // tcIn --> startTime
-    // tcOut --> endTime
     this.Cue = function(content, tcIn, tcOut)  {
       this.content = content;
       this.tcIn = tcIn;
@@ -85,7 +84,7 @@ angular.module('filmViz')
       var zip = new JSZip();
 
       // Add project data on 'project.json'
-      console.log(_this.Analysis)
+      console.log(_this.Analysis);
       zip.file('project.json', JSON.stringify({
         name: _this.name,
         videoSrc: _this.videoSrc,
