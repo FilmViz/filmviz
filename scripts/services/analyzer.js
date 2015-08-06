@@ -2,7 +2,6 @@ angular.module('filmViz')
   .service('Analyzer', ['ProjectData', function(ProjectData) {
 
     this.runAnalysis = function() {
-
       var video = document.getElementById('video');
       var canvas = document.getElementById('canvas');
 
@@ -13,14 +12,13 @@ angular.module('filmViz')
 
       var context = canvas.getContext('2d');
       var interval = 30;
-      var currentTime = 0;
 
       var colorAnalysis = new ProjectData.Analysis('color');
       var audioAnalysis = new ProjectData.Analysis('audio');
       var motionAnalysis = new ProjectData.Analysis('motion');
 
       video.pause();
-      video.currentTime = currentTime;
+      video.currentTime = 0;
 
       var currentImg = new Image();
       var lastImg;
@@ -56,20 +54,17 @@ angular.module('filmViz')
         }
 
         // create cueObjects and store in each analysis
-        var colorCue = new ProjectData.Cue(palette, currentTime);
-        var audioCue = new ProjectData.Cue(audio, currentTime);
-        var motionCue = new ProjectData.Cue(motion, currentTime);
+        var colorCue = new ProjectData.Cue(palette, video.currentTime);
+        var audioCue = new ProjectData.Cue(audio, video.currentTime);
+        var motionCue = new ProjectData.Cue(motion, video.currentTime);
 
         colorAnalysis.data.push(colorCue);
         audioAnalysis.data.push(audioCue);
         motionAnalysis.data.push(motionCue);
 
-        // update variables
-        currentTime += interval;
-        lastImg = currentImg;
-
-        if (currentTime <= video.duration) {
-          video.currentTime = currentTime;
+        if (video.currentTime < video.duration) {
+          video.currentTime += interval;
+          lastImg = currentImg;
         } else {
           // function storeAnalysis
           console.log('creating tracks and cues');
@@ -91,9 +86,9 @@ angular.module('filmViz')
           var audioTrack = video.addTextTrack('metadata', 'audio');
           var motionTrack = video.addTextTrack('metadata', 'motion');
 
-          _this.generateCues(colorTrack, colorAnalysis.data, video);
-          _this.generateCues(audioTrack, audioAnalysis.data, video);
-          _this.generateCues(motionTrack, motionAnalysis.data, video);
+          generateCues(colorTrack, colorAnalysis.data, video);
+          generateCues(audioTrack, audioAnalysis.data, video);
+          generateCues(motionTrack, motionAnalysis.data, video);
 
           colorTrack.addEventListener('cuechange', function() {
             showFrameColorViz();
@@ -110,14 +105,12 @@ angular.module('filmViz')
           // analysis finished
           console.log('analysis finished');
         }
-
-        //end else (analysis finished)
       };
 
       video.addEventListener('seeked', seekedListener, false);
     };
 
-    this.generateCues = function(track, data, video) {
+    var generateCues = function(track, data, video) {
       // generate color cues
       data.forEach(function(cueObj, index, arr) {
         var tcIn = cueObj.tcIn;
@@ -131,4 +124,4 @@ angular.module('filmViz')
       });
     };
 
-  }]);
+  },]);
