@@ -1,6 +1,8 @@
 angular.module('filmViz')
   .service('Analyzer', ['ProjectData', function(ProjectData) {
 
+    var _this = this;
+
     this.runAnalysis = function() {
       var video = document.getElementById('video');
       var canvas = document.getElementById('canvas');
@@ -33,8 +35,8 @@ angular.module('filmViz')
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         currentImg.src = canvas.toDataURL('image/jpg');
 
-        // Generate color analysis
-        var palette = colorUtils.convertPalette(colorUtils.capturePalette(currentImg, 16));
+        // Generate color analysis8
+        var colorPromise = Promise.resolve(getColorPalette(currentImg, 16));
 
         // Generate audio analysis
         var audioPromise = Promise.resolve(1);
@@ -51,20 +53,22 @@ angular.module('filmViz')
         });
 
         // create cueObjects and store in each analysis
-        var colorCue = new ProjectData.Cue(palette, video.currentTime);
-        colorAnalysis.data.push(colorCue);
+        colorPromise.then(function(colorPalette) {
+          var colorCue = new ProjectData.Cue(colorPalette, video.currentTime);
+          colorAnalysis.data.push(colorCue);
+        });
 
         audioPromise.then(function(audio) {
           var audioCue = new ProjectData.Cue(audio, video.currentTime);
           audioAnalysis.data.push(audioCue);
         });
 
-        motionPromise.then(function(motion) {
-          var motionCue = new ProjectData.Cue(motion, video.currentTime);
+        motionPromise.then(function(motionPercentage) {
+          var motionCue = new ProjectData.Cue(motionPercentage, video.currentTime);
           motionAnalysis.data.push(motionCue);
         });
 
-        Promise.all([audioPromise, motionPromise]).then(function(values) {
+        Promise.all([colorPromise, audioPromise, motionPromise]).then(function(values) {
           console.log(values);
         });
 
@@ -92,9 +96,9 @@ angular.module('filmViz')
           var audioTrack = video.addTextTrack('metadata', 'audio');
           var motionTrack = video.addTextTrack('metadata', 'motion');
 
-          generateCues(colorTrack, colorAnalysis.data, video);
-          generateCues(audioTrack, audioAnalysis.data, video);
-          generateCues(motionTrack, motionAnalysis.data, video);
+          _this.generateCues(colorTrack, colorAnalysis.data, video);
+          _this.generateCues(audioTrack, audioAnalysis.data, video);
+          _this.generateCues(motionTrack, motionAnalysis.data, video);
 
           colorTrack.addEventListener('cuechange', function() {
             showFrameColorViz();
@@ -110,23 +114,24 @@ angular.module('filmViz')
 
           // analysis finished
           console.log('analysis finished');
+
+          function getColorPalette(img, numColors) {
+            return colorUtils.convertPalette(colorUtils.capturePalette(img, numColors));
+          }
         }
       };
 
       video.addEventListener('seeked', seekedListener, false);
     };
 
-    var generateCues = function(track, data, video) {
+    // TODO: move to ProjectData.Analysis class
+    // TODO: data could be Analysis and call Analysis.data
+    this.generateCues = function(track, data, video) {
       // generate color cues
       data.forEach(function(cueObj, index, arr) {
         var tcIn = cueObj.tcIn;
-        if (index === arr.length - 1) {
-          var tcOut = video.duration;
-          track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
-        } else {
-          var tcOut = arr[index + 1].tcIn;
-          track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
-        };
+        var tcOut = (index === arr.length - 1) ? video.duration : arr[index + 1].tcIn;
+        track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
       });
     };
 
