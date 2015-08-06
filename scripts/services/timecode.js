@@ -1,18 +1,16 @@
-var timecodeUtils = (function() {
-
-  return {
-    calcCueDuration: function(cueIn, cueOut) {
+angular.module('filmViz')
+  .service('Timecode', [function() {
+    this.calcCueDuration = function(cueIn, cueOut) {
       var cueInMilis = timecodeUtils.timecodeToMilis(cueIn);
       var cueOutMilis = timecodeUtils.timecodeToMilis(cueOut);
       cueDuration = timecodeUtils.milisToTimecode(cueOutMilis - cueInMilis);
       return cueDuration;
-    },
+    };
 
-    milisToTimecode: function(s) {
-
-      function pad (str, max) {
+    this.milisToTimecode = function(s) {
+      function pad(str, max) {
         str = str.toString();
-        return str.length < max ? pad("0" + str, max) : str;
+        return str.length < max ? pad('0' + str, max) : str;
       }
 
       function addZ(n) {
@@ -29,9 +27,9 @@ var timecodeUtils = (function() {
       var hrs = (s - mins) / 60;
 
       return addZ(hrs) + ':' + addZ(mins) + ':' + addZ(secs) + '.' + pad(ms, 3);
-    },
+    };
 
-    timecodeToMilis: function(tc) {
+    this.timecodeToMilis = function(tc) {
 
       var hrs = +(tc.split(':')[0]);
       var min = +(tc.split(':')[1]);
@@ -39,6 +37,5 @@ var timecodeUtils = (function() {
 
       seconds = sec + min * 60 + hrs * 3600;
       return seconds * 1000;
-    },
-  };
-}());
+    };
+  },]);

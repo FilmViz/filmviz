@@ -2,7 +2,7 @@ angular.module('filmViz')
   .controller('ProjectController', ['ProjectData', function(ProjectData) {
     this.project = ProjectData;
   },])
-  .service('ProjectData', function() {
+  .service('ProjectData', ['Timecode', function(Timecode) {
 
     /**
      * Analysis object
@@ -61,7 +61,7 @@ angular.module('filmViz')
         analysis.data.forEach(function(data, index, arr) {
           newLine(index + 1);
           if (index === arr.length - 1) {
-            var tcOut = timecodeUtils.milisToTimecode(video.duration * 1000);
+            var tcOut = Timecode.milisToTimecode(video.duration * 1000);
             newLine(data.tcIn + ' --> ' + tcOut);
           } else {
             newLine(data.tcIn + ' --> ' + arr[index + 1].tcIn);
@@ -156,4 +156,4 @@ angular.module('filmViz')
 
     this.calculateTcOut = function(analysisIndex) {
     };
-  });
+  },]);
