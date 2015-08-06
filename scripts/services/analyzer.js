@@ -37,34 +37,40 @@ angular.module('filmViz')
         var palette = colorUtils.convertPalette(colorUtils.capturePalette(currentImg, 16));
 
         // Generate audio analysis
-        var audio = 1;
+        var audioPromise = Promise.resolve(1);
 
         // Generate motion analysis
-        var motion;
-
-        if (!lastImg) {
-          motion = 0;
-        } else {
-
-          // warning!!! ñapa
-          var mot = resemble(currentImg.src).compareTo(lastImg.src).onComplete(function(results) {
-            motion = results.misMatchPercentage / 100;
-            return results.misMatchPercentage / 100;
-          });
-        }
+        var motionPromise = new Promise(function(resolve, reject) {
+          if (!lastImg) {
+            resolve(0);
+          } else {
+            resemble(currentImg.src).compareTo(lastImg).onComplete(function(resembleData) {
+              resolve(resembleData.misMatchPercentage / 100);
+            });
+          }
+        });
 
         // create cueObjects and store in each analysis
         var colorCue = new ProjectData.Cue(palette, video.currentTime);
-        var audioCue = new ProjectData.Cue(audio, video.currentTime);
-        var motionCue = new ProjectData.Cue(motion, video.currentTime);
-
         colorAnalysis.data.push(colorCue);
-        audioAnalysis.data.push(audioCue);
-        motionAnalysis.data.push(motionCue);
+
+        audioPromise.then(function(audio) {
+          var audioCue = new ProjectData.Cue(audio, video.currentTime);
+          audioAnalysis.data.push(audioCue);
+        });
+
+        motionPromise.then(function(motion) {
+          var motionCue = new ProjectData.Cue(motion, video.currentTime);
+          motionAnalysis.data.push(motionCue);
+        });
+
+        Promise.all([audioPromise, motionPromise]).then(function(values) {
+          console.log(values);
+        });
 
         if (video.currentTime < video.duration) {
           video.currentTime += interval;
-          lastImg = currentImg;
+          lastImg = currentImg.src;
         } else {
           // function storeAnalysis
           console.log('creating tracks and cues');
