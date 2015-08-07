@@ -1,8 +1,6 @@
-var colorUtils = (function() {
-
-  return {
-
-    capturePalette: function(img, colors) {
+angular.module('filmViz')
+  .service('Color', [function() {
+    this.capturePalette = function(img, colors) {
       var opts = {
         colors: colors,
         method: 2, // histogram method, 2: min-population threshold within subregions; 1: global top-population
@@ -19,37 +17,34 @@ var colorUtils = (function() {
         cacheFreq: 10, // min color occurance count needed to qualify for caching
         colorDist: 'euclidean', // method used to determine color distance, can also be 'manhattan'
       };
-      var q = new RgbQuant(opts);
+      var quant = new RgbQuant(opts);
 
-      // analyze histograms
-      q.sample(img);
+      // Analyze histograms and build palette
+      quant.sample(img);
+      var palette = quant.palette();
 
-      // build palette
-      var pal = q.palette();
-      return pal;
-    },
+      return palette;
+    };
 
-    convertPalette: function(pal) {
-      var newpalette = [];
-      for (var index = 0; index < pal.length / 4; index++) {
-        color = this.rgbToHex(pal[index * 4 + 0], pal[index * 4 + 1], pal[index * 4 + 2]);
-        newpalette.push(color);
+    this.convertPalette = function(palette) {
+      var newPalette = [];
+      for (var i = 0; i < palette.length; i += 4) {
+        var color = this.rgbToHex(palette[i], palette[i + 1], palette[i + 2]);
+        newPalette.push(color);
       }
 
-      return newpalette;
-    },
+      return newPalette;
+    };
 
-    componentToHex: function(c) {
-      var hex = c.toString(16);
-      return hex.length == 1 ? '0' + hex : hex;
-    },
+    this.componentToHex = function(component) {
+      var hex = component.toString(16);
+      return (hex.length === 1) ? '0' + hex : hex;
+    };
 
-    rgbToHex: function(r, g, b) {
+    this.rgbToHex = function(r, g, b) {
       var r = this.componentToHex(r);
       var g = this.componentToHex(g);
       var b = this.componentToHex(b);
       return '#' + r + g + b;
-    },
-
-  };
-}());
+    };
+  },]);

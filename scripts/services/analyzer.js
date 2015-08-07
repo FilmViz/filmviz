@@ -1,5 +1,5 @@
 angular.module('filmViz')
-  .service('Analyzer', ['ProjectData', function(ProjectData) {
+  .service('Analyzer', ['ProjectData', 'Color', function(ProjectData, Color) {
 
     var _this = this;
 
@@ -116,7 +116,7 @@ angular.module('filmViz')
           console.log('analysis finished');
 
           function getColorPalette(img, numColors) {
-            return colorUtils.convertPalette(colorUtils.capturePalette(img, numColors));
+            return Color.convertPalette(Color.capturePalette(img, numColors));
           }
         }
       };
