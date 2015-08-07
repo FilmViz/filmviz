@@ -129,9 +129,9 @@ angular.module('filmViz')
     this.generateCues = function(track, data, video) {
       // generate color cues
       data.forEach(function(cueObj, index, arr) {
-        var tcIn = cueObj.tcIn;
-        var tcOut = (index === arr.length - 1) ? video.duration : arr[index + 1].tcIn;
-        track.addCue(new VTTCue(tcIn, tcOut, JSON.stringify(cueObj.content)));
+        var startTime = cueObj.startTime;
+        var endTime = (index === arr.length - 1) ? video.duration : arr[index + 1].startTime;
+        track.addCue(new VTTCue(startTime, endTime, JSON.stringify(cueObj.content)));
       });
     };
 

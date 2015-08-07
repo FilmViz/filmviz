@@ -20,7 +20,7 @@ var showTimelineMotionViz = function(data) {
     .attr('viewBox', '0 0 ' + width + ' ' + height);
 
   var xScale = d3.scale.linear()
-    .domain(d3.extent(data, function(d) { return d.tcIn; }))
+    .domain(d3.extent(data, function(d) { return d.startTime; }))
     .range([0, width]);
 
   var yScale = d3.scale.pow().exponent(1.5)
@@ -28,7 +28,7 @@ var showTimelineMotionViz = function(data) {
     .range([height, 0]);
 
   var area = d3.svg.area()
-    .x(function(d) { return xScale(d.tcIn); })
+    .x(function(d) { return xScale(d.startTime); })
     .y0(height)
     .y1(function(d) { return yScale(d.content); })
     .interpolate('cardinal');

@@ -119,8 +119,8 @@ var showTimelineColorViz = function(data) {
     .style('stroke', function(d) { return d; });
 
   patchCol.on('click', function(d, i) {
-    console.log(d.tcIn);
+    console.log(d.startTime);
     document.getElementById('video')
-      .currentTime = timecodeUtils.timecodeToMilis(d.tcIn) / 1000;
+      .currentTime = timecodeUtils.timecodeToMilis(d.startTime) / 1000;
   })
 };

@@ -19,15 +19,13 @@ angular.module('filmViz')
     /**
      * Cue object (like in html track cues)
      * @param [array || string || number] content Information stored in the cue
-     * @param [number] tcIn start Timecode of cue in seconds with three decimal digits format
-     * @param [number] tcOut end Timecode of cue in seconds with three decimal digits format
-     * TODO tcIn --> startTime
-     * TODO tcOut --> endTime
+     * @param [number] startTime Start time of cue in seconds with 3 decimal places
+     * @param [number] endTime End time of cue in seconds with 3 decimal places
     */
-    this.Cue = function(content, tcIn, tcOut)  {
+    this.Cue = function(content, startTime, endTime)  {
       this.content = content;
-      this.tcIn = tcIn;
-      this.tcOut = tcOut || null;
+      this.startTime = startTime;
+      this.endTime = endTime || null;
     };
 
     this.name = 'alcachofas';
@@ -61,10 +59,10 @@ angular.module('filmViz')
         analysis.data.forEach(function(data, index, arr) {
           newLine(index + 1);
           if (index === arr.length - 1) {
-            var tcOut = Timecode.milisToTimecode(video.duration * 1000);
-            newLine(data.tcIn + ' --> ' + tcOut);
+            var endTime = Timecode.milisToTimecode(video.duration * 1000);
+            newLine(data.startTime + ' --> ' + endTime);
           } else {
-            newLine(data.tcIn + ' --> ' + arr[index + 1].tcIn);
+            newLine(data.startTime + ' --> ' + arr[index + 1].startTime);
           };
 
           newLine(_this.jsonToString(data.content));
@@ -154,6 +152,6 @@ angular.module('filmViz')
     this.sortData = function(analysisIndex) {
     };
 
-    this.calculateTcOut = function(analysisIndex) {
+    this.calculateendTime = function(analysisIndex) {
     };
   },]);
