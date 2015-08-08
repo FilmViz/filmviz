@@ -44,7 +44,7 @@
                 cueIn.value = vtt.tc;
 
                 //
-                jotacueri('textarea').value = angular.toJson(vtt.value);
+                document.querySelector('textarea').value = angular.toJson(vtt.value);
                 video.currentTime = timecodeUtils.timecodeToMilis(vtt.tc) / 1000;
               }
             });
@@ -62,7 +62,7 @@
                 cueIn.value = vtt.tc;
 
                 //
-                jotacueri('textarea').value = vtt.index + '\n' + angular.toJson(vtt.value);
+                document.querySelector('textarea').value = vtt.index + '\n' + angular.toJson(vtt.value);
                 video.currentTime = timecodeUtils.timecodeToMilis(vtt.tc) / 1000;
               }
             });
