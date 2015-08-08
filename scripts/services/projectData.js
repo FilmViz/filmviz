@@ -65,7 +65,7 @@ angular.module('filmViz')
             newLine(data.startTime + ' --> ' + arr[index + 1].startTime);
           };
 
-          newLine(JSON.stringify(data.content));
+          newLine(angular.toJson(data.content));
           newLine();
         });
       }
@@ -83,7 +83,7 @@ angular.module('filmViz')
 
       // Add project data on 'project.json'
       console.log(_this.Analysis);
-      zip.file('project.json', JSON.stringify({
+      zip.file('project.json', angular.toJson({
         name: _this.name,
         videoSrc: _this.videoSrc,
         analysisCollection: _this.analysisCollection,

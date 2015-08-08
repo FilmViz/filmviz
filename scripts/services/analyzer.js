@@ -131,7 +131,7 @@ angular.module('filmViz')
       data.forEach(function(cueObj, index, arr) {
         var startTime = cueObj.startTime;
         var endTime = (index === arr.length - 1) ? video.duration : arr[index + 1].startTime;
-        track.addCue(new VTTCue(startTime, endTime, JSON.stringify(cueObj.content)));
+        track.addCue(new VTTCue(startTime, endTime, angular.toJson(cueObj.content)));
       });
     };
 
