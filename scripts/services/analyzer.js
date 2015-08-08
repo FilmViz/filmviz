@@ -23,11 +23,14 @@ angular.module('filmViz')
       video.currentTime = 0;
 
       var currentImg = new Image();
-      var lastImg;
+      var lastSrcImg;
 
       var _this = this;
 
       function seekedListener() {
+        function getColorPalette(img, numColors) {
+          return Color.convertPalette(Color.capturePalette(img, numColors));
+        }
 
         // function loopInAnalysis
         console.log('seeked: analyzing frame');
@@ -43,10 +46,10 @@ angular.module('filmViz')
 
         // Generate motion analysis
         var motionPromise = new Promise(function(resolve, reject) {
-          if (!lastImg) {
+          if (!lastSrcImg) {
             resolve(0);
           } else {
-            resemble(currentImg.src).compareTo(lastImg).onComplete(function(resembleData) {
+            resemble(currentImg.src).compareTo(lastSrcImg).onComplete(function(resembleData) {
               resolve(resembleData.misMatchPercentage / 100);
             });
           }
@@ -74,7 +77,7 @@ angular.module('filmViz')
 
         if (video.currentTime < video.duration) {
           video.currentTime += interval;
-          lastImg = currentImg.src;
+          lastSrcImg = currentImg.src;
         } else {
           // function storeAnalysis
           console.log('creating tracks and cues');
@@ -114,10 +117,6 @@ angular.module('filmViz')
 
           // analysis finished
           console.log('analysis finished');
-
-          function getColorPalette(img, numColors) {
-            return Color.convertPalette(Color.capturePalette(img, numColors));
-          }
         }
       };
 
