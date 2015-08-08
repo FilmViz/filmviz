@@ -65,7 +65,7 @@ angular.module('filmViz')
             newLine(data.startTime + ' --> ' + arr[index + 1].startTime);
           };
 
-          newLine(_this.jsonToString(data.content));
+          newLine(JSON.stringify(data.content));
           newLine();
         });
       }

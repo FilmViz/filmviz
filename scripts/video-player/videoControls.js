@@ -1,36 +1,32 @@
-(function() {
+angular.module('filmViz')
+  .directive('videoController', ['ProjectData', 'Analyzer', 'File', function(ProjectData, Analyzer, File) {
+    return {
+      restrict: 'E',
+      templateUrl: 'scripts/video-player/videoControls.html',
+      link: function(scope, element, attributes) {
+        var video = document.getElementById('video');
 
-  angular.module('filmViz')
-    .directive('videoController', ['ProjectData', 'Analyzer', function(ProjectData, Analyzer) {
+        scope.data = [];
 
-      return {
-        restrict: 'E',
-        templateUrl: 'scripts/video-player/videoControls.html',
-        link: function(scope, element, attributes) {
-          var video = document.getElementById('video');
+        scope.play = function() {
+          video.play();
+        };
 
-          scope.data = [];
+        scope.pause = function() {
+          video.pause();
+        };
 
-          scope.play = function() {
-            video.play();
-          };
+        scope.firstFrame = function() {
+          video.currentTime = 0;
+        };
 
-          scope.pause = function() {
-            video.pause();
-          };
+        scope.automatic = function() {
+          Analyzer.runAnalysis();
+        };
 
-          scope.firstFrame = function() {
-            video.currentTime = 0;
-          };
-
-          scope.automatic = function() {
-            Analyzer.runAnalysis();
-          };
-
-          scope.loadProject = function(event) {
-            fileUtils.readZip(ProjectData, event.target.files[0]);
-          };
-        },
-      };
-    },]);
-}());
+        scope.loadProject = function(event) {
+          File.readZip(ProjectData, event.target.files[0]);
+        };
+      },
+    };
+  },]);
