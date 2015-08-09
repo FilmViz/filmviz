@@ -2,7 +2,7 @@ angular.module('filmViz')
   .controller('ProjectController', ['ProjectData', function(ProjectData) {
     this.project = ProjectData;
   },])
-  .service('ProjectData', ['Timecode', function(Timecode) {
+  .service('ProjectData', ['Timecode', 'Zip', function(Timecode, Zip) {
 
     /**
      * Analysis object
@@ -79,7 +79,7 @@ angular.module('filmViz')
     // export to zip
     this.createZip = function() {
       var _this = this;
-      var zip = new JSZip();
+      var zip = new Zip();
 
       // Add project data on 'project.json'
       console.log(_this.Analysis);
@@ -109,7 +109,7 @@ angular.module('filmViz')
           var audioData;
           var motionData;
 
-          newZip = new JSZip(evt.target.result);
+          newZip = new Zip(evt.target.result);
 
           parsedData = JSON.parse(newZip.files['project.json'].asText());
 

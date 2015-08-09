@@ -1,5 +1,5 @@
 angular.module('filmViz')
-  .service('Analyzer', ['ProjectData', 'Color', function(ProjectData, Color) {
+  .service('Analyzer', ['ProjectData', 'Color', 'ImgResemble', function(ProjectData, Color, ImgResemble) {
 
     var _this = this;
 
@@ -27,19 +27,15 @@ angular.module('filmViz')
 
       var _this = this;
 
-      function seekedListener() {
-        function getColorPalette(img, numColors) {
-          return Color.convertPalette(Color.capturePalette(img, numColors));
-        }
+      function seekedListener(event) {
 
         // function loopInAnalysis
         console.log('seeked: analyzing frame');
-
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         currentImg.src = canvas.toDataURL('image/jpg');
 
         // Generate color analysis8
-        var colorPromise = Promise.resolve(getColorPalette(currentImg, 16));
+        var colorPromise = Promise.resolve(Color.capturePalette(currentImg, 16));
 
         // Generate audio analysis
         var audioPromise = Promise.resolve(1);
@@ -49,7 +45,7 @@ angular.module('filmViz')
           if (!lastSrcImg) {
             resolve(0);
           } else {
-            resemble(currentImg.src).compareTo(lastSrcImg).onComplete(function(resembleData) {
+            ImgResemble(currentImg.src).compareTo(lastSrcImg).onComplete(function(resembleData) {
               resolve(resembleData.misMatchPercentage / 100);
             });
           }
