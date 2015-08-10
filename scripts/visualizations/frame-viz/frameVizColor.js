@@ -53,7 +53,7 @@
             }
           };
 
-          // var video = document.getElementById('video');
+          // var video = document.getElementById('video-main');
           // var track = video.textTracks[0];
           // var colors = JSON.parse(track.activeCues[0].text).colors;
 
@@ -64,7 +64,7 @@
             .attr('viewBox', '0 0 ' + width + ' ' + height);
 
           scope.updateColorViz = function(sortingMode) {
-            var video = document.getElementById('video');
+            var video = document.getElementById('video-main');
             var track = video.textTracks[0];
             var colors = JSON.parse(track.activeCues[0].text).colors;
 
@@ -86,7 +86,7 @@
 }());
 
 var showFrameColorViz = function() {
-  var video = document.getElementById('video');
+  var video = document.getElementById('video-main');
   var track = video.textTracks[0];
   var colors = JSON.parse(track.activeCues[0].text);
 

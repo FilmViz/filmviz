@@ -4,7 +4,7 @@ angular.module('filmViz')
     var _this = this;
 
     this.runAnalysis = function() {
-      var video = document.getElementById('video');
+      var video = document.getElementById('video-main');
       var canvas = document.getElementById('canvas');
 
       console.log('starting color analyzer');

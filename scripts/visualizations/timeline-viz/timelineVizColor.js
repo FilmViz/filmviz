@@ -73,7 +73,7 @@ var showTimelineColorViz = function(data) {
 
   patchCol.on('click', function(d, i) {
     console.log(d.startTime);
-    document.getElementById('video')
+    document.getElementById('video-main')
       .currentTime = timecodeUtils.timecodeToMilis(d.startTime) / 1000;
   });
 };

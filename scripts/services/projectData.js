@@ -28,7 +28,7 @@ angular.module('filmViz')
       this.endTime = endTime || null;
     };
 
-    this.name = 'alcachofas';
+    this.name = '' || 'project';
     this.videoSrc = '';
     this.analysisCollection = [];
     this.currentAnalysisIndex = 0;
@@ -100,7 +100,7 @@ angular.module('filmViz')
       var _this = this;
       var newZip;
       var reader = new FileReader();
-      var video = document.getElementById('video');
+      var video = document.getElementById('video-main');
 
       reader.onload = (function(file) {
         return function(evt) {

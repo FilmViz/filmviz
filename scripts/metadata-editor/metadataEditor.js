@@ -7,7 +7,7 @@
         templateUrl: 'scripts/metadata-editor/metadataEditor.html',
         link: function(scope, element, attributes) {
 
-          var video = document.getElementById('video');
+          var video = document.getElementById('video-main');
           var canvas = document.getElementById('canvas');
           var data = [];
           var cueIndex = 1;

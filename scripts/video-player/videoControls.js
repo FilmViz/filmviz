@@ -4,7 +4,7 @@ angular.module('filmViz')
       restrict: 'E',
       templateUrl: 'scripts/video-player/videoControls.html',
       link: function(scope, element, attributes) {
-        var video = document.getElementById('video');
+        var video = document.getElementById('video-main');
 
         scope.data = [];
 

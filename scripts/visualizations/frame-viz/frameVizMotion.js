@@ -17,7 +17,7 @@
 }());
 
 var showFrameMotionViz = function() {
-  var video = document.getElementById('video');
+  var video = document.getElementById('video-main');
   var track = video.textTracks[2];
   var motion = JSON.parse(track.activeCues[0].text);
 
