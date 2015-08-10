@@ -1,10 +1,13 @@
 angular.module('filmViz')
-  .factory('ColorQuant', [function() {
+  .factory('RgbQuantLib', [function() {
     return RgbQuant;
   },])
-  .factory('ImgResemble', [function() {
+  .factory('ResembleLib', [function() {
     return resemble;
   },])
-  .factory('Zip', [function() {
+  .factory('D3Lib', [function() {
+    return d3;
+  },])
+  .factory('JSZipLib', [function() {
     return JSZip;
   },]);

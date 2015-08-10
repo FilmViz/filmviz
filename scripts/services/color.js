@@ -1,11 +1,11 @@
 angular.module('filmViz')
-  .service('Color', ['ColorQuant', function(ColorQuant) {
+  .service('Color', ['RgbQuantLib', function(RgbQuantLib) {
     this.capturePalette = function(img, colors) {
       var opts = {
         colors: colors,
         minHueCols: 256, // # of colors per hue group to evaluate regardless of counts, to retain low-count hues
       };
-      var quant = new ColorQuant(opts);
+      var quant = new RgbQuantLib(opts);
 
       // Analyze histograms and build palette
       quant.sample(img);

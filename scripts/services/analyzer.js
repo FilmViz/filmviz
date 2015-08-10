@@ -1,5 +1,5 @@
 angular.module('filmViz')
-  .service('Analyzer', ['ProjectData', 'Color', 'ImgResemble', function(ProjectData, Color, ImgResemble) {
+  .service('Analyzer', ['ProjectData', 'Color', 'ResembleLib', function(ProjectData, Color, ResembleLib) {
 
     var _this = this;
 
@@ -45,7 +45,7 @@ angular.module('filmViz')
           if (!lastSrcImg) {
             resolve(0);
           } else {
-            ImgResemble(currentImg.src).compareTo(lastSrcImg).onComplete(function(resembleData) {
+            ResembleLib(currentImg.src).compareTo(lastSrcImg).onComplete(function(resembleData) {
               resolve(resembleData.misMatchPercentage / 100);
             });
           }
