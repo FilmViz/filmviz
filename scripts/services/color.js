@@ -9,19 +9,15 @@ angular.module('filmViz')
 
       // Analyze histograms and build palette
       quant.sample(img);
-      var palette = quant.palette();
+      var palette = quant.palette(true, false);
 
       return convertPalette(palette);
     };
 
     var convertPalette = function(palette) {
-      var newPalette = [];
-      for (var i = 0; i < palette.length; i += 4) {
-        var color = rgbToHex(palette[i], palette[i + 1], palette[i + 2]);
-        newPalette.push(color);
-      }
-
-      return newPalette;
+      return palette.map(function(value) {
+        return rgbToHex(value);
+      });
     };
 
     var componentToHex = function(component) {
@@ -29,10 +25,10 @@ angular.module('filmViz')
       return (hex.length === 1) ? '0' + hex : hex;
     };
 
-    var rgbToHex = function(r, g, b) {
-      var r = componentToHex(r);
-      var g = componentToHex(g);
-      var b = componentToHex(b);
+    var rgbToHex = function(rgb) {
+      var r = componentToHex(rgb[0]);
+      var g = componentToHex(rgb[1]);
+      var b = componentToHex(rgb[2]);
       return '#' + r + g + b;
     };
   },]);
