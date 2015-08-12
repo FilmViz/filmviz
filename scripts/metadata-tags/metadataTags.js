@@ -44,7 +44,7 @@
           scope.addTag = function(setTab) {
             console.log(project.selectedAnalysis);
             var newTag = prompt('Please enter analysis name", "Metadata');
-            if (newTag && !project.analysis[project.selectedAnalysis].tags.contains(newTag)) {
+            if (newTag && !project.analysis[project.selectedAnalysis].tags.indexOf(newTag) !== -1) {
               project.analysis[project.selectedAnalysis].tags.push(newTag);
 
             }

@@ -45,7 +45,7 @@
                 keys.push(ProjectData.analysisCollection[key].name);
               }
 
-              if (!keys.contains(scope.analysis.name)) {
+              if (!keys.indexOf(scope.analysis.name) !== -1) {
                 ProjectData.analysisCollection.push(new ProjectData.Analysis(scope.analysis.name));
                 scope.activeTab = ProjectData.analysisCollection.length - 1;
                 ProjectData.currentAnalysisIndex = scope.activeTab;
