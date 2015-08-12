@@ -22,8 +22,8 @@ angular.module('filmViz')
       video.pause();
       video.currentTime = 0;
 
-      var currentImg = new Image();
-      var lastSrcImg;
+      var currentImgSrc;
+      var previousImgSrc;
 
       var _this = this;
 
@@ -37,20 +37,20 @@ angular.module('filmViz')
         // function loopInAnalysis
         console.log('seeked: analyzing frame');
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        currentImg.src = canvas.toDataURL('image/jpg');
+        currentImgSrc = canvas.toDataURL('image/jpg');
 
         // Generate color analysis
-        var colorFramePromise = Promise.resolve(Color.capturePalette(currentImg, 16));
+        var colorFramePromise = Promise.resolve(Color.capturePalette(currentImgSrc, 16));
 
         // Generate audio analysis
         var audioFramePromise = Promise.resolve(1);
 
         // Generate motion analysis
         var motionFramePromise = new Promise(function(resolve, reject) {
-          if (!lastSrcImg) {
+          if (!previousImgSrc) {
             resolve(0);
           } else {
-            ResembleLib(currentImg.src).compareTo(lastSrcImg).onComplete(function(resembleData) {
+            ResembleLib(currentImgSrc).compareTo(previousImgSrc).onComplete(function(resembleData) {
               resolve(resembleData.misMatchPercentage / 100);
             });
           }
@@ -75,7 +75,7 @@ angular.module('filmViz')
 
         if (video.currentTime < video.duration - interval) {
           video.currentTime += interval;
-          lastSrcImg = currentImg.src;
+          previousImgSrc = currentImgSrc;
         } else {
           console.log('creating tracks and cues');
           video.pause();

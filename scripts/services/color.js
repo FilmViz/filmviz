@@ -1,6 +1,10 @@
 angular.module('filmViz')
   .service('Color', ['RgbQuantLib', function(RgbQuantLib) {
-    this.capturePalette = function(img, colors) {
+    this.capturePalette = function(imgSrc, colors) {
+      // Create a new image every time due to async issues
+      var img = new Image();
+      img.src = imgSrc;
+
       var opts = {
         colors: colors,
         minHueCols: 256, // # of colors per hue group to evaluate regardless of counts, to retain low-count hues
