@@ -2,7 +2,7 @@
   <!-- Analysis / webVTT   tab-navigation selector -->
   <!-- start scope tab-nav -->
   <tab-navigation items="project.project.analysisCollection" deletable="true">
-  
+
     <div class="row">
 
       <!-- videoPLayer -->
@@ -12,19 +12,18 @@
 
       <!-- automatic analysis selected -->
       <div class="col-lg-6">
-      
+
         <video-controller></video-controller>
         <!-- start  sub-scope tab-nav -->
-        <tab-navigation items="[{name:'Visualization'},
-          {name:'Metadata Editor'}]" 
+        <tab-navigation items="['Visualization', 'Metadata Editor']" 
           ng-show="$parent.activeTab < 3">
           <!-- option 0: visualization -->
-          <section class="panel" id="frame-viz-panel" 
+          <section class="panel" id="frame-viz-panel"
             ng-show="$parent.activeTab == 0">
             <frame-viz></frame-viz>
           </section>
           <!-- option 1: metadata Editor -->
-          <section class="panel" id="frame-viz-panel" 
+          <section class="panel" id="frame-viz-panel"
             ng-show="$parent.activeTab == 1">
             <metadata-editor analysis="project.project.analysis">
             </metadata-editor>
@@ -53,8 +52,8 @@
 
     <!-- timeline -->
     <timeline-viz class="row"></timeline-viz>
-  
-  </tab-navigation> 
+
+  </tab-navigation>
   <!-- end scope tab-nav -->
 
 </div> <!-- end scope project -->

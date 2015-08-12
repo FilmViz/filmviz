@@ -30,18 +30,16 @@ angular.module('filmViz')
       function seekedListener(event) {
         var cueStartTime = video.currentTime;
 
-        // function loopInAnalysis
-        console.log('seeked: analyzing frame');
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         currentImgSrc = canvas.toDataURL('image/jpg');
 
-        // Generate color analysis
+        // Run color analysis
         var colorFramePromise = Promise.resolve(Color.capturePalette(currentImgSrc, 16));
 
-        // Generate audio analysis
+        // Run audio analysis
         var audioFramePromise = Promise.resolve(1);
 
-        // Generate motion analysis
+        // Run motion analysis
         var motionFramePromise = new Promise(function(resolve, reject) {
           if (!previousImgSrc) {
             resolve(0);
@@ -52,19 +50,27 @@ angular.module('filmViz')
           }
         });
 
-        colorFramePromise = colorFramePromise.then(function(value) {
-          return new ProjectData.Cue(value, cueStartTime);
+        colorFramePromise = colorFramePromise.then(function(result) {
+          return {
+            content: result,
+            startTime: cueStartTime,
+          };
         });
 
-        audioFramePromise = audioFramePromise.then(function(value) {
-          return new ProjectData.Cue(value, cueStartTime);
+        audioFramePromise = audioFramePromise.then(function(result) {
+          return {
+            content: result,
+            startTime: cueStartTime,
+          };
         });
 
-        motionFramePromise = motionFramePromise.then(function(value) {
-          return new ProjectData.Cue(value, cueStartTime);
+        motionFramePromise = motionFramePromise.then(function(result) {
+          return {
+            content: result,
+            startTime: cueStartTime,
+          };
         });
 
-        // create cueObjects and store in each analysis
         colorTrackPromises.push(colorFramePromise);
         audioTrackPromises.push(audioFramePromise);
         motionTrackPromises.push(motionFramePromise);
@@ -72,61 +78,44 @@ angular.module('filmViz')
         if (video.currentTime < video.duration - interval) {
           video.currentTime += interval;
           previousImgSrc = currentImgSrc;
-        } else {
-          // analysis finished
-
+        } else { // Analysis finished
           video.pause();
           video.removeEventListener('seeked', seekedListener, false);
 
-          Promise.all(colorTrackPromises).then(function(cues) {
-            var colorAnalysis = ProjectData.createAnalysis('color');
+          Promise.all(colorTrackPromises).then(function(resultObjs) {
+            var analysisName = 'color';
+            ProjectData.createAnalysis(analysisName);
 
-            cues.forEach(function(cue) {
-              colorAnalysis.data.push(cue);
+            resultObjs.forEach(function(resultObj) {
+              ProjectData.addCueToAnalysis(analysisName, resultObj.content, resultObj.startTime);
             });
 
-            colorAnalysis.isDone = true;
-
-            var colorTrack = video.addTextTrack('metadata', 'color');
-            _this.addCuesToVideoTrack(colorTrack, colorAnalysis.data, video);
-
-            colorTrack.addEventListener('cuechange', function() {
-              showFrameColorViz();
-            });
-
-            showTimelineColorViz(colorAnalysis.data);
+            ProjectData.addTrackToVideo(analysisName, video, showFrameColorViz);
+            ProjectData.setAnalysisAsDone(analysisName, showTimelineColorViz);
           });
 
-          Promise.all(audioTrackPromises).then(function(cues) {
-            var audioAnalysis = ProjectData.createAnalysis('audio');
+          Promise.all(audioTrackPromises).then(function(resultObjs) {
+            var analysisName = 'audio';
+            ProjectData.createAnalysis(analysisName);
 
-            cues.forEach(function(cue) {
-              audioAnalysis.data.push(cue);
+            resultObjs.forEach(function(resultObj) {
+              ProjectData.addCueToAnalysis(analysisName, resultObj.content, resultObj.startTime);
             });
 
-            audioAnalysis.isDone = true;
-
-            var audioTrack = video.addTextTrack('metadata', 'audio');
-            _this.addCuesToVideoTrack(audioTrack, audioAnalysis.data, video);
+            ProjectData.addTrackToVideo(analysisName, video, console.log.bind(console));
+            ProjectData.setAnalysisAsDone(analysisName, console.log.bind(console));
           });
 
-          Promise.all(motionTrackPromises).then(function(cues) {
-            var motionAnalysis = ProjectData.createAnalysis('motion');
+          Promise.all(motionTrackPromises).then(function(resultObjs) {
+            var analysisName = 'motion';
+            ProjectData.createAnalysis(analysisName);
 
-            cues.forEach(function(cue) {
-              motionAnalysis.data.push(cue);
+            resultObjs.forEach(function(resultObj) {
+              ProjectData.addCueToAnalysis(analysisName, resultObj.content, resultObj.startTime);
             });
 
-            motionAnalysis.isDone = true;
-
-            var motionTrack = video.addTextTrack('metadata', 'motion');
-            _this.addCuesToVideoTrack(motionTrack, motionAnalysis.data, video);
-
-            motionTrack.addEventListener('cuechange', function() {
-              showFrameMotionViz();
-            });
-
-            showTimelineMotionViz(motionAnalysis.data);
+            ProjectData.addTrackToVideo(analysisName, video, showFrameMotionViz);
+            ProjectData.setAnalysisAsDone(analysisName, showTimelineMotionViz);
           });
         }
       };

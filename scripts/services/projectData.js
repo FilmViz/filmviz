@@ -3,17 +3,40 @@ angular.module('filmViz')
     this.project = ProjectData;
   },])
   .service('ProjectData', ['Timecode', 'JSZipLib', function(Timecode, JSZipLib) {
+    this.name = '' || 'project';
+    this.videoSrc = '';
+    this.analysisCollection = {};
+    this.currentAnalysisName = 0;
 
     /**
      * Analysis object
      * @param [string] name Name of the analysis
      * @param [boolean] isDone Flag to check if the analysis is completed
-     * @param [array] data The data of the analysis (array of cue objects)
+     * @param [array] data Raw data of the analysis (array of Cue objects)
      */
-    var Analysis = function(name, data)  {
-      this.name = name;
+    var Analysis = function(data)  {
       this.isDone = false;
       this.data = data || [];
+    };
+
+    this.createAnalysis = function(analysisName, analysisData) {
+      var newAnalysis = new Analysis(analysisData);
+      this.analysisCollection[analysisName] = newAnalysis;
+      return newAnalysis;
+    };
+
+    this.addCueToAnalysis = function(analysisName, content, startTime, endTime) {
+      var newCue = new Cue(content, startTime, endTime);
+      this.analysisCollection[analysisName].data.push(newCue);
+    };
+
+    this.setAnalysisAsDone = function(analysisName, onComplete) {
+      // TODO: Use Angular Event
+      currentAnalysis = this.analysisCollection[analysisName];
+      currentAnalysis.isDone = true;
+      if (onComplete) {
+        onComplete(currentAnalysis.data);
+      }
     };
 
     /**
@@ -22,30 +45,33 @@ angular.module('filmViz')
      * @param [number] startTime Start time of cue in seconds with 3 decimal places
      * @param [number] endTime End time of cue in seconds with 3 decimal places
     */
-    this.Cue = function(content, startTime, endTime)  {
+    var Cue = function(content, startTime, endTime)  {
       this.content = content;
       this.startTime = startTime;
       this.endTime = endTime || null;
     };
 
-    this.name = '' || 'project';
-    this.videoSrc = '';
-    this.analysisCollection = [];
-    this.currentAnalysisIndex = 0;
+    this.addTrackToVideo = function(analysisName, videoElt, onCuechange) {
+      var track = videoElt.addTextTrack('metadata', analysisName);
 
-    this.createAnalysis = function(name) {
-      var newAnalysis = new Analysis(name);
-      this.analysisCollection.push(newAnalysis);
-      return newAnalysis;
+      this.analysisCollection[analysisName].data
+        .forEach(function(cueObj, index, arr) {
+          var startTime = cueObj.startTime;
+          var endTime = (index === arr.length - 1) ? videoElt.duration : arr[index + 1].startTime;
+          track.addCue(new VTTCue(startTime, endTime, angular.toJson(cueObj.content)));
+        });
+
+      // TODO: Use Angular Event
+      track.addEventListener('cuechange', onCuechange);
     };
 
-    this.createVtt = function(analysisIndex, isBlob) {
+    this.createVtt = function(analysisName, isBlob) {
       var _this = this;
       var text = '';
 
       // Select analysis to write
-      analysisIndex = analysisIndex || project.currentAnalysisIndex;
-      var analysis = project.analysisCollection[analysisIndex];
+      analysisName = analysisName || project.currentAnalysisName;
+      var analysis = project.analysisCollection[analysisName];
 
       function newLine(string) {
         text += (string) ? string + '\n' : '\n';
@@ -92,7 +118,7 @@ angular.module('filmViz')
         name: _this.name,
         videoSrc: _this.videoSrc,
         analysisCollection: _this.analysisCollection,
-        currentAnalysisIndex: _this.currentAnalysisIndex,
+        currentAnalysisName: _this.currentAnalysisName,
       }));
 
       return zip.generate({
@@ -154,10 +180,10 @@ angular.module('filmViz')
       reader.readAsArrayBuffer(zipBlob);
     };
 
-    this.sortData = function(analysisIndex) {
+    this.sortData = function(analysisName) {
     };
 
-    this.calculateEndTime = function(analysisIndex) {
+    this.calculateEndTime = function(analysisName) {
       // TODO
     };
   },]);
