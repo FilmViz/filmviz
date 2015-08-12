@@ -10,10 +10,10 @@ angular.module('filmViz')
      * @param [boolean] isDone Flag to check if the analysis is completed
      * @param [array] data The data of the analysis (array of cue objects)
      */
-    this.Analysis = function(name)  {
+    var Analysis = function(name, data)  {
       this.name = name;
       this.isDone = false;
-      this.data = [];
+      this.data = data || [];
     };
 
     /**
@@ -32,6 +32,12 @@ angular.module('filmViz')
     this.videoSrc = '';
     this.analysisCollection = [];
     this.currentAnalysisIndex = 0;
+
+    this.createAnalysis = function(name) {
+      var newAnalysis = new Analysis(name);
+      this.analysisCollection.push(newAnalysis);
+      return newAnalysis;
+    };
 
     this.createVtt = function(analysisIndex, isBlob) {
       var _this = this;
@@ -82,7 +88,6 @@ angular.module('filmViz')
       var zip = new JSZipLib();
 
       // Add project data on 'project.json'
-      console.log(_this.Analysis);
       zip.file('project.json', angular.toJson({
         name: _this.name,
         videoSrc: _this.videoSrc,
@@ -152,6 +157,7 @@ angular.module('filmViz')
     this.sortData = function(analysisIndex) {
     };
 
-    this.calculateendTime = function(analysisIndex) {
+    this.calculateEndTime = function(analysisIndex) {
+      // TODO
     };
   },]);

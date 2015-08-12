@@ -15,10 +15,6 @@ angular.module('filmViz')
       var context = canvas.getContext('2d');
       var interval = 1;
 
-      var colorAnalysis = new ProjectData.Analysis('color');
-      var audioAnalysis = new ProjectData.Analysis('audio');
-      var motionAnalysis = new ProjectData.Analysis('motion');
-
       video.pause();
       video.currentTime = 0;
 
@@ -77,16 +73,20 @@ angular.module('filmViz')
           video.currentTime += interval;
           previousImgSrc = currentImgSrc;
         } else {
-          console.log('creating tracks and cues');
+          // analysis finished
+
           video.pause();
+          video.removeEventListener('seeked', seekedListener, false);
 
           Promise.all(colorTrackPromises).then(function(cues) {
+            var colorAnalysis = ProjectData.createAnalysis('color');
+
             cues.forEach(function(cue) {
               colorAnalysis.data.push(cue);
             });
 
             colorAnalysis.isDone = true;
-            ProjectData.analysisCollection.push(colorAnalysis);
+
             var colorTrack = video.addTextTrack('metadata', 'color');
             _this.addCuesToVideoTrack(colorTrack, colorAnalysis.data, video);
 
@@ -98,23 +98,27 @@ angular.module('filmViz')
           });
 
           Promise.all(audioTrackPromises).then(function(cues) {
+            var audioAnalysis = ProjectData.createAnalysis('audio');
+
             cues.forEach(function(cue) {
               audioAnalysis.data.push(cue);
             });
 
             audioAnalysis.isDone = true;
-            ProjectData.analysisCollection.push(audioAnalysis);
+
             var audioTrack = video.addTextTrack('metadata', 'audio');
             _this.addCuesToVideoTrack(audioTrack, audioAnalysis.data, video);
           });
 
           Promise.all(motionTrackPromises).then(function(cues) {
+            var motionAnalysis = ProjectData.createAnalysis('motion');
+
             cues.forEach(function(cue) {
               motionAnalysis.data.push(cue);
             });
 
             motionAnalysis.isDone = true;
-            ProjectData.analysisCollection.push(motionAnalysis);
+
             var motionTrack = video.addTextTrack('metadata', 'motion');
             _this.addCuesToVideoTrack(motionTrack, motionAnalysis.data, video);
 
@@ -124,18 +128,13 @@ angular.module('filmViz')
 
             showTimelineMotionViz(motionAnalysis.data);
           });
-
-          video.removeEventListener('seeked', seekedListener, false);
-
-          // analysis finished
-          console.log('analysis finished');
         }
       };
 
       video.addEventListener('seeked', seekedListener, false);
     };
 
-    // TODO: move to ProjectData.Analysis class
+    // TODO: move to Analysis class
     // TODO: data could be Analysis and call Analysis.data
     this.addCuesToVideoTrack = function(track, cueObjs, video) {
       // generate color cues

@@ -46,8 +46,8 @@
               }
 
               if (!keys.indexOf(scope.analysis.name) !== -1) {
-                ProjectData.analysisCollection.push(new ProjectData.Analysis(scope.analysis.name));
-                scope.activeTab = ProjectData.analysisCollection.length - 1;
+                var analysis = ProjectData.createAnalysis(scope.analysis.name);
+                scope.activeTab = ProjectData.analysisCollection.indexOf(analysis);
                 ProjectData.currentAnalysisIndex = scope.activeTab;
                 scope.analysis = {};
               }
