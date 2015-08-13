@@ -51,14 +51,21 @@ angular.module('filmViz')
       this.endTime = endTime || null;
     };
 
+    Cue.calculateEndTime = function(index, cues, duration) {
+      var nextCue = cues[index + 1];
+      return (nextCue) ? nextCue.startTime : duration;
+    };
+
     this.addTrackToVideo = function(analysisName, videoElt) {
       var track = videoElt.addTextTrack('metadata', analysisName);
 
       this.analysisCollection[analysisName].data
-        .forEach(function(cueObj, index, arr) {
+        .forEach(function(cueObj, index, cues) {
           var startTime = cueObj.startTime;
-          var endTime = (index === arr.length - 1) ? videoElt.duration : arr[index + 1].startTime;
-          track.addCue(new VTTCue(startTime, endTime, angular.toJson(cueObj.content)));
+          var endTime = Cue.calculateEndTime(index, cues, videoElt.duration);
+          var cueContent = angular.toJson(cueObj.content);
+          var cue = new VTTCue(startTime, endTime, cueContent);
+          track.addCue(cue);
         });
 
       $rootScope.$emit(analysisName + 'TrackAdded', track);
@@ -87,16 +94,14 @@ angular.module('filmViz')
 
       // Write data
       if (analysis.data) {
-        analysis.data.forEach(function(data, index, arr) {
-          newLine(index + 1);
-          if (index === arr.length - 1) {
-            var endTime = Timecode.milisToTimecode(video.duration * 1000);
-            newLine(data.startTime + ' --> ' + endTime);
-          } else {
-            newLine(data.startTime + ' --> ' + arr[index + 1].startTime);
-          };
+        analysis.data.forEach(function(cueObj, index, cueObjs) {
+          var startTime = Timecode.milisToTimecode(cueObj.startTime);
+          var endTime = Timecode.milisToTimecode(Cue.calculateEndTime(index, cueObjs, video.duration));
 
-          newLine(angular.toJson(data.content));
+          newLine(index + 1); // WebVTT cue indexes start from one
+          newLine(startTime + ' --> ' + endTime);
+
+          newLine(angular.toJson(cueObj.content));
           newLine();
         });
       }
@@ -180,10 +185,6 @@ angular.module('filmViz')
     };
 
     this.sortData = function(analysisName) {
-      // TODO
-    };
-
-    this.calculateEndTime = function(analysisName) {
       // TODO
     };
   },]);
