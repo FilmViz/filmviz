@@ -80,6 +80,7 @@ angular.module('filmViz')
           previousImgSrc = currentImgSrc;
         } else { // Analysis finished
           video.pause();
+          video.currentTime = 0;
           video.removeEventListener('seeked', seekedListener, false);
 
           Promise.all(colorTrackPromises).then(function(resultObjs) {
