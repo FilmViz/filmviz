@@ -1,5 +1,6 @@
 angular.module('filmViz')
   .service('Timecode', [function() {
+    'use strict';
     this.calcCueDuration = function(cueIn, cueOut) {
       var cueInMilis = timecodeUtils.timecodeToMilis(cueIn);
       var cueOutMilis = timecodeUtils.timecodeToMilis(cueOut);

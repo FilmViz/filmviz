@@ -1,5 +1,6 @@
 angular.module('filmViz')
   .directive('videoController', ['ProjectData', 'Analyzer', 'File', function(ProjectData, Analyzer, File) {
+    'use strict';
     return {
       restrict: 'E',
       templateUrl: 'scripts/video-player/videoControls.html',

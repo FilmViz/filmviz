@@ -1,5 +1,6 @@
 angular.module('filmViz')
   .service('Color', ['RgbQuantLib', function(RgbQuantLib) {
+    'use strict';
     this.capturePalette = function(imgSrc, colors) {
       // Create a new image every time due to async issues
       var img = new Image();

@@ -1,5 +1,6 @@
 angular.module('filmViz')
   .service('File', [function() {
+    'use strict';
 
     this.download = function(blob, filename) {
       window.URL = window.URL || window.webkitURL;

@@ -1,5 +1,6 @@
 angular.module('filmViz')
   .directive('frameColorViz', ['Color', '$rootScope', function(Color, $rootScope) {
+    'use strict';
     return {
       restrict: 'E',
       templateUrl: 'scripts/visualizations/frame-viz/frameVizColor.html',

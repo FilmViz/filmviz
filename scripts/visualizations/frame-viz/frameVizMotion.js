@@ -1,5 +1,6 @@
 angular.module('filmViz')
   .directive('frameMotionViz', ['$rootScope', function($rootScope) {
+    'use strict';
     return {
       restrict: 'E',
       templateUrl: 'scripts/visualizations/frame-viz/frameVizMotion.html',

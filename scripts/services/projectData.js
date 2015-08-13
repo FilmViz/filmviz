@@ -1,8 +1,10 @@
 angular.module('filmViz')
   .controller('ProjectController', ['ProjectData', function(ProjectData) {
+    'use strict';
     this.project = ProjectData;
   },])
   .service('ProjectData', ['Timecode', 'JSZipLib', '$rootScope', function(Timecode, JSZipLib, $rootScope) {
+    'use strict';
     this.name = '' || 'project';
     this.videoSrc = '';
     this.analysisCollection = {};
@@ -178,6 +180,7 @@ angular.module('filmViz')
     };
 
     this.sortData = function(analysisName) {
+      // TODO
     };
 
     this.calculateEndTime = function(analysisName) {

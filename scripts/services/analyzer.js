@@ -1,6 +1,6 @@
 angular.module('filmViz')
   .service('Analyzer', ['ProjectData', 'Color', 'ResembleLib', function(ProjectData, Color, ResembleLib) {
-
+    'use strict';
     var _this = this;
 
     this.runAnalysis = function() {
@@ -121,16 +121,5 @@ angular.module('filmViz')
       };
 
       video.addEventListener('seeked', seekedListener, false);
-    };
-
-    // TODO: move to Analysis class
-    // TODO: data could be Analysis and call Analysis.data
-    this.addCuesToVideoTrack = function(track, cueObjs, video) {
-      // generate color cues
-      cueObjs.forEach(function(cueObj, index, arr) {
-        var startTime = cueObj.startTime;
-        var endTime = (index === arr.length - 1) ? video.duration : arr[index + 1].startTime;
-        track.addCue(new VTTCue(startTime, endTime, angular.toJson(cueObj.content)));
-      });
     };
   },]);

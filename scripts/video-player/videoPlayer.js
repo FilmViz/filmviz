@@ -1,5 +1,6 @@
 angular.module('filmViz')
   .directive('videoPlayer', function() {
+    'use strict';
     return {
       restrict: 'E',
       templateUrl: 'scripts/video-player/videoPlayer.html',

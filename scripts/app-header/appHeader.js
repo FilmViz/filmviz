@@ -1,5 +1,6 @@
 angular.module('filmViz')
   .directive('appHeader', ['ProjectData', 'File', function(ProjectData, File) {
+    'use strict';
     return {
       restrict: 'E',
       templateUrl: 'scripts/app-header/appHeader.html',

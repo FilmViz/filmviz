@@ -1,5 +1,6 @@
 angular.module('filmViz')
   .directive('timelineMotionViz', ['$rootScope', function($rootScope) {
+    'use strict';
     return {
       restrict: 'E',
       templateUrl: 'scripts/visualizations/timeline-viz/timelineVizMotion.html',

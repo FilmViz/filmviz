@@ -1,5 +1,6 @@
 angular.module('filmViz')
   .directive('timelineAudioViz', ['$rootScope', function($rootScope) {
+    'use strict';
     return {
       restrict: 'E',
       templateUrl: 'scripts/visualizations/timeline-viz/timelineVizAudio.html',
