@@ -90,7 +90,7 @@ angular.module('filmViz')
               ProjectData.addCueToAnalysis(analysisName, resultObj.content, resultObj.startTime);
             });
 
-            ProjectData.addTrackToVideo(analysisName, video, showFrameColorViz);
+            ProjectData.addTrackToVideo(analysisName, video);
             ProjectData.setAnalysisAsDone(analysisName);
           });
 
@@ -102,7 +102,7 @@ angular.module('filmViz')
               ProjectData.addCueToAnalysis(analysisName, resultObj.content, resultObj.startTime);
             });
 
-            ProjectData.addTrackToVideo(analysisName, video, console.log.bind(console));
+            ProjectData.addTrackToVideo(analysisName, video);
             ProjectData.setAnalysisAsDone(analysisName);
           });
 
@@ -114,7 +114,7 @@ angular.module('filmViz')
               ProjectData.addCueToAnalysis(analysisName, resultObj.content, resultObj.startTime);
             });
 
-            ProjectData.addTrackToVideo(analysisName, video, showFrameMotionViz);
+            ProjectData.addTrackToVideo(analysisName, video);
             ProjectData.setAnalysisAsDone(analysisName);
           });
         }

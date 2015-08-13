@@ -49,7 +49,7 @@ angular.module('filmViz')
       this.endTime = endTime || null;
     };
 
-    this.addTrackToVideo = function(analysisName, videoElt, onCuechange) {
+    this.addTrackToVideo = function(analysisName, videoElt) {
       var track = videoElt.addTextTrack('metadata', analysisName);
 
       this.analysisCollection[analysisName].data
@@ -59,8 +59,7 @@ angular.module('filmViz')
           track.addCue(new VTTCue(startTime, endTime, angular.toJson(cueObj.content)));
         });
 
-      // TODO: Use Angular Event
-      track.addEventListener('cuechange', onCuechange);
+      $rootScope.$emit(analysisName + 'TrackAdded', track);
     };
 
     this.createVtt = function(analysisName, isBlob) {
