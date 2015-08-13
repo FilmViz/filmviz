@@ -91,7 +91,7 @@ angular.module('filmViz')
             });
 
             ProjectData.addTrackToVideo(analysisName, video, showFrameColorViz);
-            ProjectData.setAnalysisAsDone(analysisName, showTimelineColorViz);
+            ProjectData.setAnalysisAsDone(analysisName);
           });
 
           Promise.all(audioTrackPromises).then(function(resultObjs) {
@@ -103,7 +103,7 @@ angular.module('filmViz')
             });
 
             ProjectData.addTrackToVideo(analysisName, video, console.log.bind(console));
-            ProjectData.setAnalysisAsDone(analysisName, console.log.bind(console));
+            ProjectData.setAnalysisAsDone(analysisName);
           });
 
           Promise.all(motionTrackPromises).then(function(resultObjs) {
@@ -115,7 +115,7 @@ angular.module('filmViz')
             });
 
             ProjectData.addTrackToVideo(analysisName, video, showFrameMotionViz);
-            ProjectData.setAnalysisAsDone(analysisName, showTimelineMotionViz);
+            ProjectData.setAnalysisAsDone(analysisName);
           });
         }
       };

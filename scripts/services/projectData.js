@@ -2,7 +2,7 @@ angular.module('filmViz')
   .controller('ProjectController', ['ProjectData', function(ProjectData) {
     this.project = ProjectData;
   },])
-  .service('ProjectData', ['Timecode', 'JSZipLib', function(Timecode, JSZipLib) {
+  .service('ProjectData', ['Timecode', 'JSZipLib', '$rootScope', function(Timecode, JSZipLib, $rootScope) {
     this.name = '' || 'project';
     this.videoSrc = '';
     this.analysisCollection = {};
@@ -30,13 +30,11 @@ angular.module('filmViz')
       this.analysisCollection[analysisName].data.push(newCue);
     };
 
-    this.setAnalysisAsDone = function(analysisName, onComplete) {
+    this.setAnalysisAsDone = function(analysisName) {
       // TODO: Use Angular Event
-      currentAnalysis = this.analysisCollection[analysisName];
+      var currentAnalysis = this.analysisCollection[analysisName];
       currentAnalysis.isDone = true;
-      if (onComplete) {
-        onComplete(currentAnalysis.data);
-      }
+      $rootScope.$emit(analysisName + 'AnalysisLoaded', currentAnalysis.data);
     };
 
     /**

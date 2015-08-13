@@ -1,79 +1,76 @@
-(function() {
-  angular.module('filmViz')
-    .directive('timelineColorViz', ['Color', function(Color) {
-      return {
-        restrict: 'E',
-        templateUrl: 'scripts/visualizations/timeline-viz/timelineVizColor.html',
-        link: function(scope, element, attributes) {
+angular.module('filmViz')
+  .directive('timelineColorViz', ['Color', '$rootScope', function(Color, $rootScope) {
+    return {
+      restrict: 'E',
+      templateUrl: 'scripts/visualizations/timeline-viz/timelineVizColor.html',
+      link: function(scope, element, attributes) {
+        var analysisName = 'color';
+        $rootScope.$on(analysisName + 'AnalysisLoaded', function(event, data) {
+          var width = d3.select('div.timeline-viz').node().offsetWidth;
+          var height = d3.select('div.timeline-viz').node().offsetHeight;
 
-          // scope.updateColorViz = function(sortingMode) {
-          //   var colors = project.analysis[0].data;
-          //   var patch = d3.select('svg#timeline-color-viz')
-          //     .selectAll('g').selectAll('rect');
-          //   var height = d3.select('div.timeline-viz').node().offsetHeight;
-          //   var patchesPerCol = d3.max(colors, function(d) {
-          //     return d.content.colors.length;
-          //   });
+          var svg = d3.select('svg#timeline-color-viz')
+            .attr('preserveAspectRatio', 'none')
+            .attr('viewBox', '0 0 ' + width + ' ' + height);
 
-          //   var yScale = d3.scale.ordinal()
-          //     .domain(d3.range(0, patchesPerCol))
-          //     .rangeBands([0, height]);
+          var patchesPerCol = d3.max(data, function(d) {
+            return d.content.length;
+          });
 
-          //   patch.sort(function(a, b) { return Color.sortColors(a, b, sortingMode); })
-          //     .transition().duration(500)
-          //     .attr('y', function(d, i) { return yScale(i); });
-          // };
-        },
-      };
-    },]);
-}());
+          var xScale = d3.scale.ordinal()
+            .domain(d3.range(0, data.length))
+            .rangeBands([0, width]);
 
-var showTimelineColorViz = function(data) {
+          var yScale = d3.scale.ordinal()
+            .domain(d3.range(0, patchesPerCol))
+            .rangeBands([0, height]);
 
-  var width = d3.select('div.timeline-viz').node().offsetWidth;
-  var height = d3.select('div.timeline-viz').node().offsetHeight;
+          var patchCol = svg.selectAll('g')
+            .data(data);
 
-  var svg = d3.select('svg#timeline-color-viz')
-    .attr('preserveAspectRatio', 'none')
-    .attr('viewBox', '0 0 ' + width + ' ' + height);
+          patchCol.enter().append('g')
+            .attr('transform', function(d, i) {
+              return 'translate(' + i * xScale.rangeBand() + ', 0)';
+            });
 
-  var patchesPerCol = d3.max(data, function(d) {
-    return d.content.length;
-  });
+          var patch = patchCol.selectAll('rect')
+            .data(function(d) {
+              return d.content;
+            });
 
-  var xScale = d3.scale.ordinal()
-    .domain(d3.range(0, data.length))
-    .rangeBands([0, width]);
+          //.sort(function(a, b) { return Color.sortColors(a, b, 'hue'); });
 
-  var yScale = d3.scale.ordinal()
-    .domain(d3.range(0, patchesPerCol))
-    .rangeBands([0, height]);
+          patch.enter().append('rect')
+            .attr('width', xScale.rangeBand())
+            .attr('height', yScale.rangeBand())
+            .attr('y', function(d, i) { return yScale(i); })
+            .style('fill', function(d) { return d; })
+            .style('stroke', function(d) { return d; });
 
-  var patchCol = svg.selectAll('g')
-    .data(data);
+          patchCol.on('click', function(d, i) {
+            console.log(d.startTime);
+            document.getElementById('video-main')
+              .currentTime = timecodeUtils.timecodeToMilis(d.startTime) / 1000;
+          });
+        });
 
-  patchCol.enter().append('g')
-    .attr('transform', function(d, i) {
-      return 'translate(' + i * xScale.rangeBand() + ', 0)';
-    });
+        // scope.updateColorViz = function(sortingMode) {
+        //   var colors = project.analysis[0].data;
+        //   var patch = d3.select('svg#timeline-color-viz')
+        //     .selectAll('g').selectAll('rect');
+        //   var height = d3.select('div.timeline-viz').node().offsetHeight;
+        //   var patchesPerCol = d3.max(colors, function(d) {
+        //     return d.content.colors.length;
+        //   });
 
-  var patch = patchCol.selectAll('rect')
-    .data(function(d) {
-      return d.content;
-    });
+        //   var yScale = d3.scale.ordinal()
+        //     .domain(d3.range(0, patchesPerCol))
+        //     .rangeBands([0, height]);
 
-  //.sort(function(a, b) { return Color.sortColors(a, b, 'hue'); });
-
-  patch.enter().append('rect')
-    .attr('width', xScale.rangeBand())
-    .attr('height', yScale.rangeBand())
-    .attr('y', function(d, i) { return yScale(i); })
-    .style('fill', function(d) { return d; })
-    .style('stroke', function(d) { return d; });
-
-  patchCol.on('click', function(d, i) {
-    console.log(d.startTime);
-    document.getElementById('video-main')
-      .currentTime = timecodeUtils.timecodeToMilis(d.startTime) / 1000;
-  });
-};
+        //   patch.sort(function(a, b) { return Color.sortColors(a, b, sortingMode); })
+        //     .transition().duration(500)
+        //     .attr('y', function(d, i) { return yScale(i); });
+        // };
+      },
+    };
+  },]);
