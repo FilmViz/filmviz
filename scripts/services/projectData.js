@@ -33,7 +33,6 @@ angular.module('filmViz')
     };
 
     this.setAnalysisAsDone = function(analysisName) {
-      // TODO: Use Angular Event
       var currentAnalysis = this.analysisCollection[analysisName];
       currentAnalysis.isDone = true;
       $rootScope.$emit(analysisName + 'AnalysisLoaded', currentAnalysis.data);
@@ -95,8 +94,9 @@ angular.module('filmViz')
       // Write data
       if (analysis.data) {
         analysis.data.forEach(function(cueObj, index, cueObjs) {
+          var videoElt = document.getElementById('video-main');
           var startTime = Timecode.milisToTimecode(cueObj.startTime * 1000);
-          var endTime = Timecode.milisToTimecode(Cue.calculateEndTime(index, cueObjs, video.duration) * 1000);
+          var endTime = Timecode.milisToTimecode(Cue.calculateEndTime(index, cueObjs, videoElt.duration) * 1000);
 
           newLine(index + 1); // WebVTT cue indexes start from one
           newLine(startTime + ' --> ' + endTime);
@@ -131,53 +131,27 @@ angular.module('filmViz')
     };
 
     // import from zip
-    this.readZip = function(project, zipBlob) {
+    this.readZip = function(zipBlob) {
       var _this = this;
-      var newZip;
       var reader = new FileReader();
-      var video = document.getElementById('video-main');
 
       reader.onload = (function(file) {
         return function(evt) {
-          var parsedData;
-          var colorData;
-          var audioData;
-          var motionData;
+          var newZip = new JSZipLib(evt.target.result);
+          var parsedData = angular.fromJson(newZip.files['project.json'].asText());
+          var videoElt = document.getElementById('video-main');
 
-          newZip = new JSZipLib(evt.target.result);
+          _this.name = parsedData.name;
+          _this.videoSrc = parsedData.videoSrc;
+          _this.analysisCollection = parsedData.analysisCollection;
+          _this.currentAnalysisName = parsedData.currentAnalysisName;
 
-          parsedData = JSON.parse(newZip.files['project.json'].asText());
-
-          // this should be refactorized with a for loop using analysis.length
-          _this.analysis[0].data = parsedData.analysis[0].data;
-          _this.analysis[0].isDone = true;
-
-          _this.analysis[1].data = parsedData.analysis[1].data;
-          _this.analysis[1].isDone = true;
-
-          _this.analysis[2].data = parsedData.analysis[2].data;
-          _this.analysis[2].isDone = true;
-
-          // create tracks
-          var colortrack = video.addTextTrack('metadata', 'color');
-          var audiotrack = video.addTextTrack('metadata', 'audio');
-          var motiontrack = video.addTextTrack('metadata', 'motion');
-
-          colorAnalyzer.generateCues(colortrack, _this.analysis[0].data, video);
-          colorAnalyzer.generateCues(audiotrack, _this.analysis[1].data, video);
-          colorAnalyzer.generateCues(motiontrack, _this.analysis[2].data, video);
-
-          colortrack.addEventListener('cuechange', function() {
-            showFrameColorViz();
-          });
-
-          motiontrack.addEventListener('cuechange', function() {
-            showFrameMotionViz();
-          });
-
-          showTimelineMotionViz(_this.analysis[2].data);
-          showTimelineColorViz(_this.analysis[0].data);
-
+          for (var analysisName in _this.analysisCollection) {
+            _this.addTrackToVideo(analysisName, videoElt);
+            if (_this.analysisCollection[analysisName].isDone) {
+              _this.setAnalysisAsDone(analysisName);
+            }
+          }
         };
       }(zipBlob));
 
