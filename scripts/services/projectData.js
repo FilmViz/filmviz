@@ -95,8 +95,8 @@ angular.module('filmViz')
       // Write data
       if (analysis.data) {
         analysis.data.forEach(function(cueObj, index, cueObjs) {
-          var startTime = Timecode.milisToTimecode(cueObj.startTime);
-          var endTime = Timecode.milisToTimecode(Cue.calculateEndTime(index, cueObjs, video.duration));
+          var startTime = Timecode.milisToTimecode(cueObj.startTime * 1000);
+          var endTime = Timecode.milisToTimecode(Cue.calculateEndTime(index, cueObjs, video.duration) * 1000);
 
           newLine(index + 1); // WebVTT cue indexes start from one
           newLine(startTime + ' --> ' + endTime);
