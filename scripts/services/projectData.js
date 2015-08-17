@@ -5,7 +5,7 @@ angular.module('filmViz')
   },])
   .service('ProjectData', ['Timecode', 'JSZipLib', '$rootScope', function(Timecode, JSZipLib, $rootScope) {
     'use strict';
-    this.name = '' || 'project';
+    this.name = '' || 'filmviz_project';
     this.videoSrc = '';
     this.analysisCollection = {};
     this.currentAnalysisName = 0;
@@ -33,9 +33,9 @@ angular.module('filmViz')
     };
 
     this.setAnalysisAsDone = function(analysisName) {
-      var currentAnalysis = this.analysisCollection[analysisName];
-      currentAnalysis.isDone = true;
-      $rootScope.$emit(analysisName + 'AnalysisLoaded', currentAnalysis.data);
+      var analysis = this.analysisCollection[analysisName];
+      analysis.isDone = true;
+      $rootScope.$emit(analysisName + 'AnalysisLoaded', analysis.data);
     };
 
     /**
@@ -83,7 +83,7 @@ angular.module('filmViz')
       };
 
       // File header
-      newLine('WEBVTT' + ' - ' + project.name + ' - ' + analysis.name);
+      newLine('WEBVTT' + ' - ' + project.name + ' - ' + analysisName);
       newLine();
 
       // Filmviz comment
