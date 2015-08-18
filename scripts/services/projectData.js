@@ -75,18 +75,18 @@ angular.module('filmViz')
       var text = '';
 
       // Select analysis to write
-      analysisName = analysisName || project.currentAnalysisName;
-      var analysis = project.analysisCollection[analysisName];
+      analysisName = analysisName || this.currentAnalysisName;
+      var analysis = this.analysisCollection[analysisName];
 
       function newLine(string) {
         text += (string) ? string + '\n' : '\n';
       };
 
       // File header
-      newLine('WEBVTT' + ' - ' + project.name + ' - ' + analysisName);
+      newLine('WEBVTT' + ' - ' + this.name + ' - ' + analysisName);
       newLine();
 
-      // Filmviz comment
+      // FilmViz comment
       newLine('NOTE');
       newLine('Analysis courtesy of FilmViz, ;)');
       newLine();
@@ -124,6 +124,14 @@ angular.module('filmViz')
         analysisCollection: _this.analysisCollection,
         currentAnalysisName: _this.currentAnalysisName,
       }));
+
+      // Create folder called 'analysis'
+      var vttFolder = zip.folder('vtt');
+
+      // Add VTT file for every analysis
+      for (var analysisName in _this.analysisCollection) {
+        vttFolder.file(analysisName + '.vtt', _this.createVtt(analysisName));
+      }
 
       return zip.generate({
         type: 'blob',
