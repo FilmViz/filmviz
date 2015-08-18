@@ -10,6 +10,8 @@ angular.module('filmViz')
     this.analysisCollection = {};
     this.currentAnalysisName = 0;
 
+    this.videoUrl = '';
+
     /**
      * Analysis object
      * @param [string] name Name of the analysis
@@ -153,13 +155,6 @@ angular.module('filmViz')
           _this.videoSrc = parsedData.videoSrc;
           _this.analysisCollection = parsedData.analysisCollection;
           _this.currentAnalysisName = parsedData.currentAnalysisName;
-
-          for (var analysisName in _this.analysisCollection) {
-            _this.addTrackToVideo(analysisName, videoElt);
-            if (_this.analysisCollection[analysisName].isDone) {
-              _this.setAnalysisAsDone(analysisName);
-            }
-          }
         };
       }(zipBlob));
 

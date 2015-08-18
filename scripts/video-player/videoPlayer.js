@@ -1,5 +1,5 @@
 angular.module('filmViz')
-  .directive('videoPlayer', function() {
+  .directive('videoPlayer', ['ProjectData', function(ProjectData) {
     'use strict';
     return {
       restrict: 'E',
@@ -8,6 +8,17 @@ angular.module('filmViz')
         var video = document.getElementById('video-main');
         var input = document.getElementById('video-input');
         var URL = window.URL || window.webkitURL;
+
+        video.src = ProjectData.videoUrl;
+
+        video.oncanplay = function() {
+          for (var analysisName in ProjectData.analysisCollection) {
+            ProjectData.addTrackToVideo(analysisName, video);
+            if (ProjectData.analysisCollection[analysisName].isDone) {
+              ProjectData.setAnalysisAsDone(analysisName);
+            }
+          }
+        };
 
         var playSelectedFile = function(event) {
           var file = this.files[0];
@@ -32,4 +43,4 @@ angular.module('filmViz')
         };
       },
     };
-  });
+  },]);
