@@ -18,6 +18,7 @@
     "bootstrap": "~3.3.5",
     "resemblejs": "~1.3.0",
     "RgbQuant.js": "leeoniya/RgbQuant.js",
-    "d3": "~3.5.6"
+    "d3": "~3.5.6",
+    "angular-bootstrap": "~0.13.3"
   }
 }

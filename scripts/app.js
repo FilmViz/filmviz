@@ -1,4 +1,4 @@
-angular.module('filmViz', ['ngRoute'])
+angular.module('filmViz', ['ngRoute', 'ui.bootstrap'])
   .config(function($routeProvider) {
     'use strict';
     $routeProvider
