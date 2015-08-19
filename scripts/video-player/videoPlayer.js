@@ -6,7 +6,6 @@ angular.module('filmViz')
       templateUrl: 'scripts/video-player/videoPlayer.html',
       link: function(scope, element, attributes) {
         var video = document.getElementById('video-main');
-        var input = document.getElementById('video-input');
         var URL = window.URL || window.webkitURL;
 
         video.src = ProjectData.videoUrl;
@@ -27,8 +26,6 @@ angular.module('filmViz')
           console.log(video.canPlayType(file.type));
           video.src = fileURL;
         };
-
-        input.addEventListener('change', playSelectedFile, false);
 
         scope.play = function() {
           video.play();

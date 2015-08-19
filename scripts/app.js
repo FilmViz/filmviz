@@ -5,17 +5,21 @@ angular.module('filmViz', ['ngRoute'])
       .when('/', {
         // route for the home page
         templateUrl: 'pages/main.html',
-        controller: 'ProjectController',
       })
       .when('/new-project', {
         // route for the project initialization page
         templateUrl: 'pages/new-project.html',
-        controller: 'ProjectController',
+        controller: 'ProjectManager',
       })
       .when('/open-project', {
         // route for the project initialization page
         templateUrl: 'pages/open-project.html',
-        controller: 'ProjectController',
+        controller: 'ProjectManager',
+      })
+      .when('/analyzer', {
+        // route for the automatic analysis page
+        templateUrl: 'pages/analyzer.html',
+        controller: 'Analyzer',
       })
       .when('/editor', {
         // route for the project editor page

@@ -1,20 +1,8 @@
 <div class="video-player">
 	<div class="container-fluid">		
-		<div class="row">
-			<section class="panel" id="video-player">
-				<div class="col-lg-3">
-					1) LOAD VIDEO:
-				</div>
-				<div class="col-lg-9">	
-					<input id="video-input" type="file" accept="video/*"/>
-				</div>
-		    <div id="message"></div>
-				<video id="video-main" controls>
-						<!-- <source src="dev_assets/caminandes_llama_drama.mp4" type="video/mp4" /> -->
-		        <p>This browser does not support the video element.</p>
-		    </video>
-				<canvas id="canvas"></canvas>
-      </section>
-		</div>		
+		<section class="panel" id="video-player">
+			<video id="video-main" nocontrols></video>
+			<canvas id="canvas"></canvas>
+    </section>
 	</div>
 </div>  

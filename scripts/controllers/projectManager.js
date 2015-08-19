@@ -1,5 +1,5 @@
 angular.module('filmViz')
-  .controller('ProjectLoader', ['ProjectData', function(ProjectData) {
+  .controller('ProjectManager', ['ProjectData', function(ProjectData) {
     'use strict';
     var loadVideo = function(event) {
       var videoFile = event.target.files[0];
@@ -15,5 +15,7 @@ angular.module('filmViz')
     inputLoadVideo.addEventListener('change', loadVideo, false);
 
     var inputLoadZip = document.getElementById('input-load-zip');
-    inputLoadZip.addEventListener('change', loadZip, false);
+    if (inputLoadZip) {
+      inputLoadZip.addEventListener('change', loadZip, false);
+    }
   },]);

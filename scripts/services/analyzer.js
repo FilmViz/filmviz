@@ -1,7 +1,11 @@
 angular.module('filmViz')
-  .service('Analyzer', ['ProjectData', 'Color', 'ResembleLib', function(ProjectData, Color, ResembleLib) {
+  .controller('Analyzer', ['ProjectData', 'Color', 'ResembleLib', function(ProjectData, Color, ResembleLib) {
     'use strict';
     var _this = this;
+
+    setTimeout(function() {
+      _this.runAnalysis();
+    }, 2000);
 
     this.runAnalysis = function() {
       var video = document.getElementById('video-main');
