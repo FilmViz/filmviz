@@ -1,5 +1,5 @@
 angular.module('filmViz')
-  .directive('videoController', ['ProjectData', 'Analyzer', function(ProjectData, Analyzer) {
+  .directive('videoController', function() {
     'use strict';
     return {
       restrict: 'E',
@@ -20,17 +20,6 @@ angular.module('filmViz')
         scope.firstFrame = function() {
           video.currentTime = 0;
         };
-
-        scope.automatic = function() {
-          Analyzer.runAnalysis();
-        };
-
-        var loadProject = function(event) {
-          ProjectData.readZip(event.target.files[0]);
-        };
-
-        var inputLoadZip = document.getElementById('input-load-zip');
-        inputLoadZip.addEventListener('change', loadProject, false);
       },
     };
-  },]);
+  });

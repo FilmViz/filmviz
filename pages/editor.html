@@ -1,59 +1,56 @@
-<div ng-controller="ProjectController as project">
-  <!-- Analysis / webVTT   tab-navigation selector -->
-  <!-- start scope tab-nav -->
-  <tab-navigation items="project.project.analysisCollection" deletable="true">
+<!-- Analysis / webVTT   tab-navigation selector -->
+<!-- start scope tab-nav -->
+<tab-navigation items="project.project.analysisCollection" deletable="true">
 
-    <div class="row">
+  <div class="row">
 
-      <!-- videoPLayer -->
-      <div class="col-lg-6">
-        <video-player></video-player>
-      </div>
-
-      <!-- automatic analysis selected -->
-      <div class="col-lg-6">
-
-        <video-controller></video-controller>
-        <!-- start  sub-scope tab-nav -->
-        <tab-navigation items="['Visualization', 'Metadata Editor']" 
-          ng-show="$parent.activeTab < 3">
-          <!-- option 0: visualization -->
-          <section class="panel" id="frame-viz-panel"
-            ng-show="$parent.activeTab == 0">
-            <frame-viz></frame-viz>
-          </section>
-          <!-- option 1: metadata Editor -->
-          <section class="panel" id="frame-viz-panel"
-            ng-show="$parent.activeTab == 1">
-            <metadata-editor analysis="project.project.analysis">
-            </metadata-editor>
-          </section>
-
-        </tab-navigation>
-
-      <!-- manual analysis selected -->
-        <!-- start sub-scope tab-nav  -->
-        <tab-navigation items="[{name:'Tag Editor'},
-					{name:'Metadata Editor'}]" ng-show="$parent.activeTab > 2">
-          <!-- option 0: Tag Editor -->
-          <section class="panel container-fluid" id="tag-editor" ng-show="$parent.activeTab == 0">
-            <metadata-tags tags="project.project.analysis[$parent.$parent.$parent.activeTab].tags">
-            </metadata-tags>
-          </section>
-          <!-- option 1: Metadata Editor -->
-          <section class="panel container-fluid" id="metadata-editor" ng-show="$parent.activeTab == 1">
-            <metadata-editor analysis="project.project.analysis">
-            </metadata-editor>
-          </section>
-        </tab-navigation>
-        <!-- end sub-scope tab-nav -->
-      </div>
+    <!-- videoPLayer -->
+    <div class="col-lg-6">
+      <video-player></video-player>
     </div>
 
-    <!-- timeline -->
-    <timeline-viz class="row"></timeline-viz>
+    <!-- automatic analysis selected -->
+    <div class="col-lg-6">
 
-  </tab-navigation>
-  <!-- end scope tab-nav -->
+      <video-controller></video-controller>
+      <!-- start  sub-scope tab-nav -->
+      <tab-navigation items="['Visualization', 'Metadata Editor']" 
+        ng-show="$parent.activeTab < 3">
+        <!-- option 0: visualization -->
+        <section class="panel" id="frame-viz-panel"
+          ng-show="$parent.activeTab == 0">
+          <frame-viz></frame-viz>
+        </section>
+        <!-- option 1: metadata Editor -->
+        <section class="panel" id="frame-viz-panel"
+          ng-show="$parent.activeTab == 1">
+          <metadata-editor analysis="project.project.analysis">
+          </metadata-editor>
+        </section>
 
-</div> <!-- end scope project -->
+      </tab-navigation>
+
+    <!-- manual analysis selected -->
+      <!-- start sub-scope tab-nav  -->
+      <tab-navigation items="[{name:'Tag Editor'},
+				{name:'Metadata Editor'}]" ng-show="$parent.activeTab > 2">
+        <!-- option 0: Tag Editor -->
+        <section class="panel container-fluid" id="tag-editor" ng-show="$parent.activeTab == 0">
+          <metadata-tags tags="project.project.analysis[$parent.$parent.$parent.activeTab].tags">
+          </metadata-tags>
+        </section>
+        <!-- option 1: Metadata Editor -->
+        <section class="panel container-fluid" id="metadata-editor" ng-show="$parent.activeTab == 1">
+          <metadata-editor analysis="project.project.analysis">
+          </metadata-editor>
+        </section>
+      </tab-navigation>
+      <!-- end sub-scope tab-nav -->
+    </div>
+  </div>
+
+  <!-- timeline -->
+  <timeline-viz class="row"></timeline-viz>
+
+</tab-navigation>
+<!-- end scope tab-nav -->

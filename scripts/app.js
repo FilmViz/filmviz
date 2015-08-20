@@ -25,6 +25,7 @@ angular.module('filmViz', ['ngRoute'])
         // route for the project editor page
         templateUrl: 'pages/editor.html',
         controller: 'ProjectController',
+        controllerAs: 'project',
       })
       .when('/preview', {
         // route for the full project preview page
